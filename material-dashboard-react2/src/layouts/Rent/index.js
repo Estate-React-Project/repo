@@ -23,21 +23,21 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import MDPagination from "components/MDPagination";
+import MixedChart from "examples/Charts/MixedChart";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
 import rentData from "layouts/Rent/data/rentData";
-import projectsTableData from "layouts/Rent/data/projectsTableData";
+import rentGraph from "layouts/Rent/data/rentGraph";
 import { Stack } from "@mui/system";
 
 function Tables() {
   const { columns, rows } = rentData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  // const { columns: pColumns, rows: pRows } = rentGraph();
 
   return (
     <DashboardLayout>
@@ -59,8 +59,65 @@ function Tables() {
                 <MDTypography variant="h6" color="white">
                   Rent Data
                 </MDTypography>
-                <Stack alignItems="right">
-                  <MDInput align="right" variant="outlined" label="Type here" />
+              </MDBox>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="secondary"
+                borderRadius="lg"
+                coloredShadow="secondary"
+              >
+                <MixedChart
+                  icon={{ color: "info", component: "leaderboard" }}
+                  title="전세/월세"
+                  description="서울시 전월세 거래량"
+                  chart={{
+                    labels: [
+                      "1월",
+                      "2월",
+                      "3월",
+                      "4월",
+                      "5월",
+                      "6월",
+                      "7월",
+                      "8월",
+                      "9월",
+                      "10월",
+                      "11월",
+                      "12월",
+                    ],
+                    datasets: [
+                      {
+                        chartType: "thin-bar",
+                        label: "전세",
+                        color: "dark",
+                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 300, 400, 550],
+                      },
+                      {
+                        chartType: "gradient-line",
+                        label: "월세",
+                        color: "info",
+                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400, 250, 300, 410],
+                      },
+                    ],
+                  }}
+                />
+              </MDBox>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="secondary"
+                borderRadius="lg"
+                coloredShadow="secondary"
+              >
+                <Stack>
+                  <MDInput variant="outlined" label="Search" />
                 </Stack>
               </MDBox>
               <MDBox pt={3}>
@@ -75,19 +132,6 @@ function Tables() {
               </MDBox>
             </Card>
           </Grid>
-          <MDPagination align="center">
-            <MDPagination item>
-              <Icon>keyboard_arrow_left</Icon>
-            </MDPagination>
-            <MDPagination item active>
-              1
-            </MDPagination>
-            <MDPagination item>2</MDPagination>
-            <MDPagination item>3</MDPagination>
-            <MDPagination item>
-              <Icon>keyboard_arrow_right</Icon>
-            </MDPagination>
-          </MDPagination>
         </Grid>
       </MDBox>
     </DashboardLayout>
