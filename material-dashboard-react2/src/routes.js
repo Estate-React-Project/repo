@@ -39,6 +39,7 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 import RealTrade from "layouts/RealTrade";
 import Rent from "layouts/Rent";
+import RentMap from "layouts/RentMap";
 import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
@@ -78,6 +79,14 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/rent",
     component: <Rent />,
+  },
+  {
+    type: "collapse",
+    name: "RentMap",
+    key: "rentMap",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/rentMap",
+    component: <RentMap />,
   },
   {
     type: "collapse",

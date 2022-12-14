@@ -16,24 +16,28 @@ Coded by www.creative-tim.com
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
+import MDPagination from "components/MDPagination";
+import MixedChart from "examples/Charts/MixedChart";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import rentData from "layouts/Rent/data/rentData";
+import rentGraph from "layouts/Rent/data/rentGraph";
+import { Stack } from "@mui/system";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const { columns, rows } = rentData();
+  // const { columns: pColumns, rows: pRows } = rentGraph();
 
   return (
     <DashboardLayout>
@@ -48,46 +52,80 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="secondary"
                 borderRadius="lg"
-                coloredShadow="info"
+                coloredShadow="secondary"
               >
                 <MDTypography variant="h6" color="white">
-                  Authors Table
+                  Rent Data
                 </MDTypography>
               </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
               <MDBox
                 mx={2}
                 mt={-3}
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="secondary"
                 borderRadius="lg"
-                coloredShadow="info"
+                coloredShadow="secondary"
               >
-                <MDTypography variant="h6" color="white">
-                  Projects Table
-                </MDTypography>
+                <MixedChart
+                  icon={{ color: "info", component: "leaderboard" }}
+                  title="전세/월세"
+                  description="서울시 전월세 거래량"
+                  chart={{
+                    labels: [
+                      "1월",
+                      "2월",
+                      "3월",
+                      "4월",
+                      "5월",
+                      "6월",
+                      "7월",
+                      "8월",
+                      "9월",
+                      "10월",
+                      "11월",
+                      "12월",
+                    ],
+                    datasets: [
+                      {
+                        chartType: "thin-bar",
+                        label: "전세",
+                        color: "dark",
+                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 300, 400, 550],
+                      },
+                      {
+                        chartType: "gradient-line",
+                        label: "월세",
+                        color: "info",
+                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400, 250, 300, 410],
+                      },
+                    ],
+                  }}
+                />
+              </MDBox>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="secondary"
+                borderRadius="lg"
+                coloredShadow="secondary"
+              >
+                <Stack>
+                  <MDInput variant="outlined" label="Search" />
+                </Stack>
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
+                  table={{ columns, rows }}
                   isSorted={false}
-                  entriesPerPage={false}
+                  pagination={{ variant: "gradient", color: "secondary" }}
+                  entriesPerPage
                   showTotalEntries={false}
                   noEndBorder
                 />
@@ -96,7 +134,6 @@ function Tables() {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer />
     </DashboardLayout>
   );
 }
