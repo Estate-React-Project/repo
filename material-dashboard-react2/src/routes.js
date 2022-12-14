@@ -46,6 +46,7 @@ import AptInfo from "layouts/AptInfo";
 import AptDeal from "layouts/AptDeal";
 // @mui icons
 import Icon from "@mui/material/Icon";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const routes = [
   {
@@ -76,7 +77,7 @@ const routes = [
     type: "collapse",
     name: "Rent",
     key: "rent",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">article</Icon>,
     route: "/rent",
     component: <Rent />,
   },
