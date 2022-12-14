@@ -3,6 +3,6 @@ export default {
   datasets: {
     label: "아파트 세대 유형",
     backgroundColors: ["primary", "secondary", "info"],
-    data: [60, 10, 30],
+    data: [60, 30, 10],
   },
 };
