@@ -62,10 +62,18 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "실거래",
+    name: "매매",
     key: "realTrade",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/realTrade",
+    component: <RealTrade />,
+  },
+  {
+    type: "collapse",
+    name: "매매 맵",
+    key: "realTradeMap",
+    icon: <Icon fontSize="small">explore</Icon>,
+    route: "/realTradeMap",
     component: <RealTrade />,
   },
   {

@@ -25,152 +25,82 @@ import MDBadge from "components/MDBadge";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { AccessTime } from "@mui/icons-material";
 
 export default function data() {
-  const Author = ({ image, name, email }) => (
+  const AccYear = ({ ACC_YEAR }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
-      <MDAvatar src={image} name={name} size="sm" />
       <MDBox ml={2} lineHeight={1}>
         <MDTypography display="block" variant="button" fontWeight="medium">
-          {name}
+          {ACC_YEAR}
         </MDTypography>
-        <MDTypography variant="caption">{email}</MDTypography>
       </MDBox>
     </MDBox>
   );
 
-  const Job = ({ title, description }) => (
+  const GuDongName = ({ SGG_NM, BJDONG_NM }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {title}
+        {SGG_NM}
       </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {BJDONG_NM}
+      </MDTypography>
+    </MDBox>
+  );
+
+  const Bldg = ({ BLDG_NM, FLOOR }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {BLDG_NM}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {FLOOR}
+      </MDTypography>
+    </MDBox>
+  );
+
+  const Area = ({ BLDG_AREA, TOT_AREA }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {BLDG_AREA}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {TOT_AREA}
+      </MDTypography>
+    </MDBox>
+  );
+
+  const HouseUse = ({ BUILD_YEAR, HOUSE_TYPE, REQ_GBN }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {BUILD_YEAR}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {HOUSE_TYPE}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {REQ_GBN}
+      </MDTypography>
     </MDBox>
   );
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
-      { Header: "function", accessor: "function", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
-      { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "접수연도", accessor: "AccYear", align: "center" },
+      { Header: "주소(구,동)", accessor: "GuDongName", align: "center" },
+      { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+      { Header: "건물면적, 토지면적", accessor: "Area", align: "center" },
+      { Header: "건축년도, 건물용도, 신고구분", accessor: "HouseUse", align: "center" },
     ],
 
     rows: [
       {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        function: <Job title="Executive" description="Projects" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
-        function: <Job title="Manager" description="Executive" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
+        AccYear: <AccYear ACC_YEAR="접수연도" />,
+        GuDongName: <GuDongName SGG_NM="자치구 명" BJDONG_NM="법정동 명" />,
+        Bldg: <Bldg BLDG_NM="건물명" FLOOR="층" />,
+        Area: <Area BLDG_AREA="건물면적" TOT_AREA="토지면적" />,
+        HouseUse: <HouseUse BUILD_YEAR="건축년도" HOUSE_TYPE="건물용도" REQ_GBN="신고구분" />,
       },
     ],
   };
