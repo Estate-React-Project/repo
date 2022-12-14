@@ -76,7 +76,7 @@ function Tables() {
           <Grid item xs={4}>
             <MDBox mb={3}>
               <HshldrChart
-                icon={{ color: "info", component: "leaderboard" }}
+                icon={{ color: "info", component: "apartment" }}
                 title="아파트 세대 타입"
                 description="2022.12.13 기준"
                 chart={HshldrPieChartData}
@@ -86,7 +86,7 @@ function Tables() {
           <Grid item xs={4}>
             <MDBox mb={3}>
               <ManageChart
-                icon={{ color: "primary", component: "leaderboard" }}
+                icon={{ color: "primary", component: "apartment" }}
                 title="아파트 관리 방식"
                 description="2022.12.13 기준"
                 chart={ManagePieChartData}
@@ -96,7 +96,7 @@ function Tables() {
           <Grid item xs={4}>
             <MDBox mb={3}>
               <CrrdprChart
-                icon={{ color: "secondary", component: "leaderboard" }}
+                icon={{ color: "secondary", component: "apartment" }}
                 title="아파트 복도 유형"
                 description="2022.12.13 기준"
                 chart={CrrdprPieChartData}
@@ -106,7 +106,7 @@ function Tables() {
         </Grid>
         <MDBox mb={3}>
           <HeatChart
-            icon={{ color: "error", component: "leaderboard" }}
+            icon={{ color: "error", component: "apartment" }}
             title="아파트 난방 방식"
             description="2022.12.13 기준"
             chart={HeatPieChartData}
