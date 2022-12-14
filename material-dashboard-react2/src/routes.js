@@ -47,6 +47,9 @@ import AptDeal from "layouts/AptDeal";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import ArticleIcon from "@mui/icons-material/Article";
+import ExploreIcon from "@mui/icons-material/Explore";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import HomeIcon from "@mui/icons-material/Home";
 
 const routes = [
   {
@@ -59,7 +62,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "RealTrade",
+    name: "실거래",
     key: "realTrade",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/realTrade",
@@ -67,15 +70,15 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "RealDealer",
+    name: "중개업소",
     key: "realDealer",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">home</Icon>,
     route: "/realDealer",
     component: <RealDealer />,
   },
   {
     type: "collapse",
-    name: "Rent",
+    name: "전월세",
     key: "rent",
     icon: <Icon fontSize="small">article</Icon>,
     route: "/rent",
@@ -83,33 +86,33 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "RentMap",
+    name: "전월세 맵",
     key: "rentMap",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">explore</Icon>,
     route: "/rentMap",
     component: <RentMap />,
   },
   {
     type: "collapse",
-    name: "AptInfo",
+    name: "공동주택/아파트 정보",
     key: "aptInfo",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">apartment</Icon>,
     route: "/aptInfo",
     component: <AptInfo />,
   },
   {
     type: "collapse",
-    name: "AptDeal",
+    name: "아파트 동별 매매",
     key: "aptDeal",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">apartment</Icon>,
     route: "/aptDeal",
     component: <AptDeal />,
   },
   {
     type: "collapse",
-    name: "ReBuild",
+    name: "재개발/재건축 사업",
     key: "reBuild",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">construction</Icon>,
     route: "/reBuild",
     component: <ReBuild />,
   },
