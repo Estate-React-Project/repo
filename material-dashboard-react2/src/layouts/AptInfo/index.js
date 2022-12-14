@@ -28,11 +28,17 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import projectsTableData from "layouts/AptInfo/data/projectsTableData";
+import HshldrChart from "examples/Charts/PieChart/HshldrChart";
+import ManageChart from "examples/Charts/PieChart/ManageChart";
+import CrrdprChart from "examples/Charts/PieChart/CrrdprChart";
+import HeatChart from "examples/Charts/PieChart/HeatChart";
+import HshldrPieChartData from "./data/HshldrPieChartData";
+import ManagePieChartData from "./data/ManagePieChartData";
+import CrrdprPieChartData from "./data/CrrdprPieChartData";
+import HeatPieChartData from "./data/HeatPieChartData";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
@@ -53,34 +59,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Authors Table
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Projects Table
+                  동별 아파트 목록
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -94,7 +73,45 @@ function Tables() {
               </MDBox>
             </Card>
           </Grid>
+          <Grid item xs={4}>
+            <MDBox mb={3}>
+              <HshldrChart
+                icon={{ color: "info", component: "apartment" }}
+                title="아파트 세대 타입"
+                description="2022.12.13 기준"
+                chart={HshldrPieChartData}
+              />
+            </MDBox>
+          </Grid>
+          <Grid item xs={4}>
+            <MDBox mb={3}>
+              <ManageChart
+                icon={{ color: "primary", component: "apartment" }}
+                title="아파트 관리 방식"
+                description="2022.12.13 기준"
+                chart={ManagePieChartData}
+              />
+            </MDBox>
+          </Grid>
+          <Grid item xs={4}>
+            <MDBox mb={3}>
+              <CrrdprChart
+                icon={{ color: "secondary", component: "apartment" }}
+                title="아파트 복도 유형"
+                description="2022.12.13 기준"
+                chart={CrrdprPieChartData}
+              />
+            </MDBox>
+          </Grid>
         </Grid>
+        <MDBox mb={3}>
+          <HeatChart
+            icon={{ color: "error", component: "apartment" }}
+            title="아파트 난방 방식"
+            description="2022.12.13 기준"
+            chart={HeatPieChartData}
+          />
+        </MDBox>
       </MDBox>
       <Footer />
     </DashboardLayout>
