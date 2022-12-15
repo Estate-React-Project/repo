@@ -21,7 +21,7 @@
 <script type="text/javascipt"
 	src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 <script type="text/javascript" src="kakao-map.js"></script>
-<script defer="defer" src="/realestate-web/react/realstate/static/js/main.84b8a5a8.js"></script>
+<script defer="defer" src="/realestate-web/react/realstate/static/js/main.380fe076.js"></script>
 </head>
 <body>
 	<noscript>You need to enable JavaScript to run this app.</noscript>

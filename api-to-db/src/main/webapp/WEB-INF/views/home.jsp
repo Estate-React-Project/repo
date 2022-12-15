@@ -3,13 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Web Scraping Home</title>
+<title>API TO DB</title>
 </head>
 <body>
 
-	<h2>Web Scraping Examples</h2>
+	<h2>API 데이터를 DB에 전송</h2>
 	<hr>
-	<h3>1. <a href="openapi/apitest">api test</a></h3>
+	<h3>1. <a href="openapi/aptInfo">AptInfo 데이터 DB로 전송하기</a></h3>
 
 </body>
 </html>

@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>api test</title>
+<title>APT INFO</title>
 </head>
 <body>
-	${ data }
+	${ infos }
 </body>
 </html>
