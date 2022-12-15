@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
+import MapContainer from "./MapContainer";
 
 function SearchPlace() {
   const [inputText, setInputText] = useState("");
@@ -19,15 +20,14 @@ function SearchPlace() {
 
   return (
     <MDBox>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <MDInput
-          variant="outlined"
-          placeholder="Search Place"
-          onChange={onChange}
-          value={inputText}
-        />
-        <MDButton type="submit">검색</MDButton>
-      </form>
+      <MDInput
+        variant="outlined"
+        placeholder="Search Place"
+        onChange={onChange}
+        value={inputText}
+      />
+      <MDButton onClick={handleSubmit}>검색</MDButton>
+      <MapContainer searchPlace={place} />
     </MDBox>
   );
 }

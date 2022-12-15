@@ -1,7 +1,4 @@
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React, { useEffect } from "react";
-import SearchPlace from "./SearchPlace";
 
 const { kakao } = window;
 
@@ -18,7 +15,8 @@ function MapContainer(searchPlace) {
 
     // 마커를 생성하고 지도에 표시
     function displayMarker(place) {
-      const marker = new kakao.maps.Marker({
+      // eslint-disable-next-line prefer-const
+      let marker = new kakao.maps.Marker({
         map,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
@@ -48,18 +46,14 @@ function MapContainer(searchPlace) {
   }, [searchPlace]);
 
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <SearchPlace />
-      <div
-        id="map"
-        style={{
-          width: "1600px",
-          height: "800px",
-        }}
-      />
-    </DashboardLayout>
+    <div
+      id="map"
+      style={{
+        width: "1600px",
+        height: "800px",
+      }}
+    />
   );
 }
 
-export default MapContainer;
+export default React.memo(MapContainer);
