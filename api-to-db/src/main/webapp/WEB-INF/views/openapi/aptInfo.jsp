@@ -6,6 +6,6 @@
 <title>APT INFO</title>
 </head>
 <body>
-	${ infos }
+	<h1>DATABASE UPDATE 완료</h1>
 </body>
 </html>
