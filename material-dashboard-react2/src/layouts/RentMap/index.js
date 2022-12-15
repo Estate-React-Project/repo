@@ -1,9 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React, { useEffect } from "react";
 import RentMap from "./RentMap";
-import MapContainer from "./MapContainer";
-import SearchPlace from "./SearchPlace";
 
 const { kakao } = window;
 

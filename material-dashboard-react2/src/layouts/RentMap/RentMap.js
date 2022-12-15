@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/button-has-type */
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
@@ -70,8 +71,8 @@ function RentMap() {
       <hr />
       <Map // 로드뷰를 표시할 Container
         center={{
-          lat: 37.496486063,
-          lng: 127.028361548,
+          lat: 37.514575,
+          lng: 127.0495556,
         }}
         style={{
           width: "100%",
