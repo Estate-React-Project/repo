@@ -16,7 +16,7 @@ import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // import KakaoMap from "./KakaoMap";
-import RealDealerMap from "./RealDealerMap";
+import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -41,7 +41,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Authors Table
+                  Test Table
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -68,7 +68,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Projects Table
+                  Test Table 2
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
