@@ -50,7 +50,7 @@ function MapContainer(searchPlace) {
       id="map"
       style={{
         width: "1600px",
-        height: "800px",
+        height: "600px",
       }}
     />
   );
