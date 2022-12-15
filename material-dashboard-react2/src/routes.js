@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.1.0
@@ -37,6 +38,7 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
+import RealTradeMap from "layouts/RealTradeMap";
 import RealTrade from "layouts/RealTrade";
 import Rent from "layouts/Rent";
 import RentMap from "layouts/RentMap";
@@ -74,7 +76,7 @@ const routes = [
     key: "realTradeMap",
     icon: <Icon fontSize="small">explore</Icon>,
     route: "/realTradeMap",
-    component: <RealTrade />,
+    component: <RealTradeMap />,
   },
   {
     type: "collapse",

@@ -24,7 +24,7 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
-import authorsTableData from "layouts/RealTrade/data/authorsTableData";
+import authorsTableData from "layouts/RealTrade/data/monthlyTradeTable";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 
 function Tables() {
@@ -37,7 +37,7 @@ function Tables() {
       <DashboardNavbar />
       <VerticalBarChart
         icon={{ color: "info", component: "leaderboard" }}
-        title="매매"
+        title="서울시 월별 매매 거래량"
         description="서울시 매매 거래량"
         chart={{
           labels: [
