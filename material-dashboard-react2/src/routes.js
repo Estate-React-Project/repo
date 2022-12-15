@@ -122,7 +122,7 @@ const routes = [
     type: "collapse",
     name: "재개발/재건축 사업",
     key: "reBuild",
-    icon: <Icon fontSize="small">construction</Icon>,
+    icon: <Icon fontSize="small">domainaddicon</Icon>,
     route: "/reBuild",
     component: <ReBuild />,
   },
