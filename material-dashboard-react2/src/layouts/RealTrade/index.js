@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.1.0
@@ -13,22 +14,17 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
+import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
+import authorsTableData from "layouts/RealTrade/data/monthlyTradeTable";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 
 function Tables() {
@@ -36,67 +32,47 @@ function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
+    // Material Dashboard 2 React Example
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Authors Table
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Projects Table
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-        </Grid>
+      <VerticalBarChart
+        icon={{ color: "info", component: "leaderboard" }}
+        title="서울시 월별 매매 거래량"
+        description="서울시 매매 거래량"
+        chart={{
+          labels: [
+            "1월",
+            "2월",
+            "3월",
+            "4월",
+            "5월",
+            "6월",
+            "7월",
+            "8월",
+            "9월",
+            "10월",
+            "11월",
+            "12월",
+          ],
+          datasets: [
+            {
+              label: "Sales by age",
+              color: "dark",
+              data: [15, 20, 12, 60, 20, 15, 20, 12, 60, 20, 15, 11],
+            },
+          ],
+        }}
+      />
+      <MDBox>
+        <DataTable
+          table={{ columns, rows }}
+          isSorted={false}
+          pagination={{ variant: "gradient", color: "secondary" }}
+          entriesPerPage
+          showTotalEntries={false}
+          noEndBorder
+        />
       </MDBox>
-      <Footer />
     </DashboardLayout>
   );
 }
