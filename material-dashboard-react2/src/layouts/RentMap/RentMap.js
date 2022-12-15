@@ -20,6 +20,12 @@ function RentMap() {
     setKeyword("");
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      clickHandler();
+    }
+  };
+
   const { kakao } = window;
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
