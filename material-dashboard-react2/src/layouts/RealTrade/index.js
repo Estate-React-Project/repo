@@ -68,7 +68,6 @@ function Tables() {
           table={{ columns, rows }}
           isSorted={false}
           pagination={{ variant: "gradient", color: "secondary" }}
-          entriesPerPage
           showTotalEntries={false}
           noEndBorder
         />
