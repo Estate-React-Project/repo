@@ -50,28 +50,30 @@ public class RealTradeOpenApiController {
 	        Document doc2 = builder2.parse(connn.getInputStream()); // xml 문자열 -> 객체 트리
 	        
 	        NodeList openRealTrade = doc2.getElementsByTagName("tbLnOpendataRtmsV");
-	        System.out.println(openRealTrade);
+	        // System.out.println(openRealTrade);
 	        
 	        Element node2 = (Element)openRealTrade.item(0);
-	        System.out.println(node2);
+	        // System.out.println(node2);
 	        
 	        double count = Integer.parseInt(node2.getElementsByTagName("list_total_count").item(0).getTextContent());
 			double rCount = Math.ceil(count / 1000);
 	        
-			for (int i = 0; i < rCount; i++) { // 데이터 조회 for문 시작
+			// for (int i = 0; i < rCount; i++) { // 데이터 조회 for문 시작
+			for (int i = 0; i < 3; i++) {
 				StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
 	
 				// URL
 				urlBuilder.append("/" + URLEncoder.encode("6d54535546726c613130377949757352", "UTF-8"));
 				urlBuilder.append("/" + URLEncoder.encode("xml", "UTF-8"));		
-				urlBuilder.append("/" + URLEncoder.encode("OpenRealTrade", "UTF-8"));
+				urlBuilder.append("/" + URLEncoder.encode("tbLnOpendataRtmsV", "UTF-8"));
 				
 				// 서비스명 (대소문자 구분 필수입니다.)
 				urlBuilder.append("/" + URLEncoder.encode(String.format("%d", 1 + (i * 1000)), "UTF-8"));
 				urlBuilder.append("/" + URLEncoder.encode(String.format("%d", 1000 + (i * 1000)), "UTF-8"));
 		        
 				urlBuilder.append("/" + URLEncoder.encode("2022", "UTF-8"));
-				urlBuilder.append("/" + URLEncoder.encode("아파", "UTF-8"));
+				urlBuilder.append("/" + URLEncoder.encode("", "UTF-8"));
+				urlBuilder.append("/" + URLEncoder.encode("강서구", "UTF-8"));
 				
 		        URL url = new URL(urlBuilder.toString());
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -90,6 +92,7 @@ public class RealTradeOpenApiController {
 		        List<RealTradeDto> infos = new ArrayList<>();
 		        
 		        for (int j = 0; j < rows.getLength(); j++) {
+		        
 	
 		        	Element node = (Element)rows.item(j);
 		        	
@@ -99,7 +102,7 @@ public class RealTradeOpenApiController {
 		        	info.setSggNm(node.getElementsByTagName("SGG_NM").item(0).getTextContent());
 		        	info.setBjdongNm(node.getElementsByTagName("BJDONG_NM").item(0).getTextContent());
 		        	info.setBldgNm(node.getElementsByTagName("BLDG_NM").item(0).getTextContent());
-		        	info.setFloor(Integer.parseInt(node.getElementsByTagName("FLOOR").item(0).getTextContent()));
+		        	// info.setFloor(Integer.parseInt(node.getElementsByTagName("FLOOR").item(0).getTextContent()));
 		        	info.setBldgArea(node.getElementsByTagName("BLDG_AREA").item(0).getTextContent());
 		        	info.setTotArea(node.getElementsByTagName("TOT_AREA").item(0).getTextContent());
 		        	info.setBuildYear(node.getElementsByTagName("BUILD_YEAR").item(0).getTextContent());
