@@ -56,10 +56,8 @@ public class AptInfoOpenApiController {
 	        
 	        Element node2 = (Element)openAptInfo.item(0);
 	        
-	        // 이거 왜 됨?
 	        double count = Integer.parseInt(node2.getElementsByTagName("list_total_count").item(0).getTextContent());
 			double rCount = Math.ceil(count / 1000);
-			//
 	        
 			for (int i = 0; i < rCount; i++) { // 데이터 조회 for문 시작
 				StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088");
@@ -70,8 +68,8 @@ public class AptInfoOpenApiController {
 				urlBuilder.append("/" + URLEncoder.encode("OpenAptInfo", "UTF-8"));
 				
 				// 서비스명 (대소문자 구분 필수입니다.)
-				urlBuilder.append("/" + URLEncoder.encode("1", "UTF-8"));
-				urlBuilder.append("/" + URLEncoder.encode("1000", "UTF-8"));
+				urlBuilder.append("/" + URLEncoder.encode(String.format("%d", 1 + (i * 1000)), "UTF-8"));
+				urlBuilder.append("/" + URLEncoder.encode(String.format("%d", 1000 + (i * 1000)), "UTF-8"));
 		        
 		        URL url = new URL(urlBuilder.toString());
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -102,7 +100,8 @@ public class AptInfoOpenApiController {
 		        	info.setGnrlManagectManageStle(node.getElementsByTagName("GNRL_MANAGECT_MANAGE_STLE").item(0).getTextContent());
 		        	info.setCrrdprTy(node.getElementsByTagName("CRRDPR_TY").item(0).getTextContent());
 		        	info.setHeatMthd(node.getElementsByTagName("HEAT_MTHD").item(0).getTextContent());
-		        	info.setAllDongCo(Integer.parseInt(node.getElementsByTagName("ALL_DONG_CO").item(0).getTextContent()));
+		        	String dongCnt = node.getElementsByTagName("ALL_DONG_CO").item(0).getTextContent();
+		        	info.setAllDongCo(Integer.parseInt(dongCnt == "" ? "0" : dongCnt));
 		        	
 		        	infos.add(info);
 		        }
