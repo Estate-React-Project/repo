@@ -28,12 +28,29 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AuthorsTableData from "./data/authorsTableData";
+import RebuildInfo from "./components/RebuildInfo";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const { columns, rows } = AuthorsTableData();
+  const [gu, setGu] = useState("강남구");
+  const [rebuildData, setRebuildData] = useState([]);
+
+  useEffect(() => {
+    const loadRebuildInfo = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/rebuildInfo?gu=${gu}`
+      );
+      // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
+      setRebuildData(response.data);
+      // eslint-disable-next-line no-console
+      console.log(response.data);
+    };
+    loadRebuildInfo();
+  }, [gu]);
 
   return (
     <DashboardLayout>
@@ -53,39 +70,12 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Authors Table
+                  {/* <RebuildInfo datas={rebuildData} /> */} TABLE
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
                   table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Projects Table
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
