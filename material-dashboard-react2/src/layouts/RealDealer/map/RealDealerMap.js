@@ -9,7 +9,6 @@ import MDBox from "components/MDBox";
 
 function RealDealerMap() {
   const [keyword, setKeyword] = useState("");
-
   const changeHandler = (e) => {
     setKeyword(e.target.value);
   };
@@ -55,18 +54,19 @@ function RealDealerMap() {
   useEffect(() => {
     searchAndShowPlaces();
   }, [map]);
-
+  const [mapTypeId, setMapTypeId] = useState();
   return (
     <MDBox>
+      <br />
       <hr />
       <Map // 로드뷰를 표시할 Container
         center={{
-          lat: 37.514575,
-          lng: 127.0495556,
+          lat: 37.507454314288054,
+          lng: 127.03402073986199,
         }}
         style={{
           width: "100%",
-          height: "500px",
+          height: "600px",
         }}
         level={8}
         onCreate={setMap}
@@ -84,30 +84,30 @@ function RealDealerMap() {
         ))}
       </Map>
       <hr />
-      <hr />
+      <br />
       <MDInput
         type="text"
         value={keyword}
         onChange={changeHandler}
         variant="outlined"
-        label="type here"
+        label="서울특별시"
       />
       <MDInput
         type="text"
         value={keyword}
         onChange={changeHandler}
         variant="outlined"
-        label="type here"
+        label="시/군/구 고정"
       />
       <MDInput
         type="text"
         value={keyword}
         onChange={changeHandler}
         variant="outlined"
-        label="type here"
+        label="동/면/읍"
       />
       <MDButton onClick={clickHandler} variant="outlined" color="info">
-        찾기
+        찾아보기
       </MDButton>
     </MDBox>
   );

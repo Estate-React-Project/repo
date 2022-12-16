@@ -10,7 +10,11 @@
 	<h2>API 데이터를 DB에 전송</h2>
 	<hr>
 	<h3>1. <a href="openapi/aptInfo">AptInfo 데이터 DB로 전송하기</a></h3>
+<<<<<<< HEAD
 	<h3>2. <a href="openapi/rebuildInfo">강성훈</a></h3>
+=======
+	<h3>2. <a href="openapi/realDealer">realDealer 데이터 DB로 전송하기</a></h3>
+>>>>>>> 55be55ca887d1fcf4f32c778695433515932a3ae
 
 </body>
 </html>
