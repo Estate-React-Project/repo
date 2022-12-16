@@ -41,6 +41,10 @@ public class RebuildInfoOpenApiController {
 		ArrayList<HashMap<String, Object>> datas = new ArrayList<>();
 		String key = "505550474a6761723732697a715362";
 		
+		if (gu.length() == 0) {
+			return datas;
+		}
+		
 		try {	
 			
 			URL url = new URL("http://openapi.seoul.go.kr:8088/" + key + "/xml/CleanupBussinessInfo/1/200/" + gu);

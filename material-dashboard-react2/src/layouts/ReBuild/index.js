@@ -31,13 +31,16 @@ import DataTable from "examples/Tables/DataTable";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MDInput from "components/MDInput";
+import MDButton from "components/MDButton";
 import AuthorsTableData from "./data/authorsTableData";
 import RebuildInfo from "./components/RebuildInfo";
 
 function Tables() {
-  const { columns, rows } = AuthorsTableData();
-  const [gu, setGu] = useState("강남구");
+  const [tableData, setTableData] = useState(null);
+  const [gu, setGu] = useState("");
   const [rebuildData, setRebuildData] = useState([]);
+  const [preQuery, setPreQuery] = useState("");
 
   useEffect(() => {
     const loadRebuildInfo = async () => {
@@ -45,12 +48,18 @@ function Tables() {
         `http://127.0.0.1:8080/web-scraping/openapi/rebuildInfo?gu=${gu}`
       );
       // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
+      const { columns, rows } = AuthorsTableData(response.data);
+      setTableData({ columns, rows });
       setRebuildData(response.data);
       // eslint-disable-next-line no-console
       console.log(response.data);
     };
     loadRebuildInfo();
   }, [gu]);
+
+  if (!tableData) {
+    return null;
+  }
 
   return (
     <DashboardLayout>
@@ -70,17 +79,37 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  {/* <RebuildInfo datas={rebuildData} /> */} TABLE
+                  재개발
+                  <MDInput
+                    variant="outlined"
+                    label="자치구를 입력하세요."
+                    value={preQuery}
+                    onChange={(e) => {
+                      setPreQuery(e.target.value);
+                    }}
+                  />
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    size="medium"
+                    onClick={() => {
+                      setGu(preQuery);
+                      setPreQuery("");
+                    }}
+                  >
+                    SEARCH
+                  </MDButton>
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns, rows }}
+                  table={tableData}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
                   noEndBorder
                 />
+                {/* <RebuildInfo datas={rebuildData} /> */}
               </MDBox>
             </Card>
           </Grid>
