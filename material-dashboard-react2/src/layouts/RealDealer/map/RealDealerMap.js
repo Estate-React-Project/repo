@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/button-has-type */
 import { useEffect, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, MapTypeId } from "react-kakao-maps-sdk";
 // eslint-disable-next-line import/no-unresolved
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
@@ -9,6 +9,8 @@ import MDBox from "components/MDBox";
 
 function RealDealerMap() {
   const [keyword, setKeyword] = useState("");
+  const [positions, setPositions] = useState([]);
+
   const changeHandler = (e) => {
     setKeyword(e.target.value);
   };
@@ -82,7 +84,36 @@ function RealDealerMap() {
             )}
           </MapMarker>
         ))}
+        {mapTypeId && <MapTypeId type={mapTypeId} />}
       </Map>
+      <button
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        }}
+      >
+        교통정보
+      </button>
+      <button
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+        }}
+      >
+        로드뷰 도로정보
+      </button>
+      <button
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.TERRAIN);
+        }}
+      >
+        지형정보
+      </button>
+      <button
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT);
+        }}
+      >
+        지적편집도
+      </button>
       <hr />
       <br />
       <MDInput

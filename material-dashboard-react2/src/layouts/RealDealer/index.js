@@ -15,7 +15,8 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
-// import KakaoMap from "./KakaoMap";
+
+// import KakaoMap
 import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
@@ -31,53 +32,43 @@ function Tables() {
           <Grid item xs={12}>
             <Card>
               <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
+                mx={1}
+                mt={-2}
+                py={2}
+                px={1}
                 variant="gradient"
                 bgColor="info"
                 borderRadius="lg"
                 coloredShadow="info"
               >
-                <MDTypography variant="h6" color="white">
-                  Test Table
+                <MDTypography variant="h6" color="white" align="center">
+                  서울시 중개 업소 목록
                 </MDTypography>
               </MDBox>
-              <MDBox pt={3}>
+              <MDBox>
                 <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Test Table 2
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
+                  table={{
+                    columns: [
+                      { Header: "중개업자명", accessor: "rdealerNm" },
+                      { Header: "중개업등록번호", accessor: "raRegno" },
+                      { Header: "주소", accessor: "address" },
+                      { Header: "사업자상호", accessor: "cmpNm" },
+                      { Header: "전화번호", accessor: "telNo" },
+                      { Header: "상태구분", accessor: "stsGbn" },
+                      { Header: "자치구명", accessor: "sggNm" },
+                    ],
+                    rows: [
+                      {
+                        rdealerNm: " {Test} ",
+                        raRegno: " {Test} ",
+                        address: " {Test} ",
+                        cmpNm: " {Test} ",
+                        telNo: " {Test} ",
+                        stsGbn: " {Test} ",
+                        sggNm: " {Test} ",
+                      },
+                    ],
+                  }}
                 />
               </MDBox>
             </Card>
