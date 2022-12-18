@@ -104,14 +104,19 @@ function Tables() {
             </MDBox>
           </Grid>
         </Grid>
-        <MDBox mb={3}>
-          <HeatChart
-            icon={{ color: "error", component: "apartment" }}
-            title="아파트 난방 방식"
-            description="2022.12.13 기준"
-            chart={HeatPieChartData}
-          />
-        </MDBox>
+        <Grid item xs={6}>
+          <MDBox mb={3}>
+            <HeatChart
+              icon={{ color: "error", component: "apartment" }}
+              title="아파트 난방 방식"
+              description="2022.12.13 기준"
+              chart={HeatPieChartData}
+            />
+          </MDBox>
+        </Grid>
+        <Grid item xs={6}>
+          
+        </Grid>
       </MDBox>
       <Footer />
     </DashboardLayout>
