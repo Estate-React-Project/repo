@@ -13,6 +13,7 @@
 	<h3>2. <a href="openapi/rebuildInfo">강성훈</a></h3>
 	<h3>3. <a href="openapi/realDealer">realDealer 데이터 DB로 전송하기</a></h3>
 	<h3>4. <a href="openapi/realtrade">RealTrade 데이터 DB로 전송하기</a></h3>
+	<h3>5. <a href="openapi/rent">Rent 데이터 DB로 전송하기</a></h3>
 
 </body>
 </html>
