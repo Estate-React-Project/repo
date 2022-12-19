@@ -25,7 +25,8 @@ import com.apitodb.dto.AptDealDto;
 @Controller
 @RequestMapping(path = "/openapi")
 public class AptDealOpenApiController {
-
+	
+	// DB에 API 데이터 넣기
 	@GetMapping(path = { "/aptDeal" })
 	public String searchAptInfo(Model model) {
 		
@@ -98,30 +99,27 @@ public class AptDealOpenApiController {
 		        	info.setDealYear(Integer.parseInt(node.getElementsByTagName("DYYYY").item(0).getTextContent()));
 		        	info.setGunA(Integer.parseInt(node.getElementsByTagName("GUN_A").item(0).getTextContent()));
 		        	String prCntA = node.getElementsByTagName("PR_A").item(0).getTextContent();
-		        	System.out.println(prCntA);
-		        	prCntA.replaceAll(",", "");
-		        	prCntA.replaceAll(" ", "");
-		        	System.out.println(prCntA);
+		        	prCntA = prCntA.replaceAll(",", "").replaceAll("-", "").trim(); // trim() : 양 끝 공백 제거 코드
 		        	info.setPrA(Double.parseDouble(prCntA == "" ? "0" : prCntA));
 		        	
 		        	info.setGunB(Integer.parseInt(node.getElementsByTagName("GUN_B").item(0).getTextContent()));
 		        	String prCntB = node.getElementsByTagName("PR_B").item(0).getTextContent();
-		        	prCntB.replaceAll(",", "");
+		        	prCntB = prCntB.replaceAll(",", "").replaceAll("-", "").trim();
 		        	info.setPrB(Double.parseDouble(prCntB == "" ? "0" : prCntB));
 		        	
 		        	info.setGunC(Integer.parseInt(node.getElementsByTagName("GUN_C").item(0).getTextContent()));
 		        	String prCntC = node.getElementsByTagName("PR_C").item(0).getTextContent();
-		        	prCntC.replaceAll(",", "");
+		        	prCntC = prCntC.replaceAll(",", "").replaceAll("-", "").trim();
 		        	info.setPrC(Double.parseDouble(prCntC == "" ? "0" : prCntC));
 		        	
 		        	info.setGunD(Integer.parseInt(node.getElementsByTagName("GUN_D").item(0).getTextContent()));
 		        	String prCntD = node.getElementsByTagName("PR_D").item(0).getTextContent();
-		        	prCntD.replaceAll(",", "");
+		        	prCntD = prCntD.replaceAll(",", "").replaceAll("-", "").trim();
 		        	info.setPrD(Double.parseDouble(prCntD == "" ? "0" : prCntD));
 		        	
 		        	info.setGunE(Integer.parseInt(node.getElementsByTagName("GUN_E").item(0).getTextContent()));
 		        	String prCntE = node.getElementsByTagName("PR_E").item(0).getTextContent();
-		        	prCntE.replaceAll(",", "");
+		        	prCntE = prCntE.replaceAll(",", "").replaceAll("-", "").trim();
 		        	info.setPrE(Double.parseDouble(prCntE == "" ? "0" : prCntE));
 		        	
 		        	infos.add(info);
