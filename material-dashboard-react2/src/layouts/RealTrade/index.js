@@ -37,8 +37,8 @@ function Tables() {
       <DashboardNavbar />
       <VerticalBarChart
         icon={{ color: "info", component: "leaderboard" }}
-        title="서울시 월별 매매 거래량"
-        description="서울시 매매 거래량"
+        title="서울시 월별 월세 거래량"
+        description="2022년도"
         chart={{
           labels: [
             "1월",
