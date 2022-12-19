@@ -25,14 +25,13 @@ import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import MDPagination from "components/MDPagination";
 import MixedChart from "examples/Charts/MixedChart";
-import DefaultLineChart from "examples/Charts/LineCharts/DefaultLineChart";
 import PieChart from "examples/Charts/PieChart";
+import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import DataTable from "examples/Tables/DataTable";
 
 // Data
 import rentData from "layouts/RentYearly/data/rentData";
@@ -136,7 +135,7 @@ function Tables() {
                 borderRadius="lg"
                 coloredShadow="secondary"
               >
-                <VerticalBarChart
+                <HorizontalBarChart
                   icon={{ color: "info", component: "leaderboard" }}
                   title="전세 보증금 기준"
                   description="2022년 서울시 전세 보증금"
