@@ -41,7 +41,8 @@ import Dashboard from "layouts/dashboard";
 import RealTradeMap from "layouts/RentMonthlyMap";
 import RentMonthly from "layouts/RentMonthly";
 import RentYearly from "layouts/RentYearly";
-import RentMap from "layouts/RentYearlyMap";
+import RentYearlyGraph from "layouts/RentYearlyGraph";
+import RentYearlyMap from "layouts/RentYearlyMap";
 import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
@@ -96,11 +97,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "전월세 맵",
-    key: "rentMap",
+    name: "전세 통계",
+    key: "rentYearlyGraph",
+    icon: <Icon fontSize="small">article</Icon>,
+    route: "/rentYearlyGraph",
+    component: <RentYearlyGraph />,
+  },
+  {
+    type: "collapse",
+    name: "전세 맵",
+    key: "rentYearlyMap",
     icon: <Icon fontSize="small">explore</Icon>,
-    route: "/rentMap",
-    component: <RentMap />,
+    route: "/rentYearlyMap",
+    component: <RentYearlyMap />,
   },
   {
     type: "collapse",
