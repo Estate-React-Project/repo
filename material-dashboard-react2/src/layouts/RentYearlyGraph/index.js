@@ -76,8 +76,8 @@ function Tables() {
               >
                 <MixedChart
                   icon={{ color: "info", component: "leaderboard" }}
-                  title="전세 거래량 기준"
-                  description="2022년 서울시 전세 거래량"
+                  title="전세 월별 거래량 기준"
+                  description="2022년 서울시 전세 월별 거래량"
                   chart={{
                     labels: [
                       "1월",
@@ -138,7 +138,7 @@ function Tables() {
               >
                 <VerticalBarChart
                   icon={{ color: "info", component: "leaderboard" }}
-                  title="금액 기준"
+                  title="전세 보증금 기준"
                   description="2022년 서울시 전세 보증금"
                   chart={{
                     labels: [
@@ -272,7 +272,7 @@ function Tables() {
                   title="건물 용도 기준"
                   description="2022년 서울시 전세 건물 용도별 구분"
                   chart={{
-                    labels: ["Facebook", "Direct", "Organic", "Referral"],
+                    labels: ["아파트", "단독다가구", "연립다세대", "오피스텔"],
                     datasets: {
                       label: "Projects",
                       backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
