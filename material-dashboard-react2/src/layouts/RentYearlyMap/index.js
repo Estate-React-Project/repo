@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React, { useEffect } from "react";
-import RentMap from "./RentMap";
+import RentYearlyMap from "./RentYearlyMap";
 
 const { kakao } = window;
 function Kakao() {
@@ -10,7 +11,7 @@ function Kakao() {
       <DashboardNavbar />
       {/* <SearchPlace /> */}
       {/* <MapContainer /> */}
-      <RentMap />
+      <RentYearlyMap />
     </DashboardLayout>
   );
 }
