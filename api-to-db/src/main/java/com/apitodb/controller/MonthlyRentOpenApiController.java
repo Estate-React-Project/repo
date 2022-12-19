@@ -22,7 +22,7 @@ public class MonthlyRentOpenApiController {
 	@GetMapping(path = { "/loadMonthlyRentCount" })
 	public HashMap<String, Object> searchMonthlyRentCountData() {
 
-		HashMap<String, Object> data = new HashMap<>();
+		HashMap<String, Object> monthlyCountData = new HashMap<>();
 		
 		// DB에 저장하는 코드
 		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
@@ -58,8 +58,8 @@ public class MonthlyRentOpenApiController {
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				
-				for (int i = 1; i <= data.size(); i++) {
-					data.put( "data" + i , rs.getInt(i));
+				for (int i = 1; i <= 12; i++) {
+					monthlyCountData.put( "data" + i , rs.getInt(i));
 				}
 				
 			}
@@ -77,7 +77,7 @@ public class MonthlyRentOpenApiController {
 			}
 		}
 
-		return data;
+		return monthlyCountData;
 
 	}
 }

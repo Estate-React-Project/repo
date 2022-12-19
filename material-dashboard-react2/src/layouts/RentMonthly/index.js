@@ -39,6 +39,7 @@ function Tables() {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
       );
+      console.log(response.data);
       setCount(response.data);
     };
     loadMonthlyRentCount();
@@ -71,7 +72,20 @@ function Tables() {
             {
               label: "Sales by age",
               color: "dark",
-              data: [15, 20, 12, 60, 20, 15, 20, 12, 60, 20, 15, 11],
+              data: [
+                count.data1,
+                count.data2,
+                count.data3,
+                count.data4,
+                count.data5,
+                count.data6,
+                count.data7,
+                count.data8,
+                count.data9,
+                count.data10,
+                count.data11,
+                count.data12,
+              ],
             },
           ],
         }}
