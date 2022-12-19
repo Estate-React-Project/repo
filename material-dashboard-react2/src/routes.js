@@ -38,10 +38,10 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import RealTradeMap from "layouts/RealTradeMap";
-import RealTrade from "layouts/RealTrade";
-import Rent from "layouts/Rent";
-import RentMap from "layouts/RentMap";
+import RealTradeMap from "layouts/RentMonthlyMap";
+import RentMonthly from "layouts/RentMonthly";
+import RentYearly from "layouts/RentYearly";
+import RentMap from "layouts/RentYearlyMap";
 import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
@@ -64,15 +64,15 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "매매",
-    key: "realTrade",
+    name: "월세",
+    key: "rentMonthly",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/realTrade",
-    component: <RealTrade />,
+    route: "/rentMonthly",
+    component: <RentMonthly />,
   },
   {
     type: "collapse",
-    name: "매매 맵",
+    name: "월세 맵",
     key: "realTradeMap",
     icon: <Icon fontSize="small">explore</Icon>,
     route: "/realTradeMap",
@@ -88,11 +88,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "전월세",
-    key: "rent",
+    name: "전세",
+    key: "rentYearly",
     icon: <Icon fontSize="small">article</Icon>,
-    route: "/rent",
-    component: <Rent />,
+    route: "/rentYearly",
+    component: <RentYearly />,
   },
   {
     type: "collapse",

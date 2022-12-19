@@ -31,8 +31,8 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import rentData from "layouts/Rent/data/rentData";
-import rentGraph from "layouts/Rent/data/rentGraph";
+import rentData from "layouts/RentYearly/data/rentData";
+import rentGraph from "layouts/RentYearly/data/rentGraph";
 import { Stack } from "@mui/system";
 
 function Tables() {

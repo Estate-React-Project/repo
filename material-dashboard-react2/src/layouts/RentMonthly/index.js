@@ -24,12 +24,25 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
-import authorsTableData from "layouts/RealTrade/data/monthlyTradeTable";
+import authorsTableData from "layouts/RentMonthly/data/monthlyTradeTable";
 import projectsTableData from "layouts/tables/data/projectsTableData";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [count, setCount] = useState("");
+
+  useEffect(() => {
+    const loadMonthlyRentCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
+      );
+      setCount(response.data);
+    };
+    loadMonthlyRentCount();
+  }, []);
 
   return (
     // Material Dashboard 2 React Example
