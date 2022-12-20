@@ -61,6 +61,60 @@ function RealDealerMap() {
     <MDBox>
       <br />
       <hr />
+      <br />
+      <MDInput
+        alignItems="center"
+        style={{
+          marign: "center",
+          width: "700px",
+        }}
+        type="text"
+        value={keyword}
+        onChange={changeHandler}
+        variant="outlined"
+        label="찾으실 중개업소의 주소 또는 원하시는 키워드를 입력하세요 (서울시전역)"
+      />
+      <MDButton onClick={clickHandler} variant="outlined" color="info">
+        찾아보기
+      </MDButton>
+      <br />
+      <br />
+      <hr />
+      <br />
+      <MDButton
+        color="success"
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        }}
+      >
+        교통정보
+      </MDButton>
+      <MDButton
+        color="success"
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+        }}
+      >
+        로드뷰 도로정보
+      </MDButton>
+      <MDButton
+        color="success"
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.TERRAIN);
+        }}
+      >
+        지형정보
+      </MDButton>
+      <MDButton
+        color="success"
+        onClick={() => {
+          setMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT);
+        }}
+      >
+        지적편집도
+      </MDButton>
+      <br />
+      <hr />
       <Map // 로드뷰를 표시할 Container
         center={{
           lat: 37.507454314288054,
@@ -86,60 +140,8 @@ function RealDealerMap() {
         ))}
         {mapTypeId && <MapTypeId type={mapTypeId} />}
       </Map>
-      <button
-        onClick={() => {
-          setMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-        }}
-      >
-        교통정보
-      </button>
-      <button
-        onClick={() => {
-          setMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
-        }}
-      >
-        로드뷰 도로정보
-      </button>
-      <button
-        onClick={() => {
-          setMapTypeId(kakao.maps.MapTypeId.TERRAIN);
-        }}
-      >
-        지형정보
-      </button>
-      <button
-        onClick={() => {
-          setMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT);
-        }}
-      >
-        지적편집도
-      </button>
-      <hr />
       <br />
-      <MDInput
-        type="text"
-        value={keyword}
-        onChange={changeHandler}
-        variant="outlined"
-        label="서울특별시"
-      />
-      <MDInput
-        type="text"
-        value={keyword}
-        onChange={changeHandler}
-        variant="outlined"
-        label="시/군/구 고정"
-      />
-      <MDInput
-        type="text"
-        value={keyword}
-        onChange={changeHandler}
-        variant="outlined"
-        label="동/면/읍"
-      />
-      <MDButton onClick={clickHandler} variant="outlined" color="info">
-        찾아보기
-      </MDButton>
+      <hr />
     </MDBox>
   );
 }
