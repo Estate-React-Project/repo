@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -27,7 +30,7 @@ import com.apitodb.dto.RealDealerDto;
 public class RealDealerOpenApiController {
 
 	@GetMapping(path = { "/realDealer" })
-	public String searchRealDealer(Model model) {
+	public String insertDealerDataToDb(Model model) {
 		
 		try {
 			StringBuilder urlBuilder2 = new StringBuilder("http://openapi.seoul.go.kr:8088");  // URL
@@ -84,11 +87,12 @@ public class RealDealerOpenApiController {
 		        	RealDealerDto info = new RealDealerDto();
 		        	
 		        	info.setRdealerNm(node.getElementsByTagName("RDEALER_NM").item(0).getTextContent());
-		        	info.setRaRegno(Integer.parseInt(node.getElementsByTagName("RA_REGNO").item(0).getTextContent()));
+		        	//info.setRaRegno(Integer.parseInt(node.getElementsByTagName("RA_REGNO").item(0).getTextContent()));
+		        	info.setRaRegno(node.getElementsByTagName("RA_REGNO").item(0).getTextContent());
 		        	info.setAddress(node.getElementsByTagName("ADDRESS").item(0).getTextContent());
 		        	info.setCmpNm(node.getElementsByTagName("CMP_NM").item(0).getTextContent());
-		        	info.setTelNo(Integer.parseInt(node.getElementsByTagName("TELNO").item(0).getTextContent()));
-		        	info.setStsGbn(node.getElementsByTagName("STS-GBN").item(0).getTextContent());
+		        	info.setTelNo(node.getElementsByTagName("TELNO").item(0).getTextContent());
+		        	info.setStsGbn(node.getElementsByTagName("STS_GBN").item(0).getTextContent());
 		        	info.setSggNm(node.getElementsByTagName("SGG_NM").item(0).getTextContent());
 		        	
 		        	infos.add(info);
@@ -116,10 +120,11 @@ public class RealDealerOpenApiController {
 								"VALUES (?, ?, ?, ?, ?, ?, ?) "; // ? : 나중에 채워질 영역 표시
 						pstmt = conn2.prepareStatement(sql);
 						pstmt.setString(1, infos.get(k).getRdealerNm());
-						pstmt.setInt(2, infos.get(k).getRaRegno());
+						pstmt.setString(2, infos.get(k).getRaRegno());
 						pstmt.setString(3, infos.get(k).getAddress());
 						pstmt.setString(4, infos.get(k).getCmpNm());
-						pstmt.setInt(5, infos.get(k).getTelNo());
+						// System.out.println(infos.get(k).getTelNo());
+						pstmt.setString(5, infos.get(k).getTelNo());
 						pstmt.setString(6, infos.get(k).getStsGbn());
 						pstmt.setString(7, infos.get(k).getSggNm());
 						
@@ -142,6 +147,66 @@ public class RealDealerOpenApiController {
 		}
 		
 		return "openapi/realDealer";
+	}
+	
+	@CrossOrigin
+	@GetMapping(path = { "/load-all-dealer" })
+	@ResponseBody
+	public List<RealDealerDto> loadAllDealer(Model model) {
+		// 데이터베이스에서 데이터 조회 (DTO 만들기 + JDBC 코드 사용 )
+
+			Connection conn = null;			// 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+			PreparedStatement pstmt = null;	// 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+			ResultSet rs = null;			// 결과 처리와 관련된 JDBC 호출 규격 ( 인터페이스 )
+			
+			ArrayList<RealDealerDto> dealers = new ArrayList<>();		// 조회한 데이터를 저장할 DTO 객체
+			
+			try {
+				// 1. Driver 등록
+				// DriverManager.registerDriver(new Driver());
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				// 2. 연결 및 연결 객체 가져오기
+				conn = DriverManager.getConnection(
+						"jdbc:mysql://43.201.107.251:3306/realestate",	 	// 데이터베이스 연결 정보
+						"team2", "team2"); 						// 데이터베이스 계정 정보
+				
+				// 3. SQL 작성 + 명령 객체 가져오기
+				String sql = 
+						"SELECT * " +
+						"FROM RealDealer ";
+				pstmt = conn.prepareStatement(sql);
+				
+				// 4. 명령 실행
+				rs = pstmt.executeQuery(); // executeQuery : select 일 때 사용하는 메서드
+				
+				// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+				while (rs.next()) {	// 결과 집합의 다음 행으로 이동
+					RealDealerDto dealer = new RealDealerDto();
+					dealer.setRdealerNm(rs.getString(1));
+					dealer.setRaRegno(rs.getString(2));
+					dealer.setAddress(rs.getString(3));
+					dealer.setCmpNm(rs.getString(4));
+					dealer.setTelNo(rs.getString(5));
+					dealer.setStsGbn(rs.getString(6));
+					dealer.setSggNm(rs.getString(7));				
+					
+					dealers.add(dealer);
+				}			
+				
+				// System.out.println(dealers);
+				
+			} catch (Exception ex) {
+				ex.printStackTrace(); // 개발 용도로 사용
+			} finally {
+				// 6. 연결 닫기
+				try { rs.close(); } catch (Exception ex) {}
+				try { pstmt.close(); } catch (Exception ex) {}
+				try { conn.close(); } catch (Exception ex) {}
+			}
+		
+		return dealers;
+		
 	}
 	
 }
