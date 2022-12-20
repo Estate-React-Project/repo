@@ -33,16 +33,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-// import GunPrAChart from "examples/Charts/MixedChart/GunPrAChart";
-// import GunPrBChart from "examples/Charts/MixedChart/GunPrBChart";
-// import GunPrCChart from "examples/Charts/MixedChart/GunPrCChart";
-// import GunPrDChart from "examples/Charts/MixedChart/GunPrDChart";
-// import GunPrEChart from "examples/Charts/MixedChart/GunPrEChart";
-// import GunPrAChartData from "./data/GunPrAChartData";
-// import GunPrBChartData from "./data/GunPrBChartData";
-// import GunPrCChartData from "./data/GunPrCChartData";
-// import GunPrDChartData from "./data/GunPrDChartData";
-// import GunPrEChartData from "./data/GunPrEChartData";
+import GunPrAChart from "examples/Charts/MixedChart/GunPrAChart";
+import GunPrBChart from "examples/Charts/MixedChart/GunPrBChart";
+import GunPrCChart from "examples/Charts/MixedChart/GunPrCChart";
+import GunPrDChart from "examples/Charts/MixedChart/GunPrDChart";
+import GunPrEChart from "examples/Charts/MixedChart/GunPrEChart";
+import GunPrAChartData from "./data/GunPrAChartData";
+import GunPrBChartData from "./data/GunPrBChartData";
+import GunPrCChartData from "./data/GunPrCChartData";
+import GunPrDChartData from "./data/GunPrDChartData";
+import GunPrEChartData from "./data/GunPrEChartData";
 
 function Tables() {
   const [gu, setGu] = useState("강남구");
@@ -109,12 +109,12 @@ function Tables() {
                     </div>;
                   })}
                 </div> */}
-                {/* <GunPrAChart
+                <GunPrAChart
                   // title={data.adresGu}
                   title="GunPrAChart"
                   description="(2020년 기준)"
                   chart={{ GunPrAChartData }}
-                /> */}
+                />
               </MDBox>
             </Card>
           </Grid>
