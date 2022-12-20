@@ -39,7 +39,6 @@ function Tables() {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
       );
-      console.log(response.data);
       setCount(response.data);
     };
     loadMonthlyRentCount();

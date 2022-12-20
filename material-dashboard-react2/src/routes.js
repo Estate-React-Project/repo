@@ -38,8 +38,9 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import RealTradeMap from "layouts/RentMonthlyMap";
+import RentMonthlyMap from "layouts/RentMonthlyMap";
 import RentMonthly from "layouts/RentMonthly";
+import RentMonthlyGraph from "layouts/RentMonthlyGraph";
 import RentYearly from "layouts/RentYearly";
 import RentYearlyGraph from "layouts/RentYearlyGraph";
 import RentYearlyMap from "layouts/RentYearlyMap";
@@ -67,9 +68,17 @@ const routes = [
     type: "collapse",
     name: "월세",
     key: "rentMonthly",
-    icon: <Icon fontSize="small">table_view</Icon>,
+    icon: <Icon fontSize="small">article</Icon>,
     route: "/rentMonthly",
     component: <RentMonthly />,
+  },
+  {
+    type: "collapse",
+    name: "월세 통계",
+    key: "rentMonthlyGraph",
+    icon: <Icon fontSize="small">article</Icon>,
+    route: "/rentMonthlyGraph",
+    component: <RentMonthlyGraph />,
   },
   {
     type: "collapse",
@@ -77,7 +86,7 @@ const routes = [
     key: "realTradeMap",
     icon: <Icon fontSize="small">explore</Icon>,
     route: "/realTradeMap",
-    component: <RealTradeMap />,
+    component: <RentMonthlyMap />,
   },
   {
     type: "collapse",
