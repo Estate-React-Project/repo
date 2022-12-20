@@ -34,13 +34,59 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 // Data
-import rentData from "layouts/RentYearly/data/rentData";
-import rentGraph from "layouts/RentYearly/data/rentGraph";
 import { Stack } from "@mui/system";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Tables() {
-  const { columns, rows } = rentData();
-  // const { columns: pColumns, rows: pRows } = rentGraph();
+  const [count, setCount] = useState("");
+  const [guaranteeCount, setGuaranteeCount] = useState("");
+  const [guCount, setGuCount] = useState("");
+  const [purposeCount, setPurposeCount] = useState("");
+
+  useEffect(() => {
+    const loadYearlyRentCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+      );
+      // console.log(response.data);
+      setCount(response.data);
+    };
+    loadYearlyRentCount();
+  }, []);
+
+  useEffect(() => {
+    const loadYearlyRentGuranteeCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGuarantee`
+      );
+      // console.log(response.data);
+      setGuaranteeCount(response.data);
+    };
+    loadYearlyRentGuranteeCount();
+  }, []);
+
+  useEffect(() => {
+    const loadYearlyRentGuCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGu`
+      );
+      // console.log(response.data);
+      setGuCount(response.data);
+    };
+    loadYearlyRentGuCount();
+  }, []);
+
+  useEffect(() => {
+    const loadYearlyRentPurposeCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGBN`
+      );
+      // console.log(response.data);
+      setPurposeCount(response.data);
+    };
+    loadYearlyRentPurposeCount();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -60,7 +106,7 @@ function Tables() {
                 coloredShadow="secondary"
               >
                 <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
+                  Yearly Rent Data
                 </MDTypography>
               </MDBox>
               <MDBox
@@ -95,9 +141,22 @@ function Tables() {
                     datasets: [
                       {
                         chartType: "thin-bar",
-                        label: "전세 거래량",
+                        label: "월별 전세 거래량",
                         color: "dark",
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 300, 400, 550],
+                        data: [
+                          count.dataByMonth1,
+                          count.dataByMonth2,
+                          count.dataByMonth3,
+                          count.dataByMonth4,
+                          count.dataByMonth5,
+                          count.dataByMonth6,
+                          count.dataByMonth7,
+                          count.dataByMonth8,
+                          count.dataByMonth9,
+                          count.dataByMonth10,
+                          count.dataByMonth11,
+                          count.dataByMonth12,
+                        ],
                       },
                     ],
                   }}
@@ -122,7 +181,7 @@ function Tables() {
                 coloredShadow="secondary"
               >
                 <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
+                  Yearly Rent Data
                 </MDTypography>
               </MDBox>
               <MDBox
@@ -141,17 +200,23 @@ function Tables() {
                   description="2022년 서울시 전세 보증금"
                   chart={{
                     labels: [
-                      "- 20000",
-                      "20000 - 40000",
-                      "40000 - 60000",
+                      "80000 초과",
                       "60000 - 80000",
-                      "80000 +",
+                      "40000 - 60000",
+                      "20000 - 40000",
+                      "20000 미만",
                     ],
                     datasets: [
                       {
-                        label: "Sales by age",
+                        label: "전세 보증금",
                         color: "dark",
-                        data: [15, 20, 12, 60, 20],
+                        data: [
+                          guaranteeCount.dataByGuarantee1,
+                          guaranteeCount.dataByGuarantee2,
+                          guaranteeCount.dataByGuarantee3,
+                          guaranteeCount.dataByGuarantee4,
+                          guaranteeCount.dataByGuarantee5,
+                        ],
                       },
                     ],
                   }}
@@ -176,7 +241,7 @@ function Tables() {
                 coloredShadow="secondary"
               >
                 <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
+                  Yearly Rent Data
                 </MDTypography>
               </MDBox>
               <MDBox
@@ -223,11 +288,34 @@ function Tables() {
                     ],
                     datasets: [
                       {
-                        label: "Sales by age",
+                        label: "자치구별 전세 거래량",
                         color: "dark",
                         data: [
-                          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                          22, 23, 24, 25,
+                          guCount.dataByGu1,
+                          guCount.dataByGu2,
+                          guCount.dataByGu3,
+                          guCount.dataByGu4,
+                          guCount.dataByGu5,
+                          guCount.dataByGu6,
+                          guCount.dataByGu7,
+                          guCount.dataByGu8,
+                          guCount.dataByGu9,
+                          guCount.dataByGu10,
+                          guCount.dataByGu11,
+                          guCount.dataByGu12,
+                          guCount.dataByGu13,
+                          guCount.dataByGu14,
+                          guCount.dataByGu15,
+                          guCount.dataByGu16,
+                          guCount.dataByGu17,
+                          guCount.dataByGu18,
+                          guCount.dataByGu19,
+                          guCount.dataByGu20,
+                          guCount.dataByGu21,
+                          guCount.dataByGu22,
+                          guCount.dataByGu23,
+                          guCount.dataByGu24,
+                          guCount.dataByGu25,
                         ],
                       },
                     ],
@@ -253,7 +341,7 @@ function Tables() {
                 coloredShadow="secondary"
               >
                 <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
+                  Yearly Rent Data
                 </MDTypography>
               </MDBox>
               <MDBox
@@ -271,11 +359,16 @@ function Tables() {
                   title="건물 용도 기준"
                   description="2022년 서울시 전세 건물 용도별 구분"
                   chart={{
-                    labels: ["아파트", "단독다가구", "연립다세대", "오피스텔"],
+                    labels: ["단독다가구", "아파트", "연립다세대", "오피스텔"],
                     datasets: {
-                      label: "Projects",
+                      label: "건물 용도",
                       backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-                      data: [15, 20, 12, 60],
+                      data: [
+                        purposeCount.dataByGBN1,
+                        purposeCount.dataByGBN2,
+                        purposeCount.dataByGBN3,
+                        purposeCount.dataByGBN4,
+                      ],
                     },
                   }}
                 />
