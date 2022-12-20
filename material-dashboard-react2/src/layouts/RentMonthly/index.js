@@ -70,7 +70,7 @@ function Tables() {
           ],
           datasets: [
             {
-              label: "Sales by age",
+              label: "월세 거래량",
               color: "dark",
               data: [
                 count.data1,
