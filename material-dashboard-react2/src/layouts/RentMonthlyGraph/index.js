@@ -180,60 +180,6 @@ function Tables() {
                 borderRadius="lg"
                 coloredShadow="secondary"
               >
-                <HorizontalBarChart
-                  icon={{ color: "info", component: "leaderboard" }}
-                  title="월세 보증금 기준"
-                  description="2022년 서울시 월세 보증금"
-                  chart={{
-                    labels: [
-                      "- 20000",
-                      "20000 - 40000",
-                      "40000 - 60000",
-                      "60000 - 80000",
-                      "80000 +",
-                    ],
-                    datasets: [
-                      {
-                        label: "Sales by age",
-                        color: "dark",
-                        data: [15, 20, 12, 60, 20],
-                      },
-                    ],
-                  }}
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-        </Grid>
-      </MDBox>
-      <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="secondary"
-                borderRadius="lg"
-                coloredShadow="secondary"
-              >
-                <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
-                </MDTypography>
-              </MDBox>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="secondary"
-                borderRadius="lg"
-                coloredShadow="secondary"
-              >
                 <VerticalBarChart
                   icon={{ color: "info", component: "leaderboard" }}
                   title="자치구 기준"
