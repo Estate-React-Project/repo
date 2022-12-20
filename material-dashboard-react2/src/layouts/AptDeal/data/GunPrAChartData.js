@@ -5,13 +5,13 @@ const makeGunPrAChartData = (data) => ({
       chartType: "thin-bar",
       label: "PrA",
       color: "dark",
-      data: [],
+      data: data[0],
     },
     {
       chartType: "gradient-line",
       label: "GunA",
       color: "info",
-      data: [],
+      data: data[1],
     },
   ],
 });
