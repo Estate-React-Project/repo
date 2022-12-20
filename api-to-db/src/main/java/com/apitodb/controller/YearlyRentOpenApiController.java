@@ -50,7 +50,7 @@ public class YearlyRentOpenApiController {
 					+ "       	 COUNT(CASE WHEN RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"202209%\" then 1 end),\n"
 					+ "       	 COUNT(CASE WHEN RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"202210%\" then 1 end),\n"
 					+ "       	 COUNT(CASE WHEN RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"202211%\" then 1 end),\n"
-					+ "       	 COUNT(CASE WHEN RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"202212%\" then 1 end),\n"
+					+ "       	 COUNT(CASE WHEN RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"202212%\" then 1 end)\n"
 					+ "       from Rent";
 			pstmt = conn.prepareStatement(sql);
 
@@ -186,7 +186,7 @@ public class YearlyRentOpenApiController {
 					+ "			 COUNT(CASE WHEN RENT_GBN = '전세' AND SGG_NM = '은평구' then 1 end),\r\n"
 					+ "			 COUNT(CASE WHEN RENT_GBN = '전세' AND SGG_NM = '종로구' then 1 end),\r\n"
 					+ "			 COUNT(CASE WHEN RENT_GBN = '전세' AND SGG_NM = '중구' then 1 end),\r\n"
-					+ "			 COUNT(CASE WHEN RENT_GBN = '전세' AND SGG_NM = '중랑구' then 1 end),\r\n"
+					+ "			 COUNT(CASE WHEN RENT_GBN = '전세' AND SGG_NM = '중랑구' then 1 end)\r\n"
 					+ "       from Rent";
 			pstmt = conn.prepareStatement(sql);
 
