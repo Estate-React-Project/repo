@@ -160,7 +160,7 @@ public class MonthlyRentOpenApiController {
 	
 	@CrossOrigin
 	@ResponseBody
-	@GetMapping(path = { "/loadMonthlyRentCount" })
+	@GetMapping(path = { "/loadMonthlyGbnRentCount" })
 	public HashMap<String, Object> searchMonthlyRentCountDataByGbn() {
 
 		HashMap<String, Object> monthlyGbnCountData = new HashMap<>();

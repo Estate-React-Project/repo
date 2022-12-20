@@ -44,6 +44,7 @@ function Tables() {
   const { columns, rows } = rentData();
   const [count, setCount] = useState("");
   const [gucount, setGuCount] = useState("");
+  const [gbncount, setGbnCount] = useState("");
   // const { columns: pColumns, rows: pRows } = rentGraph();
   console.log(gucount);
 
@@ -65,6 +66,16 @@ function Tables() {
       setGuCount(response.data);
     };
     loadMonthlyGuRentCount();
+  }, []);
+
+  useEffect(() => {
+    const loadMonthlyGbnRentCount = async () => {
+      const response = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyGbnRentCount`
+      );
+      setGbnCount(response.data);
+    };
+    loadMonthlyGbnRentCount();
   }, []);
 
   return (
@@ -332,7 +343,7 @@ function Tables() {
                     datasets: {
                       label: "Projects",
                       backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-                      data: [15, 20, 12, 60],
+                      data: [gbncount.data1, gbncount.data2, gbncount.data3, gbncount.data4],
                     },
                   }}
                 />
