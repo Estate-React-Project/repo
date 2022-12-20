@@ -44,20 +44,18 @@ import DongCoChartData from "./data/DongCoChartData";
 
 function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
-  const [count, setCount] = useState("");
-  const [aptInfo, setAptInfo] = useState("");
   const [countInfo, setCountInfo] = useState("");
 
   useEffect(() => {
-    const loadAptCountInfo = async () => {
+    const loadAptInfoCount = async () => {
       const response = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadAptCountInfo`
+        `http://127.0.0.1:8080/web-scraping/openapi/loadAptInfoCount`
       );
-      // const response = await axios.get(`/web-scraping/openapi/loadAaptInfo`);
+      // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
       // console.log(response.data);
       setCountInfo(response.data);
     };
-    loadAptCountInfo();
+    loadAptInfoCount();
   }, []);
 
   return (
@@ -162,14 +160,21 @@ function Tables() {
                 title="전체 동 수"
                 description="2022.12.19 기준"
                 chart={DongCoChartData([
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
-                  countInfo.data11,
+                  countInfo.data20,
+                  countInfo.data21,
+                  countInfo.data22,
+                  countInfo.data23,
+                  countInfo.data24,
+                  countInfo.data25,
+                  countInfo.data26,
+                  countInfo.data27,
+                  countInfo.data28,
+                  countInfo.data29,
+                  countInfo.data30,
+                  countInfo.data31,
+                  countInfo.data32,
+                  countInfo.data33,
+                  countInfo.data34,
                 ])}
               />
             </MDBox>
