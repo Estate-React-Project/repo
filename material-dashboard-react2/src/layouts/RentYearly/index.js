@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.1.0
@@ -46,60 +47,6 @@ function Tables() {
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="secondary"
-                borderRadius="lg"
-                coloredShadow="secondary"
-              >
-                <MDTypography variant="h6" color="white">
-                  Rent Data
-                </MDTypography>
-              </MDBox>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="secondary"
-                borderRadius="lg"
-                coloredShadow="secondary"
-              >
-                <MixedChart
-                  icon={{ color: "info", component: "leaderboard" }}
-                  title="전세"
-                  description="2022년 서울시 전세 거래량"
-                  chart={{
-                    labels: [
-                      "1월",
-                      "2월",
-                      "3월",
-                      "4월",
-                      "5월",
-                      "6월",
-                      "7월",
-                      "8월",
-                      "9월",
-                      "10월",
-                      "11월",
-                      "12월",
-                    ],
-                    datasets: [
-                      {
-                        chartType: "thin-bar",
-                        label: "전세 거래량",
-                        color: "dark",
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 300, 400, 550],
-                      },
-                    ],
-                  }}
-                />
-              </MDBox>
               <MDBox pt={3}>
                 <DataTable
                   table={{ columns, rows }}
