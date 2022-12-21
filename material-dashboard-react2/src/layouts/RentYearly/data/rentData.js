@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 /**
@@ -16,36 +17,46 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 React components
+import axios from "axios";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDBadge from "components/MDBadge";
 
 // Images
 
 export default function data() {
-  const Division = ({ RENT_GBN, HOUSE_GBN_NM }) => (
-    <MDBox>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {RENT_GBN}
-      </MDTypography>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {HOUSE_GBN_NM}
-      </MDTypography>
+  const Date = ({ CNTRCT_DE }) => (
+    <MDBox display="flex" alignItems="center" lineHeight={1}>
+      <MDBox ml={2} lineHeight={1}>
+        <MDTypography display="block" variant="button" fontWeight="medium">
+          {CNTRCT_DE}
+        </MDTypography>
+      </MDBox>
     </MDBox>
   );
 
-  const Location = ({ SGG_CD, SGG_NM }) => (
-    <MDBox>
+  const GuDongName = ({ SGG_NM, BJDONG_NM }) => (
+    <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {SGG_NM}
       </MDTypography>
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {SGG_CD}
+        {BJDONG_NM}
       </MDTypography>
     </MDBox>
   );
 
-  const Cost = ({ RENT_GTN, RENT_FEE }) => (
+  const Bldg = ({ BLDG_NM, FLOOR }) => (
+    <MDBox lineHeight={1} textAlign="left">
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {BLDG_NM}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {FLOOR}
+      </MDTypography>
+    </MDBox>
+  );
+
+  const Fee = ({ RENT_GTN, RENT_FEE }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {RENT_GTN}
@@ -56,56 +67,43 @@ export default function data() {
     </MDBox>
   );
 
-  const Building = ({ BLDG_NM, BUILD_YEAR }) => (
-    <MDBox>
+  const Area = ({ BLDG_AREA }) => (
+    <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {BLDG_NM}
-      </MDTypography>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {BUILD_YEAR}
+        {BLDG_AREA}
       </MDTypography>
     </MDBox>
   );
 
-  const Detail = ({ RENT_AREA, FLR_NO }) => (
-    <MDBox>
+  const HouseUse = ({ BUILD_YEAR, HOUSE_TYPE }) => (
+    <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {RENT_AREA}
+        {BUILD_YEAR}
       </MDTypography>
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {FLR_NO}
+        {HOUSE_TYPE}
       </MDTypography>
     </MDBox>
   );
 
   return {
     columns: [
-      { Header: "division", accessor: "division", align: "center" },
-      { Header: "location", accessor: "location", align: "center" },
-      { Header: "cost", accessor: "cost", align: "center" },
-      { Header: "detail", accessor: "detail", align: "center" },
-      { Header: "building", accessor: "building", align: "center" },
-      { Header: "contract_period", accessor: "contract_period", align: "center" },
-      { Header: "contract_date", accessor: "contract_date", align: "center" },
+      { Header: "계약일", accessor: "Date", align: "center" },
+      { Header: "주소(구,동)", accessor: "GuDongName", align: "center" },
+      { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+      { Header: "보증금, 월세", accessor: "Fee", align: "center" },
+      { Header: "건물면적", accessor: "Area", align: "center" },
+      { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
     ],
 
     rows: [
       {
-        division: <Division RENT_GBN="전월세구분" HOUSE_GBN_NM="건물용도" />,
-        location: <Location SGG_NM="자치구명" SGG_CD="자치구코드" />,
-        cost: <Cost RENT_GTN="보증금" RENT_FEE="임대료" />,
-        building: <Building BLDG_NM="건물명" BUILD_YEAR="건축연도" />,
-        detail: <Detail RENT_AREA="임대면적" FLR_NO="건물층" />,
-        contract_period: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            계약기간
-          </MDTypography>
-        ),
-        contract_date: (
-          <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-            계약일
-          </MDTypography>
-        ),
+        Date: <Date CNTRCT_DE="접수연도" />,
+        GuDongName: <GuDongName SGG_NM="자치구 명" BJDONG_NM="법정동 명" />,
+        Bldg: <Bldg BLDG_NM="건물명" FLOOR="층" />,
+        Fee: <Fee RENT_GTN="보증금" RENT_FEE="월세" />,
+        Area: <Area BLDG_AREA="건물면적" />,
+        HouseUse: <HouseUse BUILD_YEAR="건축년도" HOUSE_TYPE="건물용도" />,
       },
     ],
   };

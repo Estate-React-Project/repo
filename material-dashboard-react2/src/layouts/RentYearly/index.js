@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable import/no-unresolved */
 /**
 =========================================================
@@ -34,30 +36,166 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import rentData from "layouts/RentYearly/data/rentData";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Stack } from "@mui/system";
+import { MonitorSharp } from "@mui/icons-material";
 
 function Tables() {
-  const { columns, rows } = rentData();
-  // const { columns: pColumns, rows: pRows } = rentGraph();
+  const [houseType, setHouseType] = useState("");
+  const [list, setList] = useState("");
+
+  useEffect(() => {
+    const loadYearlyRentList = async () => {
+      const response = await axios.get(
+        `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?HouseType=${houseType}`
+      );
+      setList(response.data);
+      console.log(response);
+    };
+    loadYearlyRentList();
+  }, [houseType]);
+
+  function Date({ CNTRCT_DE }) {
+    return (
+      <MDBox display="flex" alignItems="center" lineHeight={1}>
+        <MDBox ml={2} lineHeight={1}>
+          <MDTypography display="block" variant="button" fontWeight="medium">
+            {CNTRCT_DE}
+          </MDTypography>
+        </MDBox>
+      </MDBox>
+    );
+  }
+
+  function GuDongName({ SGG_NM, BJDONG_NM }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {SGG_NM}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BJDONG_NM}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Bldg({ BLDG_NM, FLOOR }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BLDG_NM}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {FLOOR}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Fee({ RENT_GTN, RENT_FEE }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {RENT_GTN}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {RENT_FEE}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Area({ BLDG_AREA }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BLDG_AREA}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function HouseUse({ BUILD_YEAR, HOUSE_TYPE }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BUILD_YEAR}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {HOUSE_TYPE}
+        </MDTypography>
+      </MDBox>
+    );
+  }
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDButton variant="outlined" color="info" size="large">
-        아파트
+      <MDButton
+        variant="outlined"
+        color="info"
+        size="large"
+        onClick={() => {
+          setHouseType("아파트");
+        }}
+      >
+        <Icon>apartment</Icon>&nbsp;아파트
       </MDButton>
-      <MDButton variant="outlined" color="info" size="large">
-        연립다세대
+      <MDButton
+        variant="outlined"
+        color="info"
+        size="large"
+        onClick={() => {
+          setHouseType("연립다세대");
+        }}
+      >
+        <Icon>home</Icon>&nbsp;연립다세대
       </MDButton>
-      <MDButton variant="outlined" color="info" size="large">
-        단독다가구
+      <MDButton
+        variant="outlined"
+        color="info"
+        size="large"
+        onClick={() => {
+          setHouseType("딘독다가구");
+        }}
+      >
+        <Icon>house</Icon>&nbsp;단독다가구
       </MDButton>
-      <MDButton variant="outlined" color="info" size="large">
-        오피스텔
+      <MDButton
+        variant="outlined"
+        color="info"
+        size="large"
+        onClick={() => {
+          setHouseType("오피스텔");
+        }}
+      >
+        <Icon>business</Icon>&nbsp;오피스텔
       </MDButton>
       <MDBox>
         <DataTable
-          table={{ columns, rows }}
+          table={{
+            columns: [
+              { Header: "계약일", accessor: "Date", align: "center" },
+              { Header: "주소(구,동)", accessor: "GuDongName", align: "center" },
+              { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+              { Header: "보증금, 월세", accessor: "Fee", align: "center" },
+              { Header: "건물면적", accessor: "Area", align: "center" },
+              { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
+            ],
+
+            rows: [
+              {
+                Date: <Date CNTRCT_DE="접수연도" />,
+                GuDongName: <GuDongName SGG_NM="자치구 명" BJDONG_NM="법정동 명" />,
+                Bldg: <Bldg BLDG_NM="건물명" FLOOR="층" />,
+                Fee: <Fee RENT_GTN="보증금" RENT_FEE="월세" />,
+                Area: <Area BLDG_AREA="건물면적" />,
+                HouseUse: <HouseUse BUILD_YEAR="건축년도" HOUSE_TYPE="건물용도" />,
+              },
+            ],
+          }}
           isSorted={false}
           pagination={{ variant: "gradient", color: "secondary" }}
           entriesPerPage

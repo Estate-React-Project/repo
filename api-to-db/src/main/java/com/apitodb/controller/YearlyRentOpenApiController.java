@@ -4,13 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.apitodb.dto.RentYearlyDto;
 
 @Controller
 @RequestMapping(path = { "/openapi" })
@@ -274,5 +278,77 @@ public class YearlyRentOpenApiController {
 		return yearlyCountDataByGBN;
 	}
 	
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadYearlyRentList" })
+	public List<RentYearlyDto> searchYearlyRentList(String houseType) {
+		
+		List<RentYearlyDto> yearlyLists = new ArrayList<>();
+		
+		if (houseType.length() == 0) {
+			return yearlyLists;
+		}
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2");
+			
+			String sql = "SELECT *\n" +
+						 "FROM Rent\n" +
+						 "WHERE RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"2022%\" AND HOUSE_GBN_NM LIKE ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, '%' + houseType + '%');
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				RentYearlyDto yearlyList = new RentYearlyDto();
+				
+				yearlyList.setCntrctDe(rs.getString(3));
+				yearlyList.setSggNm(rs.getString(7));
+				yearlyList.setBjdongNm(rs.getString(9));
+				yearlyList.setBldgNm(rs.getString(14));
+				yearlyList.setFloor(rs.getString(10));
+				yearlyList.setRentGtn(rs.getString(12));
+				yearlyList.setRentFee(rs.getString(13));
+				yearlyList.setBldgArea(rs.getString(11));
+				yearlyList.setBuildYear(rs.getString(15));
+				yearlyList.setHouseType(rs.getString(16));
+				
+				yearlyLists.add(yearlyList);
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+		
+		return yearlyLists;
+	}
+	
 	
 }
+
+
+
+
+
