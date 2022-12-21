@@ -69,7 +69,8 @@ function Tables() {
       <DashboardNavbar />
       <MDInput
         type="search"
-        label="구를 입력해주십시오"
+        // label="구를 입력해주십시오"
+        label="Search Gu"
         value={preGu}
         pattern=".{2,30}"
         onChange={(e) => {
@@ -80,7 +81,7 @@ function Tables() {
         color="info"
         onClick={(e) => {
           if (preGu.length < 2) {
-            alert("error");
+            alert("두 글자 이상 입력해주십시오");
             setPreGu("");
             return;
           }

@@ -38,10 +38,23 @@ import ManagePieChartData from "./data/ManagePieChartData";
 import CrrdprPieChartData from "./data/CrrdprPieChartData";
 import HeatPieChartData from "./data/HeatPieChartData";
 import DongCoChartData from "./data/DongCoChartData";
+import AptListData from "./data/AptListData";
 
 function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [aptList, setAptList] = useState("");
   const [countInfo, setCountInfo] = useState("");
+
+  // 아파트 리스트
+  useEffect(() => {
+    const loadAptList = async () => {
+      const response = await axios.get(`http://127.0.0.1:8080/web-scraping/openapi/loadAptList`);
+      // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
+      // console.log(response.data);
+      setAptList(response.data);
+    };
+    loadAptList();
+  }, []);
 
   useEffect(() => {
     const loadAptInfoCount = async () => {
@@ -68,9 +81,8 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="warning"
                 borderRadius="lg"
-                coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
                   동별 아파트 목록
@@ -78,7 +90,8 @@ function Tables() {
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
+                  // table={{ columns: pColumns, rows: pRows }}
+                  table={AptListData(aptList)}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
