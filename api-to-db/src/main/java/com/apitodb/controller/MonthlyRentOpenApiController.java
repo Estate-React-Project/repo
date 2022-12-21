@@ -21,8 +21,6 @@ import com.apitodb.dto.RentMonthlyDto;
 @RequestMapping(path= {"/openapi"})
 public class MonthlyRentOpenApiController {
 	
-	String Floor;
-	
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadMonthlyRentCount" })
@@ -261,7 +259,8 @@ public class MonthlyRentOpenApiController {
 				month.setSggNm(rs.getString(7));
 				month.setBjdongNm(rs.getString(9));
 				month.setBldgNm(rs.getString(14));
-				month.setFloor(rs.getString(10));
+				String prFloor = rs.getString(10).equals("0") ? "단일" : rs.getString(10);
+				month.setFloor(prFloor);
 				month.setRentGtn(rs.getString(12));
 				month.setRentFee(rs.getString(13));
 				month.setBldgArea(rs.getString(11));
