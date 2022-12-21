@@ -19,7 +19,7 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 
 // react-chartjs-2 components
-import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -29,11 +29,28 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-// HeatChart configurations
-import configs from "examples/Charts/PieChart/configs";
+// DongCoBarChart configurations
+import colors from "assets/theme/base/colors";
 
-function HeatChart({ icon, title, description, height, chart }) {
-  const { data, options } = configs(chart.labels || [], chart.datasets || {});
+// Material Dashboard 2 React base styles
+import configs from "../VerticalBarChart/configs";
+
+function DongCoBarChart({ icon, title, description, height, chart }) {
+  const chartDatasets = chart.datasets
+    ? chart.datasets.map((dataset) => ({
+        ...dataset,
+        weight: 5,
+        borderWidth: 0,
+        borderRadius: 4,
+        backgroundColor: colors[dataset.color]
+          ? colors[dataset.color || "dark"].main
+          : colors.dark.main,
+        fill: false,
+        maxBarThickness: 35,
+      }))
+    : [];
+
+  const { data, options } = configs(chart.labels || [], chartDatasets);
 
   const renderChart = (
     <MDBox py={2} pr={2} pl={icon.component ? 1 : 2}>
@@ -70,7 +87,7 @@ function HeatChart({ icon, title, description, height, chart }) {
       {useMemo(
         () => (
           <MDBox height={height}>
-            <Pie data={data} options={options} />
+            <Bar data={data} options={options} />
           </MDBox>
         ),
         [chart, height]
@@ -81,16 +98,16 @@ function HeatChart({ icon, title, description, height, chart }) {
   return title || description ? <Card>{renderChart}</Card> : renderChart;
 }
 
-// Setting default values for the props of HeatChart
-HeatChart.defaultProps = {
+// Setting default values for the props of DongCoBarChart
+DongCoBarChart.defaultProps = {
   icon: { color: "info", component: "" },
   title: "",
   description: "",
   height: "19.125rem",
 };
 
-// Typechecking props for the HeatChart
-HeatChart.propTypes = {
+// Typechecking props for the DongCoBarChart
+DongCoBarChart.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
       "primary",
@@ -107,7 +124,7 @@ HeatChart.propTypes = {
   title: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
+  chart: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
-export default HeatChart;
+export default DongCoBarChart;

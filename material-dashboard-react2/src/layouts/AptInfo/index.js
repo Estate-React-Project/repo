@@ -29,13 +29,10 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import projectsTableData from "layouts/AptInfo/data/projectsTableData";
-import HshldrChart from "examples/Charts/PieChart/HshldrChart";
-import ManageChart from "examples/Charts/PieChart/ManageChart";
-import CrrdprChart from "examples/Charts/PieChart/CrrdprChart";
-import HeatChart from "examples/Charts/PieChart/HeatChart";
-import DongCoChart from "examples/Charts/BarCharts/DongCoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PieChart from "examples/Charts/PieChart";
+import DongCoBarChart from "examples/Charts/BarCharts/DongCoBarChart";
 import HshldrPieChartData from "./data/HshldrPieChartData";
 import ManagePieChartData from "./data/ManagePieChartData";
 import CrrdprPieChartData from "./data/CrrdprPieChartData";
@@ -92,7 +89,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <HshldrChart
+              <PieChart
                 icon={{ color: "info", component: "apartment" }}
                 title="아파트 세대 타입"
                 description="2022.12.19 기준"
@@ -108,7 +105,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <ManageChart
+              <PieChart
                 icon={{ color: "primary", component: "apartment" }}
                 title="아파트 관리 방식"
                 description="2022.12.19 기준"
@@ -124,7 +121,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <CrrdprChart
+              <PieChart
                 icon={{ color: "secondary", component: "apartment" }}
                 title="아파트 복도 유형"
                 description="2022.12.19 기준"
@@ -140,7 +137,7 @@ function Tables() {
           </Grid>
           <Grid item xs={12}>
             <MDBox mb={3}>
-              <HeatChart
+              <PieChart
                 icon={{ color: "error", component: "apartment" }}
                 title="아파트 난방 방식"
                 description="2022.12.19 기준"
@@ -155,7 +152,7 @@ function Tables() {
           </Grid>
           <Grid item xs={12}>
             <MDBox mb={3}>
-              <DongCoChart
+              <DongCoBarChart
                 icon={{ color: "success", component: "apartment" }}
                 title="전체 동 수"
                 description="2022.12.19 기준"
