@@ -4,18 +4,16 @@ import lombok.Data;
 
 @Data
 public class RentMonthlyDto {
-	private int CntrctDe;
+	private String CntrctDe;
 	private String SggNm;
 	private String BjdongNm;
 	private String BldgNm;
-	private int Floor;
-	private int RentGtn;
-	private int RentFee;
-	private double BldgArea;
-	private double TotArea;
-	private int BuildYear;
+	private String Floor;
+	private String RentGtn;
+	private String RentFee;
+	private String BldgArea;
+	private String BuildYear;
 	private String HouseType;
-	private String ReqGbn;
 	
 	
 }
