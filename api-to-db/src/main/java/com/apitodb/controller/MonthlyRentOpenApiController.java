@@ -21,6 +21,8 @@ import com.apitodb.dto.RentMonthlyDto;
 @RequestMapping(path= {"/openapi"})
 public class MonthlyRentOpenApiController {
 	
+	String Floor;
+	
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadMonthlyRentCount" })
@@ -223,6 +225,7 @@ public class MonthlyRentOpenApiController {
 	@GetMapping(path = { "/loadMonthlyRentChart" })
 	public List<RentMonthlyDto> searchMonthlyRentChart(String houseType) {	
 		List<RentMonthlyDto> months = new ArrayList<>();
+		
 		if(houseType.length() == 0) {
 			return months;
 		}
@@ -252,6 +255,7 @@ public class MonthlyRentOpenApiController {
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				RentMonthlyDto month = new RentMonthlyDto();
+				
 				
 				month.setCntrctDe(rs.getString(3));
 				month.setSggNm(rs.getString(7));

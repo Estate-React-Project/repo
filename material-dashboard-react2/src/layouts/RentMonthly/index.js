@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable import/no-unresolved */
 /**
 =========================================================
@@ -14,10 +16,18 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+// @mui material components
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
+
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
-import Icon from "@mui/material/Icon";
+import MDInput from "components/MDInput";
+import MDTypography from "components/MDTypography";
+import MDPagination from "components/MDPagination";
+import MixedChart from "examples/Charts/MixedChart";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -25,28 +35,106 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import monthlyTradeTable from "./data/monthlyTradeTable";
+import { Stack } from "@mui/system";
+import { MonitorSharp } from "@mui/icons-material";
+import MDAlert from "components/MDAlert";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
-  const [houseDatas, setHouseDatas] = useState();
+  const [list, setList] = useState();
 
   useEffect(() => {
     const months = async () => {
-      if (houseType.length !== 0) {
-        const response = await axios.get(
-          `http://localhost:8080/web-scraping/openapi/loadMonthlyRentChart?houseType=${houseType}`
-        );
-        // const response = await axios.get(`/web-scraping/openapi/loadAptDealCount`);
-        console.log(response.data);
-        setHouseDatas(response.data);
+      const response = await axios.get(
+        `http://localhost:8080/web-scraping/openapi/loadMonthlyRentChart?houseType=${houseType}`
+      );
+      setList(response.data);
+      if (response.data.length === 0) {
+        alert("상단의 건물 용도를 선택하세요.");
       }
     };
     months();
   }, [houseType]);
+
+  function Date({ CNTRCT_DE }) {
+    return (
+      <MDBox display="flex" alignItems="center" lineHeight={1}>
+        <MDBox ml={2} lineHeight={1}>
+          <MDTypography display="block" variant="button" fontWeight="medium">
+            {CNTRCT_DE}
+          </MDTypography>
+        </MDBox>
+      </MDBox>
+    );
+  }
+
+  function GuDongName({ SGG_NM, BJDONG_NM }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {SGG_NM}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BJDONG_NM}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Bldg({ BLDG_NM, FLOOR }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BLDG_NM}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {FLOOR}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Fee({ RENT_GTN, RENT_FEE }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {RENT_GTN}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {RENT_FEE}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function Area({ BLDG_AREA }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BLDG_AREA}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  function HouseUse({ BUILD_YEAR, HOUSE_TYPE }) {
+    return (
+      <MDBox lineHeight={1} textAlign="left">
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {BUILD_YEAR}
+        </MDTypography>
+        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+          {HOUSE_TYPE}
+        </MDTypography>
+      </MDBox>
+    );
+  }
+
+  if (list == null) {
+    return null;
+  }
   return (
     // Material Dashboard 2 React Example
     <DashboardLayout>
@@ -91,8 +179,39 @@ function Tables() {
       >
         <Icon>business</Icon>&nbsp;오피스텔
       </MDButton>
+      <br />
+      <br />
+      <Stack>
+        <MDInput label="주소지의 구 or 동을 입력하세요." size="large" />
+      </Stack>
       <MDBox>
-        <DataTable table={monthlyTradeTable(houseDatas)} />
+        <DataTable
+          table={{
+            columns: [
+              { Header: "계약일", accessor: "Date", align: "center" },
+              { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
+              { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+              { Header: "보증금, 월세(만원)", accessor: "Fee", align: "center" },
+              { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
+              { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
+            ],
+
+            rows: list.map((contract) => ({
+              Date: <Date CNTRCT_DE={contract.cntrctDe} />,
+              GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
+              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
+              Fee: <Fee RENT_GTN={contract.rentGtn} RENT_FEE={contract.rentFee} />,
+              Area: <Area BLDG_AREA={contract.bldgArea} />,
+              HouseUse: (
+                <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
+              ),
+            })),
+          }}
+          isSorted={false}
+          pagination={{ variant: "gradient", color: "info" }}
+          entriesPerPage
+          noEndBorder
+        />
       </MDBox>
     </DashboardLayout>
   );
