@@ -32,7 +32,23 @@ import axios from "axios";
 function Tables() {
   const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [gu, setGu] = useState("강남구");
+  const [dealDatas, setDealDatas] = useState();
+  const [preGu, setPreGu] = useState("");
 
+  useEffect(() => {
+    const months = async () => {
+      if (gu.length !== 0) {
+        const response = await axios.get(
+          `http://localhost:8080/web-scraping/openapi/loadMonthlyRentChart?gu=${gu}`
+        );
+        // const response = await axios.get(`/web-scraping/openapi/loadAptDealCount`);
+        console.log(response.data);
+        setDealDatas(response.data);
+      }
+    };
+    months();
+  }, [gu]);
   return (
     // Material Dashboard 2 React Example
     <DashboardLayout>
