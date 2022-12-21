@@ -39,6 +39,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import { MonitorSharp } from "@mui/icons-material";
+import MDAlert from "components/MDAlert";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
@@ -50,6 +51,9 @@ function Tables() {
         `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}`
       );
       setList(response.data);
+      if (response.data.length === 0) {
+        alert("상단의 건물 용도를 선탁하세요.");
+      }
     };
     loadYearlyRentList();
   }, [houseType]);
@@ -157,7 +161,7 @@ function Tables() {
         color="info"
         size="large"
         onClick={() => {
-          setHouseType("딘독다가구");
+          setHouseType("단독다가구");
         }}
       >
         <Icon>house</Icon>&nbsp;단독다가구
@@ -172,15 +176,20 @@ function Tables() {
       >
         <Icon>business</Icon>&nbsp;오피스텔
       </MDButton>
+      <br />
+      <br />
+      <Stack>
+        <MDInput label="주소지의 구 or 동을 입력하세요." size="large" />
+      </Stack>
       <MDBox>
         <DataTable
           table={{
             columns: [
               { Header: "계약일", accessor: "Date", align: "center" },
-              { Header: "주소(구,동)", accessor: "GuDongName", align: "center" },
+              { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
               { Header: "건물명, 층", accessor: "Bldg", align: "center" },
-              { Header: "보증금", accessor: "Fee", align: "center" },
-              { Header: "건물면적", accessor: "Area", align: "center" },
+              { Header: "보증금(만원)", accessor: "Fee", align: "center" },
+              { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
               { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
             ],
 
@@ -196,9 +205,8 @@ function Tables() {
             })),
           }}
           isSorted={false}
-          pagination={{ variant: "gradient", color: "secondary" }}
+          pagination={{ variant: "gradient", color: "info" }}
           entriesPerPage
-          showTotalEntries={false}
           noEndBorder
         />
       </MDBox>
