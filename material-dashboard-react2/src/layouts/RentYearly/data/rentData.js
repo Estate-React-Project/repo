@@ -23,13 +23,14 @@ import MDBadge from "components/MDBadge";
 // Images
 
 export default function data() {
-  const Division = ({ RENT_GBN }) => (
-    <MDBox display="flex" alignItems="center" lineHeight={1}>
-      <MDBox ml={2} lineHeight={1}>
-        <MDTypography display="block" variant="button" fontWeight="medium">
-          {RENT_GBN}
-        </MDTypography>
-      </MDBox>
+  const Division = ({ RENT_GBN, HOUSE_GBN_NM }) => (
+    <MDBox>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {RENT_GBN}
+      </MDTypography>
+      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+        {HOUSE_GBN_NM}
+      </MDTypography>
     </MDBox>
   );
 
@@ -55,16 +56,13 @@ export default function data() {
     </MDBox>
   );
 
-  const Building = ({ BLDG_NM, BUILD_YEAR, HOUSE_GBN_NM }) => (
+  const Building = ({ BLDG_NM, BUILD_YEAR }) => (
     <MDBox>
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {BLDG_NM}
       </MDTypography>
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {BUILD_YEAR}
-      </MDTypography>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {HOUSE_GBN_NM}
       </MDTypography>
     </MDBox>
   );
@@ -93,10 +91,10 @@ export default function data() {
 
     rows: [
       {
-        division: <Division RENT_GBN="전월세구분" />,
+        division: <Division RENT_GBN="전월세구분" HOUSE_GBN_NM="건물용도" />,
         location: <Location SGG_NM="자치구명" SGG_CD="자치구코드" />,
         cost: <Cost RENT_GTN="보증금" RENT_FEE="임대료" />,
-        building: <Building BLDG_NM="건물명" BUILD_YEAR="건축연도" HOUSE_GBN_NM="건물용도" />,
+        building: <Building BLDG_NM="건물명" BUILD_YEAR="건축연도" />,
         detail: <Detail RENT_AREA="임대면적" FLR_NO="건물층" />,
         contract_period: (
           <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
