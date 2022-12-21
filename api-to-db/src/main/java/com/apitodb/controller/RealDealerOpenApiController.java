@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.apitodb.dto.AptDealDto;
 import com.apitodb.dto.RealDealerDto;
 
 @Controller
@@ -149,11 +150,11 @@ public class RealDealerOpenApiController {
 		return "openapi/realDealer";
 	}
 	
+	//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
 	@CrossOrigin
 	@GetMapping(path = { "/load-all-dealer" })
 	@ResponseBody
-	public List<RealDealerDto> loadAllDealer(Model model) {
-		// 데이터베이스에서 데이터 조회 (DTO 만들기 + JDBC 코드 사용 )
+	public List<RealDealerDto> loadAllDealer(Model model) { // 데이터베이스에서 데이터 조회 (DTO 만들기 + JDBC 코드 사용 )
 
 			Connection conn = null;			// 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
 			PreparedStatement pstmt = null;	// 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
@@ -206,6 +207,105 @@ public class RealDealerOpenApiController {
 			}
 		
 		return dealers;
+	}
+	
+	// 키워드 검색해서 중개업소 찾기
+	// 컬럼을 조회 하기 : 주소기
+	@CrossOrigin
+	@GetMapping(path = { "/load-all-dealer" })
+	@ResponseBody
+	public List<RealDealerDto> searchAllDealer(String address) {
+		
+		List<RealDealerDto> dealers = new ArrayList<>();
+
+		// DB에 저장하는 코드
+		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		Connection conn2 = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt2 = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		
+		try {
+			// 1. Driver 등록
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// 2. 연결 및 연결 객체 가져오기
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2"); // 데이터베이스 계정 정보
+			conn2 = DriverManager.getConnection(
+					"jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2"); // 데이터베이스 계정 정보
+
+			// 3. SQL 작성 + 명령 객체 가져오기
+			String sql2 = 
+					"SELECT * " +
+					"FROM RealDealer ";
+
+			pstmt2 = conn2.prepareStatement(sql2);
+			pstmt2.setString(1, '%' + address + '%');
+			
+			// 4. 명령 실행
+			rs2 = pstmt2.executeQuery();
+			
+			int rsCnt = 0;
+			while (rs2.next()) {
+				rsCnt = rs2.getRow();
+			}
+			if (rsCnt == 1) {
+			// 3-1. 해당 주소 SELECT
+			String sql = 
+						"SELECT * " +
+						"FROM RealDealer ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, '%' + address + '%');
+			
+			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+			while (rs.next()) { // 결과 집합의 다음 행으로 이동
+				RealDealerDto dealer = new RealDealerDto();
+
+					dealer.setRdealerNm(rs.getString(1));
+					dealer.setRaRegno(rs.getString(2));
+					dealer.setAddress(rs.getString(3));
+					dealer.setCmpNm(rs.getString(4));
+					dealer.setTelNo(rs.getString(5));
+					dealer.setStsGbn(rs.getString(6));
+					dealer.setSggNm(rs.getString(7));				
+					
+					dealers.add(dealer);
+				}
+				
+				} else {
+					
+					return dealers;
+				}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace(); // 개발 용도로 사용
+		} finally {
+			// 6. 연결 닫기
+			try {
+				rs2.close();
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt2.close();
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn2.close();
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return dealers;
+		
 	}
 	
 }

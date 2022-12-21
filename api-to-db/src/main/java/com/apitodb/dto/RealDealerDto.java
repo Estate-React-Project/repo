@@ -12,6 +12,5 @@ public class RealDealerDto {
 	private String TelNo;				// 전화번호	TELNO	(None)	INT  
 	private String StsGbn;			// 상태구분	STS_GBN	(None)	VARCHAR(10)
 	private String SggNm;			// 자치구명	SGG_NM	(None)	VARCHAR(20)
-	
-	
+
 }

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 import { Map, MapMarker, MapTypeId } from "react-kakao-maps-sdk";
+
 // eslint-disable-next-line import/no-unresolved
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
@@ -128,8 +129,8 @@ function RealDealerMap() {
       >
         {markers.map((marker) => (
           <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng},${pos.lat}-${pos.lng}`}
-            position={marker.position,pos}
+            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+            position={marker.position}
             onClick={() => setInfo(marker)}
           >
             {info && info.content === marker.content && (
