@@ -208,15 +208,4 @@ public class RealDealerOpenApiController {
 		return dealers;
 	}
 	
-	@CrossOrigin	
-	@GetMapping(path = { "/load-all-dealer" })
-	@ResponseBody
-	public List<RealDealerDto> searchAllDealer {
-		
-		ArrayList<RealDealerDto> dealers = new ArrayList<>();		// 조회한 데이터를 저장할 DTO 객체
-		
-		
-
-	}
-	
 }
