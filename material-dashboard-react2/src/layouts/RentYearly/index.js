@@ -35,7 +35,6 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import rentData from "layouts/RentYearly/data/rentData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
@@ -43,15 +42,14 @@ import { MonitorSharp } from "@mui/icons-material";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
-  const [list, setList] = useState("");
+  const [list, setList] = useState(null);
 
   useEffect(() => {
     const loadYearlyRentList = async () => {
       const response = await axios.get(
-        `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?HouseType=${houseType}`
+        `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}`
       );
       setList(response.data);
-      console.log(response);
     };
     loadYearlyRentList();
   }, [houseType]);
@@ -130,6 +128,10 @@ function Tables() {
     );
   }
 
+  if (list == null) {
+    return null;
+  }
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -185,16 +187,16 @@ function Tables() {
               { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
             ],
 
-            rows: [
-              {
-                Date: <Date CNTRCT_DE="접수연도" />,
-                GuDongName: <GuDongName SGG_NM="자치구 명" BJDONG_NM="법정동 명" />,
-                Bldg: <Bldg BLDG_NM="건물명" FLOOR="층" />,
-                Fee: <Fee RENT_GTN="보증금" RENT_FEE="월세" />,
-                Area: <Area BLDG_AREA="건물면적" />,
-                HouseUse: <HouseUse BUILD_YEAR="건축년도" HOUSE_TYPE="건물용도" />,
-              },
-            ],
+            rows: list.map((contract) => ({
+              Date: <Date CNTRCT_DE={contract.cntrctDe} />,
+              GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
+              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={contract.floor} />,
+              Fee: <Fee RENT_GTN={contract.rentGtn} RENT_FEE={contract.rentFee} />,
+              Area: <Area BLDG_AREA={contract.bldgArea} />,
+              HouseUse: (
+                <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
+              ),
+            })),
           }}
           isSorted={false}
           pagination={{ variant: "gradient", color: "secondary" }}
