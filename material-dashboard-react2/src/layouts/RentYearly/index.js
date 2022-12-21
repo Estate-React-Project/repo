@@ -92,14 +92,11 @@ function Tables() {
     );
   }
 
-  function Fee({ RENT_GTN, RENT_FEE }) {
+  function Fee({ RENT_GTN }) {
     return (
       <MDBox lineHeight={1} textAlign="left">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {RENT_GTN}
-        </MDTypography>
-        <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-          {RENT_FEE}
         </MDTypography>
       </MDBox>
     );
@@ -182,7 +179,7 @@ function Tables() {
               { Header: "계약일", accessor: "Date", align: "center" },
               { Header: "주소(구,동)", accessor: "GuDongName", align: "center" },
               { Header: "건물명, 층", accessor: "Bldg", align: "center" },
-              { Header: "보증금, 월세", accessor: "Fee", align: "center" },
+              { Header: "보증금", accessor: "Fee", align: "center" },
               { Header: "건물면적", accessor: "Area", align: "center" },
               { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
             ],
@@ -190,8 +187,8 @@ function Tables() {
             rows: list.map((contract) => ({
               Date: <Date CNTRCT_DE={contract.cntrctDe} />,
               GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
-              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={contract.floor} />,
-              Fee: <Fee RENT_GTN={contract.rentGtn} RENT_FEE={contract.rentFee} />,
+              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
+              Fee: <Fee RENT_GTN={contract.rentGtn} />,
               Area: <Area BLDG_AREA={contract.bldgArea} />,
               HouseUse: (
                 <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
