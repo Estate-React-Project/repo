@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -192,12 +193,16 @@ public class AptDealOpenApiController {
 	@ResponseBody
 	@GetMapping(path = { "/loadAptDeals" })
 	public List<AptDealDto> searchAptDeals(String gu) {
+		
 		List<AptDealDto> deals = new ArrayList<>();
 
 		// DB에 저장하는 코드
 		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		Connection conn2 = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
 		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt2 = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
 		ResultSet rs = null;
+		ResultSet rs2 = null;
 
 		try {
 			// 1. Driver 등록
@@ -206,20 +211,35 @@ public class AptDealOpenApiController {
 			// 2. 연결 및 연결 객체 가져오기
 			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
 					"team2", "team2"); // 데이터베이스 계정 정보
+			conn2 = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2"); // 데이터베이스 계정 정보
 
-			// 3. SQL 작성 + 명령 객체 가져오기
-			String sql = "SELECT * FROM AptDeal WHERE dealYear = 2020 AND adresGu LIKE ? ORDER BY adresDong ";
+			// 3-1. 구 검색 결과 필터링
+			String sql2 = "SELECT * FROM AptDeal WHERE dealYear = 2020 AND adresGu LIKE ? GROUP BY adresGu ";
+			
+			pstmt2 = conn2.prepareStatement(sql2);
+			pstmt2.setString(1, '%' + gu + '%');
+			
+			// 4-1. 명령 실행
+			rs2 = pstmt2.executeQuery();
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, '%' + gu + '%');
+			int rsCnt = 0;
+			while (rs2.next()) {
+				rsCnt = rs2.getRow();
+			}
+			if (rsCnt == 1) {
+				// 3-2. 해당 구 데이터 SELECT
+				String sql = "SELECT * FROM AptDeal WHERE dealYear = 2020 AND adresGu LIKE ? ORDER BY adresDong ";
 
-			// 4. 명령 실행
-			rs = pstmt.executeQuery();
-			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
-			while (rs.next()) { // 결과 집합의 다음 행으로 이동
-				AptDealDto deal = new AptDealDto();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, '%' + gu + '%');
 
-				if (deal != null) {
+				// 4-2. 명령 실행
+				rs = pstmt.executeQuery();
+				// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+				while (rs.next()) { // 결과 집합의 다음 행으로 이동
+					AptDealDto deal = new AptDealDto();
+
 					deal.setAdresGu(rs.getString(2));
 					deal.setAdresDong(rs.getString(3));
 					deal.setGunA(rs.getInt(5));
@@ -232,19 +252,29 @@ public class AptDealOpenApiController {
 					deal.setPrD(rs.getDouble(12));
 					deal.setGunE(rs.getInt(13));
 					deal.setPrE(rs.getDouble(14));
-
 					deals.add(deal);
 				}
+			} else {
+				return deals;
 			}
+			
+			
 		} catch (Exception ex) {
 			ex.printStackTrace(); // 개발 용도로 사용
 		} finally {
 			// 6. 연결 닫기
 			try {
+				rs2.close();
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt2.close();
 				pstmt.close();
 			} catch (Exception ex) {
 			}
 			try {
+				conn2.close();
 				conn.close();
 			} catch (Exception ex) {
 			}
