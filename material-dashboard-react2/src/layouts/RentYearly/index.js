@@ -33,7 +33,6 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import rentData from "layouts/RentYearly/data/rentData";
-import rentGraph from "layouts/RentYearly/data/rentGraph";
 import { Stack } from "@mui/system";
 
 function Tables() {

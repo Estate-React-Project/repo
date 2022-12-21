@@ -135,12 +135,12 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                <GunPrBChart
+                {/* <GunPrBChart
                   // title={data.adresGu}
                   title="GunPrBChart"
                   description="(2020년 기준)"
                   chart={{ GunPrBChartData }}
-                />
+                /> */}
               </MDBox>
             </Card>
           </Grid>
@@ -161,12 +161,12 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                <GunPrCChart
+                {/* <GunPrCChart
                   // title={data.adresGu}
                   title="GunPrCChart"
                   description="(2020년 기준)"
                   chart={{ GunPrCChartData }}
-                />
+                /> */}
               </MDBox>
             </Card>
           </Grid>
@@ -187,12 +187,12 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                <GunPrDChart
+                {/* <GunPrDChart
                   // title={data.adresGu}
                   title="GunPrDChart"
                   description="(2020년 기준)"
                   chart={{ GunPrDChartData }}
-                />
+                /> */}
               </MDBox>
             </Card>
           </Grid>
@@ -213,12 +213,12 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                <GunPrEChart
+                {/* <GunPrEChart
                   // title={data.adresGu}
                   title="GunPrEChart"
                   description="(2020년 기준)"
                   chart={{ GunPrEChartData }}
-                />
+                /> */}
               </MDBox>
             </Card>
           </Grid>

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.1.0
@@ -36,6 +37,9 @@ import MDButton from "components/MDButton";
 import AuthorsTableData from "./data/authorsTableData";
 import RebuildInfo from "./components/RebuildInfo";
 
+// import kakaoMap
+import RebuildMap from "./map/RebuildMap";
+
 function Tables() {
   const [tableData, setTableData] = useState(null);
   const [gu, setGu] = useState("");
@@ -64,6 +68,7 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <RebuildMap />
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -94,7 +99,7 @@ function Tables() {
                     size="medium"
                     onClick={() => {
                       setGu(preQuery);
-                      setPreQuery();
+                      setPreQuery("");
                     }}
                   >
                     SEARCH

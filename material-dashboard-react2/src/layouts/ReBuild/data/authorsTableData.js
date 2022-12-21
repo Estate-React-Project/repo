@@ -1,3 +1,6 @@
+import MDTypography from "components/MDTypography";
+import { dealloc } from "stylis";
+
 function AuthorsTableData(datas) {
   return {
     columns: [
@@ -29,9 +32,42 @@ function AuthorsTableData(datas) {
       ground: data.BILDNG_GROUND_FLOOR_CO,
       underground: data.BILDNG_UNDGRND_FLOOR_CO,
       sum: data.SUM_BILDNG_CO,
-      img1: data.LOCIMG01,
-      img2: data.LOCIMG02,
-      img3: data.LOCIMG03,
+      img1: (
+        <MDTypography
+          onClick={() => window.open(data.LOCIMG01, "_blank")}
+          component="a"
+          variant="caption"
+          href="#"
+          color="text"
+          fontWeight="medium"
+        >
+          위치도 보기
+        </MDTypography>
+      ),
+      img2: (
+        <MDTypography
+          onClick={() => window.open(data.LOCIMG02, "_blank")}
+          component="a"
+          href="#"
+          variant="caption"
+          color="text"
+          fontWeight="medium"
+        >
+          조감도 보기
+        </MDTypography>
+      ),
+      img3: (
+        <MDTypography
+          onClick={() => window.open(data.LOCIMG03, "_blank")}
+          component="a"
+          variant="caption"
+          href="#"
+          color="text"
+          fontWeight="medium"
+        >
+          배치도 보기
+        </MDTypography>
+      ),
     })),
   };
 }
