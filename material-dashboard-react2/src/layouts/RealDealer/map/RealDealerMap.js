@@ -56,6 +56,7 @@ function RealDealerMap() {
     searchAndShowPlaces();
   }, [map]);
   const [mapTypeId, setMapTypeId] = useState();
+  
   return (
     <MDBox>
       <br />
@@ -127,8 +128,8 @@ function RealDealerMap() {
       >
         {markers.map((marker) => (
           <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-            position={marker.position}
+            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng},${pos.lat}-${pos.lng}`}
+            position={marker.position,pos}
             onClick={() => setInfo(marker)}
           >
             {info && info.content === marker.content && (
