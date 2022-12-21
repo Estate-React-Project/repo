@@ -26,17 +26,13 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
-import authorsTableData from "layouts/RentMonthly/data/monthlyTradeTable";
-import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import monthlyTradeTable from "./data/monthlyTradeTable";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
   const [houseType, setHouseType] = useState("");
   const [houseDatas, setHouseDatas] = useState();
-  const [preGu, setPreGu] = useState("");
 
   useEffect(() => {
     const months = async () => {
@@ -96,14 +92,7 @@ function Tables() {
         <Icon>business</Icon>&nbsp;오피스텔
       </MDButton>
       <MDBox>
-        <DataTable
-          table={{ columns, rows }}
-          entriesForPage={houseDatas}
-          isSorted={false}
-          pagination={{ variant: "gradient", color: "secondary" }}
-          showTotalEntries={false}
-          noEndBorder
-        />
+        <DataTable table={monthlyTradeTable(houseDatas)} />
       </MDBox>
     </DashboardLayout>
   );
