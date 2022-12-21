@@ -208,7 +208,7 @@ function Tables() {
                     ],
                     datasets: [
                       {
-                        label: "전세 보증금",
+                        label: "전세 보증금별 거래량",
                         color: "dark",
                         data: [
                           guaranteeCount.dataByGuarantee1,

@@ -21,6 +21,7 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import MDPagination from "components/MDPagination";
@@ -42,23 +43,27 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  pagination={{ variant: "gradient", color: "secondary" }}
-                  entriesPerPage
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
-          </Grid>
-        </Grid>
+      <MDButton variant="outlined" color="info" size="large">
+        아파트
+      </MDButton>
+      <MDButton variant="outlined" color="info" size="large">
+        연립다세대
+      </MDButton>
+      <MDButton variant="outlined" color="info" size="large">
+        단독다가구
+      </MDButton>
+      <MDButton variant="outlined" color="info" size="large">
+        오피스텔
+      </MDButton>
+      <MDBox>
+        <DataTable
+          table={{ columns, rows }}
+          isSorted={false}
+          pagination={{ variant: "gradient", color: "secondary" }}
+          entriesPerPage
+          showTotalEntries={false}
+          noEndBorder
+        />
       </MDBox>
     </DashboardLayout>
   );

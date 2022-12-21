@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path = { "/openapi" })
 public class YearlyRentOpenApiController {
 
-	
+	// 월별 통계
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadYearlyRentCountByMonth" })
@@ -81,7 +81,7 @@ public class YearlyRentOpenApiController {
 		return yearlyCountData;
 	}
 
-	
+	// 보증금 통계
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadYearlyRentCountByGuarantee" })
@@ -139,7 +139,7 @@ public class YearlyRentOpenApiController {
 		return yearlyCountDataByGuarantee;
 	}
 	
-	
+	// 구별 통계
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadYearlyRentCountByGu" })
@@ -217,7 +217,7 @@ public class YearlyRentOpenApiController {
 		return yearlyCountDataByGu;
 	}
 	
-	
+	// 건물 용도별 통계
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadYearlyRentCountByGBN" })
