@@ -66,27 +66,21 @@ export default function data() {
     </MDBox>
   );
 
-  const Area = ({ BLDG_AREA, TOT_AREA }) => (
+  const Area = ({ BLDG_AREA }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {BLDG_AREA}
       </MDTypography>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {TOT_AREA}
-      </MDTypography>
     </MDBox>
   );
 
-  const HouseUse = ({ BUILD_YEAR, HOUSE_TYPE, REQ_GBN }) => (
+  const HouseUse = ({ BUILD_YEAR, HOUSE_TYPE }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {BUILD_YEAR}
       </MDTypography>
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
         {HOUSE_TYPE}
-      </MDTypography>
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {REQ_GBN}
       </MDTypography>
     </MDBox>
   );
@@ -103,7 +97,7 @@ export default function data() {
 
     rows: [
       {
-        Date: <Date CNTRCT_DE="접수연도" />,
+        Date: <Date CNTRCT_DE />,
         GuDongName: <GuDongName SGG_NM="자치구 명" BJDONG_NM="법정동 명" />,
         Bldg: <Bldg BLDG_NM="건물명" FLOOR="층" />,
         Fee: <Fee RENT_GTN="보증금" RENT_FEE="월세" />,

@@ -221,9 +221,11 @@ public class MonthlyRentOpenApiController {
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadMonthlyRentChart" })
-	public List<RentMonthlyDto> searchMonthlyRentChart(String gu) {	
+	public List<RentMonthlyDto> searchMonthlyRentChart(String houseType) {	
 		List<RentMonthlyDto> months = new ArrayList<>();
-		
+		if(houseType.length() == 0) {
+			return months;
+		}
 		// DB에 저장하는 코드
 		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
 		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
@@ -238,12 +240,12 @@ public class MonthlyRentOpenApiController {
 					"team2", "team2"); // 데이터베이스 계정 정보
 
 			// 3. SQL 작성 + 명령 객체 가져오기
-			String sql = "SELECT * \n"
-					+ "FROM Rent \n"
-					+ "WHERE RENT_GBN = \"월세\" AND CNTRCT_DE LIKE \"2022%\" AND SGG_NM LIKE ?";
+			String sql = "select *\n"
+					+ "from Rent\n"
+					+ "where RENT_GBN = \"월세\" AND CNTRCT_DE LIKE \"2022%\" AND HOUSE_GBN_NM LIKE ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, '%' + gu + '%');
+			pstmt.setString(1, '%' + houseType + '%');
 
 			// 4. 명령 실행
 			rs = pstmt.executeQuery();
@@ -251,20 +253,19 @@ public class MonthlyRentOpenApiController {
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				RentMonthlyDto month = new RentMonthlyDto();
 				
-				month.setCntrctDe(rs.getInt(2));
-				month.setSggNm(rs.getString(3));
-				month.setBjdongNm(rs.getString(4));
-				month.setBldgNm(rs.getString(5));
-				month.setFloor(rs.getInt(6));
-				month.setRentGtn(rs.getInt(7));
-				month.setRentFee(rs.getInt(8));
-				month.setBldgArea(rs.getDouble(9));
-				month.setTotArea(rs.getDouble(10));
-				month.setBuildYear(rs.getInt(11));
-				month.setHouseType(rs.getString(12));
-				month.setReqGbn(rs.getString(13));
+				month.setCntrctDe(rs.getString(3));
+				month.setSggNm(rs.getString(7));
+				month.setBjdongNm(rs.getString(9));
+				month.setBldgNm(rs.getString(14));
+				month.setFloor(rs.getString(10));
+				month.setRentGtn(rs.getString(12));
+				month.setRentFee(rs.getString(13));
+				month.setBldgArea(rs.getString(11));
+				month.setBuildYear(rs.getString(15));
+				month.setHouseType(rs.getString(16));
 				
 				months.add(month);
+				
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace(); // 개발 용도로 사용
