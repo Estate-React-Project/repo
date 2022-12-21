@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable import/no-unresolved */
@@ -44,6 +45,26 @@ import MDAlert from "components/MDAlert";
 function Tables() {
   const [houseType, setHouseType] = useState("");
   const [list, setList] = useState(null);
+  const [keyword, setKeyword] = useState("");
+
+  const changeHandler = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const clickHandler = (e) => {
+    // eslint-disable-next-line no-use-before-define
+    searchAndShowResult();
+    setKeyword("");
+  };
+
+  const searchAndShowResult = () => {
+    if (!keyword) return;
+
+    const url = `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
+    axios.get(url).then((response) => {
+      setList(response.data);
+    });
+  };
 
   useEffect(() => {
     const loadYearlyRentList = async () => {
@@ -52,7 +73,7 @@ function Tables() {
       );
       setList(response.data);
       if (response.data.length === 0) {
-        alert("상단의 건물 용도를 선탁하세요.");
+        alert("상단의 건물 용도를 선택하세요.");
       }
     };
     loadYearlyRentList();
@@ -179,7 +200,16 @@ function Tables() {
       <br />
       <br />
       <Stack>
-        <MDInput label="주소지의 구 or 동을 입력하세요." size="large" />
+        <MDInput
+          type="text"
+          value={keyword}
+          onChange={changeHandler}
+          label="검색 키워드를 입력하세요."
+          size="large"
+        />
+        <MDButton onClick={clickHandler} color="info">
+          Search
+        </MDButton>
       </Stack>
       <MDBox>
         <DataTable

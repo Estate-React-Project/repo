@@ -281,7 +281,7 @@ public class YearlyRentOpenApiController {
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadYearlyRentList" })
-	public List<RentYearlyDto> searchYearlyRentList(String houseType) {
+	public List<RentYearlyDto> searchYearlyRentList(String houseType, String keyword) {
 		
 		List<RentYearlyDto> yearlyLists = new ArrayList<>();
 		
@@ -299,12 +299,36 @@ public class YearlyRentOpenApiController {
 			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
 					"team2", "team2");
 			
-			String sql = "SELECT *\n" +
-						 "FROM Rent\n" +
-						 "WHERE RENT_GBN = \"전세\" AND CNTRCT_DE LIKE \"2022%\" AND HOUSE_GBN_NM LIKE ? ";
+			String sql = "SELECT * " +
+						 "FROM Rent " +
+						 "WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' AND HOUSE_GBN_NM LIKE ? ";
+			
+			String[] columns = { "CNTRCT_DE", 
+					"SGG_NM", 
+					"BJDONG_NM", 
+					"Bldg_Nm", 
+					"Flr_NO", 
+					"Rent_Gtn", 
+					"Rent_Fee", 
+					"rent_Area", 
+					"Build_Year" };
+			
+			if (keyword != null && keyword.length() > 0) {
+				sql += " AND (" + columns[0] + " LIKE ? ";
+				for (int i = 1; i < columns.length; i++) {
+					sql += "OR " + columns[i] + " LIKE ? ";
+				}
+				sql += ")";
+			}
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, '%' + houseType + '%');
+			
+			if (keyword != null && keyword.length() > 0) {
+				for (int i = 0; i < columns.length; i++) {
+					pstmt.setString(i + 2, "%" + keyword + "%");
+				}
+			}
 			
 			rs = pstmt.executeQuery();
 			
