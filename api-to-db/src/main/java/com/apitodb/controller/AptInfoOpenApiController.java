@@ -168,7 +168,7 @@ public class AptInfoOpenApiController {
 
 	}
 
-	
+	// 아파트 통계 차트 데이터 가져오기
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadAptInfoCount" })
@@ -259,10 +259,11 @@ public class AptInfoOpenApiController {
 
 	}
 	
+	// DB에 있는 아파트 목록 데이터 불러오기
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadAptList" })
-	public List<AptInfoDto> searchAptListData() {
+	public List<AptInfoDto> searchAptListData(String keyword) {
 
 		List<AptInfoDto> infos = new ArrayList<>();
 		
@@ -280,8 +281,33 @@ public class AptInfoOpenApiController {
 					"team2", "team2"); // 데이터베이스 계정 정보
 
 			// 3. SQL 작성 + 명령 객체 가져오기
-			String sql = " SELECT aptNm, adresGu, adresDong FROM AptInfo ORDER BY adresGu, adresDong, aptNm ";
+			String sql = "SELECT aptNm, adresGu, adresDong FROM AptInfo ";
+			
+			String[] columns = {
+					"aptNm",
+					"adresGu",
+					"adresDong"
+			};
+			
+			if (keyword == null) {
+				sql += "ORDER BY adresGu, adresDong, aptNm ";
+			} else {
+				if (keyword != null && keyword.length() > 0) {
+					sql += " WHERE " + columns[0] + " LIKE ? ";
+					for (int i = 1; i < columns.length; i++) {
+						sql += "OR " + columns[i] + " LIKE ? ";
+					}
+					sql += "ORDER BY adresGu, adresDong, aptNm ";
+				}
+			}
+				
 			pstmt = conn.prepareStatement(sql);
+			
+			if (keyword != null && keyword.length() > 0) {
+				for (int i = 0; i < columns.length; i++) {
+					pstmt.setString(i + 1, "%" + keyword + "%");
+				}
+			}
 			
 			// 4. 명령 실행
 			rs = pstmt.executeQuery();
