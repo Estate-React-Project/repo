@@ -29,23 +29,57 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import projectsTableData from "layouts/AptInfo/data/projectsTableData";
-import HshldrChart from "examples/Charts/PieChart/HshldrChart";
-import ManageChart from "examples/Charts/PieChart/ManageChart";
-import CrrdprChart from "examples/Charts/PieChart/CrrdprChart";
-import HeatChart from "examples/Charts/PieChart/HeatChart";
-import DongCoChart from "examples/Charts/BarCharts/DongCoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PieChart from "examples/Charts/PieChart";
+import DongCoBarChart from "examples/Charts/BarCharts/DongCoBarChart";
+import MDButton from "components/MDButton";
+import MDInput from "components/MDInput";
+import { Stack } from "@mui/system";
 import HshldrPieChartData from "./data/HshldrPieChartData";
 import ManagePieChartData from "./data/ManagePieChartData";
 import CrrdprPieChartData from "./data/CrrdprPieChartData";
 import HeatPieChartData from "./data/HeatPieChartData";
 import DongCoChartData from "./data/DongCoChartData";
+import AptListData from "./data/AptListData";
 
 function Tables() {
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [aptList, setAptList] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [countInfo, setCountInfo] = useState("");
 
+  // 아파트 리스트
+  useEffect(() => {
+    const loadAptList = async () => {
+      const response = await axios.get(`http://127.0.0.1:8080/web-scraping/openapi/loadAptList`);
+      // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
+      // console.log(response.data);
+      setAptList(response.data);
+    };
+    loadAptList();
+  }, []);
+
+  // 아파트 리스트 검색
+  const changeHandler = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const clickHandler = (e) => {
+    // eslint-disable-next-line no-use-before-define
+    searchAndShowResult();
+    setKeyword("");
+  };
+
+  const searchAndShowResult = () => {
+    if (!keyword) return;
+
+    const url = `http://127.0.0.1:8080/web-scraping/openapi/loadAptList?keyword=${keyword}`;
+    axios.get(url).then((response) => {
+      setAptList(response.data);
+    });
+  };
+
+  // 아파트 통계 데이터
   useEffect(() => {
     const loadAptInfoCount = async () => {
       const response = await axios.get(
@@ -71,17 +105,23 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="warning"
                 borderRadius="lg"
-                coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
                   동별 아파트 목록
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
+                <Stack>
+                  <MDInput type="search" label="Search" value={keyword} onChange={changeHandler} />
+                  <MDButton color="info" onClick={clickHandler}>
+                    Search
+                  </MDButton>
+                </Stack>
                 <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
+                  // table={{ columns: pColumns, rows: pRows }}
+                  table={AptListData(aptList)}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
@@ -92,7 +132,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <HshldrChart
+              <PieChart
                 icon={{ color: "info", component: "apartment" }}
                 title="아파트 세대 타입"
                 description="2022.12.19 기준"
@@ -108,7 +148,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <ManageChart
+              <PieChart
                 icon={{ color: "primary", component: "apartment" }}
                 title="아파트 관리 방식"
                 description="2022.12.19 기준"
@@ -124,7 +164,7 @@ function Tables() {
           </Grid>
           <Grid item xs={4}>
             <MDBox mb={3}>
-              <CrrdprChart
+              <PieChart
                 icon={{ color: "secondary", component: "apartment" }}
                 title="아파트 복도 유형"
                 description="2022.12.19 기준"
@@ -140,7 +180,7 @@ function Tables() {
           </Grid>
           <Grid item xs={12}>
             <MDBox mb={3}>
-              <HeatChart
+              <PieChart
                 icon={{ color: "error", component: "apartment" }}
                 title="아파트 난방 방식"
                 description="2022.12.19 기준"
@@ -155,7 +195,7 @@ function Tables() {
           </Grid>
           <Grid item xs={12}>
             <MDBox mb={3}>
-              <DongCoChart
+              <DongCoBarChart
                 icon={{ color: "success", component: "apartment" }}
                 title="전체 동 수"
                 description="2022.12.19 기준"

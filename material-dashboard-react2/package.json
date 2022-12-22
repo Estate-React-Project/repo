@@ -40,7 +40,11 @@
     "react-kakao-maps-sdk": "^1.1.5",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
+<<<<<<< HEAD
     "react-spinner": "^0.2.7",
+=======
+    "react-spinners": "^0.13.7",
+>>>>>>> 3481300ddea741f844bcb76742a217df9d1d9dd4
     "react-table": "7.7.0",
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",
@@ -50,6 +54,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
+<<<<<<< HEAD
+=======
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+>>>>>>> 3481300ddea741f844bcb76742a217df9d1d9dd4
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"

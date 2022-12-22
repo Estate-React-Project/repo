@@ -33,11 +33,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-import GunPrAChart from "examples/Charts/MixedChart/GunPrAChart";
-import GunPrBChart from "examples/Charts/MixedChart/GunPrBChart";
-import GunPrCChart from "examples/Charts/MixedChart/GunPrCChart";
-import GunPrDChart from "examples/Charts/MixedChart/GunPrDChart";
-import GunPrEChart from "examples/Charts/MixedChart/GunPrEChart";
+import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
+import MDAlert from "components/MDAlert";
 import GunPrAChartData from "./data/GunPrAChartData";
 import GunPrBChartData from "./data/GunPrBChartData";
 import GunPrCChartData from "./data/GunPrCChartData";
@@ -45,8 +42,8 @@ import GunPrDChartData from "./data/GunPrDChartData";
 import GunPrEChartData from "./data/GunPrEChartData";
 
 function Tables() {
-  const [gu, setGu] = useState("강남구");
-  const [dealDatas, setDealDatas] = useState([{ gunB: "" }]);
+  const [gu, setGu] = useState("");
+  const [dealDatas, setDealDatas] = useState([""]);
   const [preGu, setPreGu] = useState("");
 
   useEffect(() => {
@@ -56,8 +53,12 @@ function Tables() {
           `http://localhost:8080/web-scraping/openapi/loadAptDeals?gu=${gu}`
         );
         // const response = await axios.get(`/web-scraping/openapi/loadAptDealCount`);
-        console.log(response.data);
-        setDealDatas(response.data);
+        if (response.data.length === 0) {
+          alert("잘못된 입력입니다");
+          setGu("");
+        } else {
+          setDealDatas(response.data);
+        }
       }
     };
     loadAptDeals();
@@ -68,7 +69,8 @@ function Tables() {
       <DashboardNavbar />
       <MDInput
         type="search"
-        label="Search"
+        // label="구를 입력해주십시오"
+        label="Search Gu"
         value={preGu}
         onChange={(e) => {
           setPreGu(e.target.value);
@@ -76,7 +78,12 @@ function Tables() {
       />
       <MDButton
         color="info"
-        onClick={() => {
+        onClick={(e) => {
+          if (preGu.length < 2) {
+            alert("두 글자 이상 입력해주십시오");
+            setPreGu("");
+            return;
+          }
           setGu(preGu);
           setPreGu("");
         }}
@@ -102,18 +109,10 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                {/* <div>
-                  {dealDatas.map((data) => {
-                    <div>
-                      <h5>{data.gunB}</h5>
-                    </div>;
-                  })}
-                </div> */}
-                <GunPrAChart
-                  // title={data.adresGu}
-                  title="GunPrAChart"
+                <GradientLineChart
+                  title={dealDatas[0].adresGu}
                   description="(2020년 기준)"
-                  chart={{ GunPrAChartData }}
+                  chart={GunPrAChartData(dealDatas)}
                 />
               </MDBox>
             </Card>
@@ -135,12 +134,11 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                {/* <GunPrBChart
-                  // title={data.adresGu}
-                  title="GunPrBChart"
+                <GradientLineChart
+                  title={dealDatas[0].adresGu}
                   description="(2020년 기준)"
-                  chart={{ GunPrBChartData }}
-                /> */}
+                  chart={GunPrBChartData(dealDatas)}
+                />
               </MDBox>
             </Card>
           </Grid>
@@ -161,12 +159,11 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                {/* <GunPrCChart
-                  // title={data.adresGu}
-                  title="GunPrCChart"
+                <GradientLineChart
+                  title={dealDatas[0].adresGu}
                   description="(2020년 기준)"
-                  chart={{ GunPrCChartData }}
-                /> */}
+                  chart={GunPrCChartData(dealDatas)}
+                />
               </MDBox>
             </Card>
           </Grid>
@@ -187,12 +184,11 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                {/* <GunPrDChart
-                  // title={data.adresGu}
-                  title="GunPrDChart"
+                <GradientLineChart
+                  title={dealDatas[0].adresGu}
                   description="(2020년 기준)"
-                  chart={{ GunPrDChartData }}
-                /> */}
+                  chart={GunPrDChartData(dealDatas)}
+                />
               </MDBox>
             </Card>
           </Grid>
@@ -213,12 +209,11 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
-                {/* <GunPrEChart
-                  // title={data.adresGu}
-                  title="GunPrEChart"
+                <GradientLineChart
+                  title={dealDatas[0].adresGu}
                   description="(2020년 기준)"
-                  chart={{ GunPrEChartData }}
-                /> */}
+                  chart={GunPrEChartData(dealDatas)}
+                />
               </MDBox>
             </Card>
           </Grid>

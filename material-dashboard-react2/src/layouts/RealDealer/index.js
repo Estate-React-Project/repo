@@ -23,7 +23,8 @@ function Tables() {
   const [dealers, setDealers] = useState([]);
   useEffect(() => {
     const loadDealers = async (e) => {
-      const response = await axios.get("http://localhost:8080/api-to-db/openapi/load-all-dealer");
+      const response = await axios.get(
+        "http://localhost:8080/api-to-db/openapi/load-all-dealer");
       setDealers(response.data);
     };
     loadDealers();
@@ -73,7 +74,7 @@ function Tables() {
                 borderRadius="lg"
                 coloredShadow="info"
               >
-                <MDTypography variant="h6" color="black" align="center">
+                <MDTypography variant="h6" color="white" align="center">
                   서울시 중개 업소 목록
                 </MDTypography>
               </MDBox>

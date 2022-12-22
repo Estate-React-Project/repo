@@ -1,7 +1,7 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/button-has-type */
+/* eslint-disable */
 import { useEffect, useState } from "react";
 import { Map, MapMarker, MapTypeId } from "react-kakao-maps-sdk";
+
 // eslint-disable-next-line import/no-unresolved
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
@@ -57,27 +57,27 @@ function RealDealerMap() {
     searchAndShowPlaces();
   }, [map]);
   const [mapTypeId, setMapTypeId] = useState();
+  
   return (
     <MDBox>
       <br />
       <hr />
       <br />
-      <MDInput
-        alignItems="center"
-        style={{
-          marign: "center",
-          width: "700px",
-        }}
-        type="text"
-        value={keyword}
-        onChange={changeHandler}
-        variant="outlined"
-        label="찾으실 중개업소의 주소 또는 원하시는 키워드를 입력하세요 (서울시전역)"
-      />
-      <MDButton onClick={clickHandler} variant="outlined" color="info">
+      <div style={{textAlign: "center"}}>
+        <MDInput
+          style={{
+            width: "700px",
+          }}
+          type="text"
+          value={keyword}
+          onChange={changeHandler}
+          variant="outlined"
+          label="찾으실 중개업소의 주소 또는 원하시는 키워드를 입력하세요 (서울시전역만 해당)"
+        />&nbsp;
+        <MDButton onClick={clickHandler} variant="outlined" color="info">
         찾아보기
       </MDButton>
-      <br />
+      </div>
       <br />
       <hr />
       <br />

@@ -55,11 +55,9 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "aptname", accessor: "aptname", width: "30%", align: "left" },
+      { Header: "aptname", accessor: "aptname", width: "40%", align: "left" },
       { Header: "gu", accessor: "gu", align: "left" },
       { Header: "dong", accessor: "dong", align: "center" },
-      { Header: "completion", accessor: "completion", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
     ],
 
     rows: [
@@ -73,12 +71,6 @@ export default function data() {
         dong: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             암사동
-          </MDTypography>
-        ),
-        completion: <Progress color="info" value={60} />,
-        action: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
           </MDTypography>
         ),
       },

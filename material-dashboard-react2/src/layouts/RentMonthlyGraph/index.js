@@ -165,11 +165,7 @@ function Tables() {
                 bgColor="secondary"
                 borderRadius="lg"
                 coloredShadow="secondary"
-              >
-                <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
-                </MDTypography>
-              </MDBox>
+              />
               <MDBox
                 mx={2}
                 mt={-3}
@@ -265,11 +261,7 @@ function Tables() {
                 bgColor="secondary"
                 borderRadius="lg"
                 coloredShadow="secondary"
-              >
-                <MDTypography variant="h6" color="white">
-                  Rent Yearly Data
-                </MDTypography>
-              </MDBox>
+              />
               <MDBox
                 mx={2}
                 mt={-3}
