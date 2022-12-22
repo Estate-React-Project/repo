@@ -47,10 +47,10 @@ import SearchInput from "./SearchInput";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
+  const [rentCode, setRentCode] = useState("");
   const [list, setList] = useState(null);
-  // const [keyword, setKeyword] = useState("");
+  // const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const keywordInput = useRef(null);
 
   // const changeHandler = (e) => {
   //   setKeyword(e.target.value);
@@ -92,6 +92,21 @@ function Tables() {
     };
     loadYearlyRentList();
   }, [houseType]);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const loadYearlyRentDetail = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/web-scraping/openapi/loadYearlyRentDetail?rentcode=${rentCode}`
+  //     );
+  //     setDetail(response.data);
+  //     setLoading(false);
+  //     if (response.data.length === 0) {
+  //       return null;
+  //     }
+  //   };
+  //   loadYearlyRentDetail();
+  // }, [rentCode]);
 
   function Date({ CNTRCT_DE }) {
     return (

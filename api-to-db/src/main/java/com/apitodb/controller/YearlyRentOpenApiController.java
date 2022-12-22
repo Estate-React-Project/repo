@@ -370,7 +370,74 @@ public class YearlyRentOpenApiController {
 		
 		return yearlyLists;
 	}
-	
+
+	// 리스트에서 상세보기
+//	@CrossOrigin
+//	@ResponseBody
+//	@GetMapping(path = { "/loadYearlyRentDetail" })
+//	public List<RentYearlyDto> DetailYearlyRentList(int rentCode) {
+//		
+//		List<RentYearlyDto> yearlydetail = new ArrayList<>();
+//		
+//		if (rentCode == 0) {
+//			return yearlydetail;
+//		}
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			
+//			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+//					"team2", "team2");
+//			
+//			String sql = "SELECT * " +
+//						 "FROM Rent " +
+//						 "WHERE RENT_CODE = ? ";
+//			
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, rentCode);
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				RentYearlyDto yearlyList = new RentYearlyDto();
+//				
+//				yearlyList.setCntrctDe(rs.getString(3));
+//				yearlyList.setSggNm(rs.getString(7));
+//				yearlyList.setBjdongNm(rs.getString(9));
+//				yearlyList.setBldgNm(rs.getString(14));
+//				yearlyList.setFloor(rs.getString(10));
+//				yearlyList.setRentGtn(rs.getString(12));
+//				yearlyList.setRentFee(rs.getString(13));
+//				yearlyList.setBldgArea(rs.getString(11));
+//				yearlyList.setBuildYear(rs.getString(15));
+//				yearlyList.setHouseType(rs.getString(16));
+//				
+//				yearlydetail.add(yearlyList);
+//			}
+//			
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		} finally {
+//			try {
+//				rs.close();
+//			} catch (Exception ex) {
+//			}
+//			try {
+//				pstmt.close();
+//			} catch (Exception ex) {
+//			}
+//			try {
+//				conn.close();
+//			} catch (Exception ex) {
+//			}
+//		}
+//		
+//		return yearlydetail;
+//	}
 	
 }
 
