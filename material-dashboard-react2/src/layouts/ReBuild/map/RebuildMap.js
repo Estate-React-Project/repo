@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -13,7 +14,7 @@ import MDInput from "components/MDInput";
 import MDBox from "components/MDBox";
 import axios from "axios";
 
-function RebuildMap() {
+function RebuildMap({ setGu }) {
   const [keyword, setKeyword] = useState("");
 
   const changeHandler = (e) => {
@@ -36,9 +37,6 @@ function RebuildMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [tableData, setTableData] = useState(null);
-  const [gu, setGu] = useState("");
-  const [rebuildData, setRebuildData] = useState([]);
 
   const searchAndShowPlaces = () => {
     if (!map) return;
@@ -66,20 +64,6 @@ function RebuildMap() {
       }
     });
   };
-  useEffect(() => {
-    const loadRebuildInfo = async () => {
-      const response = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/rebuildInfo?gu=${gu}`
-      );
-      // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
-      const { columns, rows } = AuthorsTableData(response.data);
-      setTableData({ columns, rows });
-      setRebuildData(response.data);
-      // eslint-disable-next-line no-console
-      console.log(response.data);
-    };
-    loadRebuildInfo();
-  }, [gu]);
   useEffect(() => {
     searchAndShowPlaces();
   }, [map]);
@@ -524,6 +508,18 @@ function RebuildMap() {
         { lng: 126.98040333684787, lat: 37.50654460467333 },
         { lng: 127.00857798633956, lat: 37.525595035818185 },
         { lng: 127.04388936026041, lat: 37.480560539137585 },
+        { lng: 127.04388936026041, lat: 37.480560539137585 },
+        { lng: 127.04400507677431, lat: 37.47994190582817 },
+        { lng: 127.09522272812922, lat: 37.45639382832306 },
+        { lng: 127.07088464044828, lat: 37.430187924945805 },
+        { lng: 127.07070640860624, lat: 37.43027362529212 },
+        { lng: 127.04736917886902, lat: 37.430701418482386 },
+        { lng: 127.03382170968405, lat: 37.461530307638384 },
+        { lng: 127.03453412841701, lat: 37.46345207046365 },
+        { lng: 127.03453730713817, lat: 37.46345770085267 },
+        { lng: 127.01193901481453, lat: 37.45550935936477 },
+        { lng: 127.0113677108152, lat: 37.45540804524003 },
+        { lng: 126.98863578225489, lat: 37.45816595691245 },
       ],
     },
     {
@@ -6653,7 +6649,7 @@ function RebuildMap() {
       ],
     },
     {
-      name: "어디구",
+      name: "서초구.",
       isMouseover: false,
       path: [
         { lng: 127.04388936026041, lat: 37.480560539137585 },
@@ -6676,7 +6672,6 @@ function RebuildMap() {
     lat: 0,
     lng: 0,
   });
-  const [clickedArea, setClickedArea] = useState();
   return (
     <MDBox>
       <MDInput
@@ -6719,37 +6714,32 @@ function RebuildMap() {
               path={area.path}
               strokeWeight={2}
               strokeColor="#004c80"
-              strokeOpacity={0.8}
+              strokeOpacity={0.6}
               fillColor={area.isMouseover ? "#09f" : "#fff"}
-              fillOpacity={0.7}
-              onMouseover={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: true,
-                  },
-                ])
-              }
-              onMouseout={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: false,
-                  },
-                ])
-              }
-              onClick={(polygon, mouseEvent) =>
-                setClickedArea({
-                  position: {
-                    lat: mouseEvent.latLng.getLat(),
-                    lng: mouseEvent.latLng.getLng(),
-                  },
-                  area: Math.floor(polygon.getArea()),
-                  name: area.name,
-                })
-              }
+              fillOpacity={0.5}
+              // onMouseover={() =>
+              //   setAreas((prev) => [
+              //     ...prev.filter((_, i) => i !== index),
+              //     {
+              //       ...prev[index],
+              //       isMouseover: true,
+              //     },
+              //   ])
+              // }
+              // onMouseout={() =>
+              //   setAreas((prev) => [
+              //     ...prev.filter((_, i) => i !== index),
+              //     {
+              //       ...prev[index],
+              //       isMouseover: false,
+              //     },
+              //   ])
+              // }
+              onClick={() => {
+                setGu(area.name);
+                // eslint-disable-next-line no-alert
+                alert(area.name);
+              }}
             />
           ))}
           {areas.findIndex((v) => v.isMouseover) !== -1 && (
@@ -6768,26 +6758,6 @@ function RebuildMap() {
               )}
             </MapMarker>
           ))}
-          {clickedArea && (
-            <MapInfoWindow position={clickedArea.position}>
-              <img
-                alt="close"
-                width="14"
-                height="13"
-                src="http://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                style={{
-                  position: "absolute",
-                  right: "5px",
-                  top: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => setClickedArea(null)}
-              />
-              <div className="info">
-                <div className="title">{clickedArea.name}</div>
-              </div>
-            </MapInfoWindow>
-          )}
         </Map>
       </>
     </MDBox>
