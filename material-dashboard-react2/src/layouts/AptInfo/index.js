@@ -33,6 +33,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PieChart from "examples/Charts/PieChart";
 import DongCoBarChart from "examples/Charts/BarCharts/DongCoBarChart";
+import MDButton from "components/MDButton";
+import MDInput from "components/MDInput";
+import { Stack } from "@mui/system";
 import HshldrPieChartData from "./data/HshldrPieChartData";
 import ManagePieChartData from "./data/ManagePieChartData";
 import CrrdprPieChartData from "./data/CrrdprPieChartData";
@@ -41,8 +44,8 @@ import DongCoChartData from "./data/DongCoChartData";
 import AptListData from "./data/AptListData";
 
 function Tables() {
-  const { columns: pColumns, rows: pRows } = projectsTableData();
   const [aptList, setAptList] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [countInfo, setCountInfo] = useState("");
 
   // 아파트 리스트
@@ -56,6 +59,27 @@ function Tables() {
     loadAptList();
   }, []);
 
+  // 아파트 리스트 검색
+  const changeHandler = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const clickHandler = (e) => {
+    // eslint-disable-next-line no-use-before-define
+    searchAndShowResult();
+    setKeyword("");
+  };
+
+  const searchAndShowResult = () => {
+    if (!keyword) return;
+
+    const url = `http://127.0.0.1:8080/web-scraping/openapi/loadAptList?keyword=${keyword}`;
+    axios.get(url).then((response) => {
+      setAptList(response.data);
+    });
+  };
+
+  // 아파트 통계 데이터
   useEffect(() => {
     const loadAptInfoCount = async () => {
       const response = await axios.get(
@@ -89,6 +113,12 @@ function Tables() {
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
+                <Stack>
+                  <MDInput type="search" label="Search" value={keyword} onChange={changeHandler} />
+                  <MDButton color="info" onClick={clickHandler}>
+                    Search
+                  </MDButton>
+                </Stack>
                 <DataTable
                   // table={{ columns: pColumns, rows: pRows }}
                   table={AptListData(aptList)}
