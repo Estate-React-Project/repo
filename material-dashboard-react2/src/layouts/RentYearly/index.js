@@ -37,32 +37,34 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import { MonitorSharp } from "@mui/icons-material";
 import MDAlert from "components/MDAlert";
-import Spinner from "layouts/RentStyle/Spinner";
+import Spinner from "layouts/Style/Spinner";
+import SearchInput from "./SearchInput";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
   const [list, setList] = useState(null);
-  const [keyword, setKeyword] = useState("");
+  // const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
+  // const keywordInput = useRef(null);
 
-  const changeHandler = (e) => {
-    setKeyword(e.target.value);
-  };
+  // const changeHandler = (e) => {
+  //   setKeyword(e.target.value);
+  // };
 
-  const clickHandler = (e) => {
+  const clickHandler = (keyword) => {
     setLoading(true);
-    // eslint-disable-next-line no-use-before-define
-    searchAndShowResult();
-    setKeyword("");
+    // eslint-disable-next-line
+    searchAndShowResult(keyword);
   };
 
-  const searchAndShowResult = () => {
+  const searchAndShowResult = (keyword) => {
     if (!keyword) return;
+    setLoading(true);
 
     const url = `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
@@ -211,18 +213,7 @@ function Tables() {
       </MDButton>
       <br />
       <br />
-      <Stack>
-        <MDInput
-          type="text"
-          value={keyword}
-          onChange={changeHandler}
-          label="검색 키워드를 입력하세요."
-          size="large"
-        />
-        <MDButton onClick={clickHandler} color="info">
-          Search
-        </MDButton>
-      </Stack>
+      <SearchInput clickHandler={clickHandler} />
       <MDBox>
         {loading ? (
           <Spinner />
@@ -235,7 +226,8 @@ function Tables() {
                 { Header: "건물명, 층", accessor: "Bldg", align: "center" },
                 { Header: "보증금(만원)", accessor: "Fee", align: "center" },
                 { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
-                { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
+                { Header: "건축년도,건물용도", accessor: "HouseUse", align: "center" },
+                { Header: "상세보기", accessor: "Detail", align: "center" },
               ],
 
               rows: list.map((contract) => ({
@@ -246,6 +238,11 @@ function Tables() {
                 Area: <Area BLDG_AREA={contract.bldgArea} />,
                 HouseUse: (
                   <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
+                ),
+                Detail: (
+                  <MDButton variant="outlined" color="dark" size="small" onClick={() => {}}>
+                    상세보기
+                  </MDButton>
                 ),
               })),
             }}
