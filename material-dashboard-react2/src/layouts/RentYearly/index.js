@@ -97,7 +97,7 @@ function Tables() {
   //   setLoading(true);
   //   const loadYearlyRentDetail = async () => {
   //     const response = await axios.get(
-  //       `http://localhost:8080/web-scraping/openapi/loadYearlyRentDetail?rentcode=${rentCode}`
+  //       `http://localhost:8080/web-scraping/openapi/loadYearlyRentDetail?rentCode=${rentCode}`
   //     );
   //     setDetail(response.data);
   //     setLoading(false);
