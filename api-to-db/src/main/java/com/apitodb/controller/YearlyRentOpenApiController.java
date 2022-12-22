@@ -313,6 +313,7 @@ public class YearlyRentOpenApiController {
 					"rent_Area", 
 					"Build_Year" };
 			
+			// sql 추
 			if (keyword != null && keyword.length() > 0) {
 				sql += " AND (" + columns[0] + " LIKE ? ";
 				for (int i = 1; i < columns.length; i++) {
@@ -321,6 +322,7 @@ public class YearlyRentOpenApiController {
 				sql += ")";
 			}
 			
+			// 조건 삽입
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, '%' + houseType + '%');
 			

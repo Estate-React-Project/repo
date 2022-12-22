@@ -37,53 +37,59 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Stack } from "@mui/system";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Spinner from "layouts/RentStyle/Spinner";
 
 function Tables() {
   const [count, setCount] = useState("");
   const [guaranteeCount, setGuaranteeCount] = useState("");
   const [guCount, setGuCount] = useState("");
   const [purposeCount, setPurposeCount] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentCount = async () => {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
       );
-      // console.log(response.data);
       setCount(response.data);
+      setLoading(false);
     };
     loadYearlyRentCount();
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentGuranteeCount = async () => {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGuarantee`
       );
-      // console.log(response.data);
       setGuaranteeCount(response.data);
+      setLoading(false);
     };
     loadYearlyRentGuranteeCount();
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentGuCount = async () => {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGu`
       );
-      // console.log(response.data);
       setGuCount(response.data);
+      setLoading(false);
     };
     loadYearlyRentGuCount();
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentPurposeCount = async () => {
       const response = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGBN`
       );
-      // console.log(response.data);
       setPurposeCount(response.data);
+      setLoading(false);
     };
     loadYearlyRentPurposeCount();
   }, []);

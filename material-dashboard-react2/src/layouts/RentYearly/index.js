@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-useless-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
@@ -41,17 +42,20 @@ import axios from "axios";
 import { Stack } from "@mui/system";
 import { MonitorSharp } from "@mui/icons-material";
 import MDAlert from "components/MDAlert";
+import Spinner from "layouts/RentStyle/Spinner";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
   const [list, setList] = useState(null);
   const [keyword, setKeyword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
     setKeyword(e.target.value);
   };
 
   const clickHandler = (e) => {
+    setLoading(true);
     // eslint-disable-next-line no-use-before-define
     searchAndShowResult();
     setKeyword("");
@@ -63,17 +67,25 @@ function Tables() {
     const url = `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentList = async () => {
       const response = await axios.get(
         `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}`
       );
       setList(response.data);
+      setLoading(false);
       if (response.data.length === 0) {
-        alert("상단의 건물 용도를 선택하세요.");
+        // alert("상단의 건물 용도를 선택하세요.");
+        return (
+          <MDAlert color="dark" dismissible>
+            상단의 건물 용도를 선택하세요.
+          </MDAlert>
+        );
       }
     };
     loadYearlyRentList();
@@ -212,33 +224,37 @@ function Tables() {
         </MDButton>
       </Stack>
       <MDBox>
-        <DataTable
-          table={{
-            columns: [
-              { Header: "계약일", accessor: "Date", align: "center" },
-              { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
-              { Header: "건물명, 층", accessor: "Bldg", align: "center" },
-              { Header: "보증금(만원)", accessor: "Fee", align: "center" },
-              { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
-              { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
-            ],
+        {loading ? (
+          <Spinner />
+        ) : (
+          <DataTable
+            table={{
+              columns: [
+                { Header: "계약일", accessor: "Date", align: "center" },
+                { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
+                { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+                { Header: "보증금(만원)", accessor: "Fee", align: "center" },
+                { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
+                { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
+              ],
 
-            rows: list.map((contract) => ({
-              Date: <Date CNTRCT_DE={contract.cntrctDe} />,
-              GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
-              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
-              Fee: <Fee RENT_GTN={contract.rentGtn} />,
-              Area: <Area BLDG_AREA={contract.bldgArea} />,
-              HouseUse: (
-                <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
-              ),
-            })),
-          }}
-          isSorted={false}
-          pagination={{ variant: "gradient", color: "info" }}
-          entriesPerPage
-          noEndBorder
-        />
+              rows: list.map((contract) => ({
+                Date: <Date CNTRCT_DE={contract.cntrctDe} />,
+                GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
+                Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
+                Fee: <Fee RENT_GTN={contract.rentGtn} />,
+                Area: <Area BLDG_AREA={contract.bldgArea} />,
+                HouseUse: (
+                  <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
+                ),
+              })),
+            }}
+            isSorted={false}
+            pagination={{ variant: "gradient", color: "info" }}
+            entriesPerPage
+            noEndBorder
+          />
+        )}
       </MDBox>
     </DashboardLayout>
   );
