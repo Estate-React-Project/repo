@@ -150,7 +150,7 @@ public class RealDealerOpenApiController {
 		return "openapi/realDealer";
 	}
 	
-	//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
+//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
 	@CrossOrigin
 	@GetMapping(path = { "/load-all-dealer" })
 	@ResponseBody
@@ -195,7 +195,7 @@ public class RealDealerOpenApiController {
 					dealers.add(dealer);
 				}			
 				
-				// System.out.println(dealers);
+				 System.out.println(dealers);
 				
 			} catch (Exception ex) {
 				ex.printStackTrace(); // 개발 용도로 사용
@@ -209,8 +209,9 @@ public class RealDealerOpenApiController {
 		return dealers;
 	}
 	
+	
 	// 키워드 검색해서 중개업소 찾기
-	// 컬럼을 조회 하기 : 주소기
+	// 컬럼을 조회 하기 : 주소기반??
 //	@CrossOrigin
 //	@GetMapping(path = { "/load-all-dealer" })
 //	@ResponseBody
