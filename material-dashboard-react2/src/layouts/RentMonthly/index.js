@@ -159,7 +159,15 @@ function Tables() {
   return (
     // Material Dashboard 2 React Example
     <DashboardLayout>
-      <DashboardNavbar />
+      {houseType === "" ? (
+        <>
+          <br />
+          <MDTypography fontWeight="bold">아래의 건물 용도를 선택하세요.</MDTypography>
+          <br />
+        </>
+      ) : (
+        <br />
+      )}
       <MDButton
         variant="outlined"
         color="info"
