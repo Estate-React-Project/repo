@@ -38,12 +38,10 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import RentMonthlyMap from "layouts/RentMonthlyMap";
 import RentMonthly from "layouts/RentMonthly";
-import RentMonthlyGraph from "layouts/RentMonthlyGraph";
+import RentGraph from "layouts/RentGraph";
 import RentYearly from "layouts/RentYearly";
-import RentYearlyGraph from "layouts/RentYearlyGraph";
-import RentYearlyMap from "layouts/RentYearlyMap";
+import SeoulMap from "layouts/SeoulMap";
 import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
@@ -51,10 +49,6 @@ import AptDeal from "layouts/AptDeal";
 import Realestatenews from "layouts/Realestatenews";
 // @mui icons
 import Icon from "@mui/material/Icon";
-import ArticleIcon from "@mui/icons-material/Article";
-import ExploreIcon from "@mui/icons-material/Explore";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import HomeIcon from "@mui/icons-material/Home";
 
 const routes = [
   {
@@ -67,27 +61,19 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "부동산 뉴스",
+    key: "realestatenews",
+    icon: <Icon fontSize="small">newspaper</Icon>,
+    route: "/realestatenews",
+    component: <Realestatenews />,
+  },
+  {
+    type: "collapse",
     name: "전세",
     key: "rentYearly",
     icon: <Icon fontSize="small">article</Icon>,
     route: "/rentYearly",
     component: <RentYearly />,
-  },
-  {
-    type: "collapse",
-    name: "전세 통계",
-    key: "rentYearlyGraph",
-    icon: <Icon fontSize="small">article</Icon>,
-    route: "/rentYearlyGraph",
-    component: <RentYearlyGraph />,
-  },
-  {
-    type: "collapse",
-    name: "전세 맵",
-    key: "rentYearlyMap",
-    icon: <Icon fontSize="small">explore</Icon>,
-    route: "/rentYearlyMap",
-    component: <RentYearlyMap />,
   },
   {
     type: "collapse",
@@ -99,19 +85,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "월세 통계",
-    key: "rentMonthlyGraph",
-    icon: <Icon fontSize="small">article</Icon>,
-    route: "/rentMonthlyGraph",
-    component: <RentMonthlyGraph />,
-  },
-  {
-    type: "collapse",
-    name: "월세 맵",
-    key: "realTradeMap",
-    icon: <Icon fontSize="small">explore</Icon>,
-    route: "/realTradeMap",
-    component: <RentMonthlyMap />,
+    name: "전세/월세 통계",
+    key: "rentGraph",
+    icon: <Icon fontSize="small">leaderboardicon</Icon>,
+    route: "/rentGraph",
+    component: <RentGraph />,
   },
   {
     type: "collapse",
@@ -147,11 +125,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "부동산 뉴스",
-    key: "realestatenews",
-    icon: <Icon fontSize="small">newspaper</Icon>,
-    route: "/realestatenews",
-    component: <Realestatenews />,
+    name: "지도 검색",
+    key: "seoulMap",
+    icon: <Icon fontSize="small">explore</Icon>,
+    route: "/seoulMap",
+    component: <SeoulMap />,
   },
 ];
 

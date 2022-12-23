@@ -341,11 +341,11 @@ public class YearlyRentOpenApiController {
 				yearlyList.setSggNm(rs.getString(7));
 				yearlyList.setBjdongNm(rs.getString(9));
 				yearlyList.setBldgNm(rs.getString(14));
-				yearlyList.setFloor(rs.getString(10));
+				yearlyList.setFloor(rs.getString(10).equals("0") ? "단일" : rs.getString(10));
 				yearlyList.setRentGtn(rs.getString(12));
 				yearlyList.setRentFee(rs.getString(13));
 				yearlyList.setBldgArea(rs.getString(11));
-				yearlyList.setBuildYear(rs.getString(15));
+				yearlyList.setBuildYear(rs.getString(15).equals("") ? "XXXX" : rs.getString(15));
 				yearlyList.setHouseType(rs.getString(16));
 				
 				yearlyLists.add(yearlyList);

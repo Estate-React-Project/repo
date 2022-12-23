@@ -2,7 +2,7 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React, { useEffect } from "react";
-import RentYearlyMap from "./RentYearlyMap";
+import SeoulMap from "./SeoulMap";
 
 const { kakao } = window;
 function Kakao() {
@@ -11,7 +11,7 @@ function Kakao() {
       <DashboardNavbar />
       {/* <SearchPlace /> */}
       {/* <MapContainer /> */}
-      <RentYearlyMap />
+      <SeoulMap />
     </DashboardLayout>
   );
 }

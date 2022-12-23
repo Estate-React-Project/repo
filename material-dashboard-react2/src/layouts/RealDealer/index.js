@@ -15,6 +15,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
+import Spinner from "layouts/Style/Spinner";
 
 // import KakaoMap
 import RealDealerMap from "./map/RealDealerMap";
@@ -24,24 +25,30 @@ function Tables() {
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
-        "http://localhost:8080/api-to-db/openapi/load-all-dealer");
-
+        "http://localhost:8080//web-scraping/openapi/load-all-dealer"
+        );
       setDealers(response.data);
     };
+
     loadDealers();
   }, []);
 
-  // const insertDealer = (title) => {
-  //   // 서버에 데이터 전송
-  //   // axios.post("http://127.0.0.1:8080/react-web/demo/add-todo", 
-  //   axios.post("api-to-db/openapi/load-all-dealer", 
-  //       { title: title },
-  //       { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
-  //        .then( (response) => {
-  //       setDealer(response.data);
-  //     })
-  //     .catch((e) => {});
-  // };
+  const [sggNm, setSggNm] = useState([]);
+  const [tableData, setTableData] = useState(null);
+  const [realerdealerData, setRealerDealerData] = useState(null);
+  useEffect(() => {
+    const loadDealers = async () => {
+      const response = await axios.get(
+        `http://localhost:8080//web-scraping/openapi/load-all-dealer=${sggNm}`
+      );
+      const { columns, rows } = RealerDealerData(response.data);
+      setTableData({ columns, rows });
+      setRealerDealerData(response.data);
+      // eslint-disable-next-line no-console
+      console.log(response.data);
+    };
+    loadDealers();
+  }, [sggNm]);
 
   return (
     <DashboardLayout>
@@ -68,8 +75,24 @@ function Tables() {
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Card>
-              <MDBox>
-                <DataTable
+              <MDBox
+                mx={1}
+                mt={-2}
+                py={2}
+                px={1}
+                variant="gradient"
+                bgColor="info"
+                borderRadius="lg"
+                coloredShadow="info"
+                >
+                <MDTypography variant="h6" color="white" align="center">
+                  부동산 중개 업소 목록 (서울시 전역)
+                </MDTypography>
+              </MDBox>
+                {loading ? (
+                  <Spinner />
+                ) : (   
+                <DataTable             
                   table={{
                     columns: [
                       { Header: "중개업자명", accessor: "rdealerNm" },
@@ -92,8 +115,12 @@ function Tables() {
                       };
                     }),
                   }}
+                  isSorted={false}
+                  pagination={{ variant: "gradient", color: "info" }}
+                  entriesPerPage
+                  noEndBorder
                 />
-              </MDBox>
+              )}
             </Card>
           </Grid>
         </Grid>

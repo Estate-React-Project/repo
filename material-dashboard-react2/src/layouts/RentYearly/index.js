@@ -81,32 +81,9 @@ function Tables() {
       );
       setList(response.data);
       setLoading(false);
-      if (response.data.length === 0) {
-        // alert("상단의 건물 용도를 선택하세요.");
-        return (
-          <MDAlert color="dark" dismissible>
-            상단의 건물 용도를 선택하세요.
-          </MDAlert>
-        );
-      }
     };
     loadYearlyRentList();
   }, [houseType]);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const loadYearlyRentDetail = async () => {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/web-scraping/openapi/loadYearlyRentDetail?rentCode=${rentCode}`
-  //     );
-  //     setDetail(response.data);
-  //     setLoading(false);
-  //     if (response.data.length === 0) {
-  //       return null;
-  //     }
-  //   };
-  //   loadYearlyRentDetail();
-  // }, [rentCode]);
 
   function Date({ CNTRCT_DE }) {
     return (
@@ -122,7 +99,7 @@ function Tables() {
 
   function GuDongName({ SGG_NM, BJDONG_NM }) {
     return (
-      <MDBox lineHeight={1} textAlign="left">
+      <MDBox lineHeight={1} textAlign="center">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {SGG_NM}
         </MDTypography>
@@ -135,7 +112,7 @@ function Tables() {
 
   function Bldg({ BLDG_NM, FLOOR }) {
     return (
-      <MDBox lineHeight={1} textAlign="left">
+      <MDBox lineHeight={1} textAlign="center">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {BLDG_NM}
         </MDTypography>
@@ -148,7 +125,7 @@ function Tables() {
 
   function Fee({ RENT_GTN }) {
     return (
-      <MDBox lineHeight={1} textAlign="left">
+      <MDBox lineHeight={1} textAlign="center">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {RENT_GTN}
         </MDTypography>
@@ -158,7 +135,7 @@ function Tables() {
 
   function Area({ BLDG_AREA }) {
     return (
-      <MDBox lineHeight={1} textAlign="left">
+      <MDBox lineHeight={1} textAlign="center">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {BLDG_AREA}
         </MDTypography>
@@ -168,7 +145,7 @@ function Tables() {
 
   function HouseUse({ BUILD_YEAR, HOUSE_TYPE }) {
     return (
-      <MDBox lineHeight={1} textAlign="left">
+      <MDBox lineHeight={1} textAlign="center">
         <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
           {BUILD_YEAR}
         </MDTypography>
@@ -185,7 +162,17 @@ function Tables() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {houseType === "" ? (
+        <>
+          <br />
+          <MDTypography fontWeight="bold">
+            <Icon>erroricon</Icon>&nbsp;아래의 건물 용도를 선택하세요.
+          </MDTypography>
+          <br />
+        </>
+      ) : (
+        <br />
+      )}
       <MDButton
         variant="outlined"
         color="info"
@@ -240,24 +227,25 @@ function Tables() {
                 { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
                 { Header: "건물명, 층", accessor: "Bldg", align: "center" },
                 { Header: "보증금(만원)", accessor: "Fee", align: "center" },
-                { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
+                {
+                  Header: "건물면적(m²)",
+                  accessor: "Area",
+                  align: "center",
+                },
                 { Header: "건축년도,건물용도", accessor: "HouseUse", align: "center" },
-                { Header: "상세보기", accessor: "Detail", align: "center" },
               ],
 
               rows: list.map((contract) => ({
                 Date: <Date CNTRCT_DE={contract.cntrctDe} />,
                 GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
                 Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
-                Fee: <Fee RENT_GTN={contract.rentGtn} />,
-                Area: <Area BLDG_AREA={contract.bldgArea} />,
+                Fee: <Fee RENT_GTN={`${contract.rentGtn}만원`} />,
+                Area: <Area BLDG_AREA={`${contract.bldgArea}(m²)`} />,
                 HouseUse: (
-                  <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
-                ),
-                Detail: (
-                  <MDButton variant="outlined" color="dark" size="small" onClick={() => {}}>
-                    상세보기
-                  </MDButton>
+                  <HouseUse
+                    BUILD_YEAR={`${contract.buildYear}년`}
+                    HOUSE_TYPE={contract.houseType}
+                  />
                 ),
               })),
             }}

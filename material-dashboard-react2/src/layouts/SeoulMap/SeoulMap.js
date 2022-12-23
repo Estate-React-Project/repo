@@ -77,8 +77,8 @@ function RentMap() {
       <hr />
       <Map // 로드뷰를 표시할 Container
         center={{
-          lat: 37.514575,
-          lng: 127.0495556,
+          lat: 37.56509419511322,
+          lng: 126.97813208794456,
         }}
         style={{
           width: "100%",
