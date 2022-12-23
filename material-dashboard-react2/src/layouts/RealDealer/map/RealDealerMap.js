@@ -1,15 +1,14 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 import { Map, MapMarker, MapTypeId} from "react-kakao-maps-sdk";
-import { CustomOverlayMap, Polygon } from "react-kakao-maps-sdk";
+import { Stack } from "@mui/system";
 // eslint-disable-next-line import/no-unresolved
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDBox from "components/MDBox";
 
 function RealDealerMap({ setSggNm }) {
-  const [keyword, setKeyword] = useState("");
-  const [positions, setPositions] = useState([]);
+  const [keyword, setKeyword] = useState("");  
 
   const changeHandler = (e) => {
     setKeyword(e.target.value);
@@ -68,6 +67,7 @@ function RealDealerMap({ setSggNm }) {
     lat: 0,
     lng: 0,
   });
+
   return (
     <MDBox>
       <br />
@@ -105,7 +105,6 @@ function RealDealerMap({ setSggNm }) {
       </MDButton>
       <br />
       <hr />
-      {/* <AddPolygonMouseEvent2Style /> */}
       <Map // 로드뷰를 표시할 Container
           id="map"
           center={{
@@ -142,21 +141,18 @@ function RealDealerMap({ setSggNm }) {
         </Map>
       <hr />
       <br />
-      <div style={{textAlign: "center"}}>
+      <Stack>
         <MDInput
-          style={{
-            width: "600px",
-          }}
           type="text"
           value={keyword}
           onChange={changeHandler}
           variant="outlined"
           label="찾으실 중개업소의 주소 또는 원하시는 키워드를 입력하세요 (서울시전역만 해당)"
-        />&nbsp;
-        <MDButton onClick={clickHandler} variant="outlined" color="info">
-        찾아보기
-      </MDButton>
-      </div>
+        />
+        <MDButton onClick={clickHandler} variant="outlined" color="success">
+        이하 목록에 보여주기
+        </MDButton>
+      </Stack>
       <br />
       <div style={{textAlign: "center"}}>
       <MDButton

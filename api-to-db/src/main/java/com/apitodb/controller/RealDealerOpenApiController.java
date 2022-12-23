@@ -23,7 +23,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.apitodb.dto.AptDealDto;
 import com.apitodb.dto.RealDealerDto;
 
 @Controller
@@ -209,104 +208,89 @@ public class RealDealerOpenApiController {
 		return dealers;
 	}
 	
-	
-	// 키워드 검색해서 중개업소 찾기
-	// 컬럼을 조회 하기 : 주소기반??
+	// 구 버튼 클릭 시 검색 사용 하기
 //	@CrossOrigin
-//	@GetMapping(path = { "/load-all-dealer" })
 //	@ResponseBody
-//	public List<RealDealerDto> searchAllDealer(String address) {
+//	@GetMapping(path = { "/load-search-dealer" })
+//	public List<RealDealerDto> searchRealDealer(String SggNm) {
 //		
-//		List<RealDealerDto> dealers = new ArrayList<>();
-//
-//		// DB에 저장하는 코드
-//		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
-//		Connection conn2 = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
-//		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
-//		PreparedStatement pstmt2 = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+//		List<RealDealerDto> searchDealers = new ArrayList<>();
+//		
+//		if (SggNm.length() == 0) {
+//			
+//			return searchDealers;
+//		}
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
 //		ResultSet rs = null;
-//		ResultSet rs2 = null;
 //		
 //		try {
-//			// 1. Driver 등록
 //			Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//			// 2. 연결 및 연결 객체 가져오기
-//			conn = DriverManager.getConnection(
-//					"jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//					"team2", "team2"); // 데이터베이스 계정 정보
-//			conn2 = DriverManager.getConnection(
-//					"jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//					"team2", "team2"); // 데이터베이스 계정 정보
-//
-//			// 3. SQL 작성 + 명령 객체 가져오기
-//			String sql2 = 
-//					"SELECT * " +
-//					"FROM RealDealer ";
-//
-//			pstmt2 = conn2.prepareStatement(sql2);
-//			pstmt2.setString(1, '%' + address + '%');
 //			
-//			// 4. 명령 실행
-//			rs2 = pstmt2.executeQuery();
+//			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+//					"team2", "team2");
 //			
-//			int rsCnt = 0;
-//			while (rs2.next()) {
-//				rsCnt = rs2.getRow();
-//			}
-//			if (rsCnt == 1) {
-//			// 3-1. 해당 주소 SELECT
-//			String sql = 
-//						"SELECT * " +
-//						"FROM RealDealer ";
+//			String sql = "SELECT * " +
+//						 "FROM RealDealer " +
+//						 "WHERE SggNm = ? ";
 //			
+////			String[] columns = { "SggNm" };
+//			
+//			// sql 추가
+////			if (keyword != null && keyword.length() > 0) {
+////				sql += " AND (" + columns[0] + " LIKE ? ";
+////				for (int i = 1; i < columns.length; i++) {
+////					sql += "OR " + columns[i] + " LIKE ? ";
+////				}
+////				sql += ")";
+////			}
+//			
+//			// 조건 삽입
 //			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, '%' + address + '%');
+//			pstmt.setString(1, '%' + SggNm + '%');
 //			
-//			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
-//			while (rs.next()) { // 결과 집합의 다음 행으로 이동
-//				RealDealerDto dealer = new RealDealerDto();
-//
-//					dealer.setRdealerNm(rs.getString(1));
-//					dealer.setRaRegno(rs.getString(2));
-//					dealer.setAddress(rs.getString(3));
-//					dealer.setCmpNm(rs.getString(4));
-//					dealer.setTelNo(rs.getString(5));
-//					dealer.setStsGbn(rs.getString(6));
-//					dealer.setSggNm(rs.getString(7));				
-//					
-//					dealers.add(dealer);
-//				}
+////			if (keyword != null && keyword.length() > 0) {
+////				for (int i = 0; i < columns.length; i++) {
+////					pstmt.setString(i + 2, "%" + keyword + "%");
+////				}
+////			}
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				RealDealerDto searchDealer = new RealDealerDto();
 //				
-//				} else {
-//					
-//					return dealers;
-//				}
-//			
+//				searchDealer.setRdealerNm(rs.getString(1));
+//				searchDealer.setRaRegno(rs.getString(2));
+//				searchDealer.setAddress(rs.getString(3));
+//				searchDealer.setCmpNm(rs.getString(4));
+//				searchDealer.setTelNo(rs.getString(5));
+//				searchDealer.setStsGbn(rs.getString(6));
+//				searchDealer.setSggNm(rs.getString(7));				
+//				
+//				searchDealers.add(searchDealer);
+//				
+//			}
 //			
 //		} catch (Exception ex) {
-//			ex.printStackTrace(); // 개발 용도로 사용
+//			ex.printStackTrace();
 //		} finally {
-//			// 6. 연결 닫기
 //			try {
-//				rs2.close();
 //				rs.close();
 //			} catch (Exception ex) {
 //			}
 //			try {
-//				pstmt2.close();
 //				pstmt.close();
 //			} catch (Exception ex) {
 //			}
 //			try {
-//				conn2.close();
 //				conn.close();
 //			} catch (Exception ex) {
 //			}
 //		}
-//
-//		return dealers;
 //		
+//		return searchDealers;
 //	}
-	
+
 }
