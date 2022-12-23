@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-useless-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable import/no-unresolved */
@@ -35,28 +37,76 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import { MonitorSharp } from "@mui/icons-material";
 import MDAlert from "components/MDAlert";
+import Spinner from "layouts/Style/Spinner";
+import SearchInput from "./SearchInput";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
+  const [rentCode, setRentCode] = useState("");
   const [list, setList] = useState(null);
+  // const [detail, setDetail] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // const changeHandler = (e) => {
+  //   setKeyword(e.target.value);
+  // };
+
+  const clickHandler = (keyword) => {
+    setLoading(true);
+    // eslint-disable-next-line
+    searchAndShowResult(keyword);
+  };
+
+  const searchAndShowResult = (keyword) => {
+    if (!keyword) return;
+    setLoading(true);
+
+    const url = `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
+    axios.get(url).then((response) => {
+      setList(response.data);
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
+    setLoading(true);
     const loadYearlyRentList = async () => {
       const response = await axios.get(
         `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}`
       );
       setList(response.data);
+      setLoading(false);
       if (response.data.length === 0) {
-        alert("상단의 건물 용도를 선탁하세요.");
+        // alert("상단의 건물 용도를 선택하세요.");
+        return (
+          <MDAlert color="dark" dismissible>
+            상단의 건물 용도를 선택하세요.
+          </MDAlert>
+        );
       }
     };
     loadYearlyRentList();
   }, [houseType]);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const loadYearlyRentDetail = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/web-scraping/openapi/loadYearlyRentDetail?rentCode=${rentCode}`
+  //     );
+  //     setDetail(response.data);
+  //     setLoading(false);
+  //     if (response.data.length === 0) {
+  //       return null;
+  //     }
+  //   };
+  //   loadYearlyRentDetail();
+  // }, [rentCode]);
 
   function Date({ CNTRCT_DE }) {
     return (
@@ -178,37 +228,45 @@ function Tables() {
       </MDButton>
       <br />
       <br />
-      <Stack>
-        <MDInput label="주소지의 구 or 동을 입력하세요." size="large" />
-      </Stack>
+      <SearchInput clickHandler={clickHandler} />
       <MDBox>
-        <DataTable
-          table={{
-            columns: [
-              { Header: "계약일", accessor: "Date", align: "center" },
-              { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
-              { Header: "건물명, 층", accessor: "Bldg", align: "center" },
-              { Header: "보증금(만원)", accessor: "Fee", align: "center" },
-              { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
-              { Header: "건축년도, 건물용도", accessor: "HouseUse", align: "center" },
-            ],
+        {loading ? (
+          <Spinner />
+        ) : (
+          <DataTable
+            table={{
+              columns: [
+                { Header: "계약일", accessor: "Date", align: "center" },
+                { Header: "주소(구, 동)", accessor: "GuDongName", align: "center" },
+                { Header: "건물명, 층", accessor: "Bldg", align: "center" },
+                { Header: "보증금(만원)", accessor: "Fee", align: "center" },
+                { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
+                { Header: "건축년도,건물용도", accessor: "HouseUse", align: "center" },
+                { Header: "상세보기", accessor: "Detail", align: "center" },
+              ],
 
-            rows: list.map((contract) => ({
-              Date: <Date CNTRCT_DE={contract.cntrctDe} />,
-              GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
-              Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
-              Fee: <Fee RENT_GTN={contract.rentGtn} />,
-              Area: <Area BLDG_AREA={contract.bldgArea} />,
-              HouseUse: (
-                <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
-              ),
-            })),
-          }}
-          isSorted={false}
-          pagination={{ variant: "gradient", color: "info" }}
-          entriesPerPage
-          noEndBorder
-        />
+              rows: list.map((contract) => ({
+                Date: <Date CNTRCT_DE={contract.cntrctDe} />,
+                GuDongName: <GuDongName SGG_NM={contract.sggNm} BJDONG_NM={contract.bjdongNm} />,
+                Bldg: <Bldg BLDG_NM={contract.bldgNm} FLOOR={`${contract.floor}층`} />,
+                Fee: <Fee RENT_GTN={contract.rentGtn} />,
+                Area: <Area BLDG_AREA={contract.bldgArea} />,
+                HouseUse: (
+                  <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
+                ),
+                Detail: (
+                  <MDButton variant="outlined" color="dark" size="small" onClick={() => {}}>
+                    상세보기
+                  </MDButton>
+                ),
+              })),
+            }}
+            isSorted={false}
+            pagination={{ variant: "gradient", color: "info" }}
+            entriesPerPage
+            noEndBorder
+          />
+        )}
       </MDBox>
     </DashboardLayout>
   );

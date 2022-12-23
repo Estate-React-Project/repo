@@ -189,6 +189,7 @@ public class AptDealOpenApiController {
 
 	}
 
+	// 검색한 구의 거래 데이터 가져오기
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadAptDeals" })
