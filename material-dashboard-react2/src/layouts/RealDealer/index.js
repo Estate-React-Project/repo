@@ -25,6 +25,7 @@ function Tables() {
     const loadDealers = async (e) => {
       const response = await axios.get(
         "http://localhost:8080/api-to-db/openapi/load-all-dealer");
+
       setDealers(response.data);
     };
     loadDealers();
@@ -45,6 +46,8 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <br />
+      <Card>
       <MDBox
         mx={1}
         mt={-2}
@@ -60,24 +63,11 @@ function Tables() {
         </MDTypography>
       </MDBox>
       <RealDealerMap />
+      </Card>
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Card>
-              <MDBox
-                mx={1}
-                mt={-2}
-                py={2}
-                px={1}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white" align="center">
-                  서울시 중개 업소 목록
-                </MDTypography>
-              </MDBox>
               <MDBox>
                 <DataTable
                   table={{
