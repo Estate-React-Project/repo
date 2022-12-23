@@ -221,7 +221,7 @@ public class MonthlyRentOpenApiController {
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/loadMonthlyRentChart" })
-	public List<RentMonthlyDto> searchMonthlyRentChart(String houseType) {	
+	public List<RentMonthlyDto> searchMonthlyRentChart(String houseType, String keyword) {	
 		List<RentMonthlyDto> months = new ArrayList<>();
 		
 		if(houseType.length() == 0) {
@@ -245,11 +245,37 @@ public class MonthlyRentOpenApiController {
 					+ "from Rent\n"
 					+ "where RENT_GBN = \"월세\" AND CNTRCT_DE LIKE \"2022%\" AND HOUSE_GBN_NM LIKE ? ";
 			
+			String[] columns = { "CNTRCT_DE",
+								 "SGG_NM",
+								 "BJDONG_NM",
+								 "Bldg_NM",
+								 "FLR_NO",
+								 "RENT_GTN",
+								 "RENT_FEE",
+								 "RENT_AREA",
+								 "BUILD_YEAR"
+			};
+			
+			// sql 추가
+			if (keyword != null && keyword.length() > 0) {
+				sql+= " AND (" + columns[0] + " LIKE ? ";
+				for (int i = 1; i < columns.length; i++) {
+					sql += "OR " + columns[i] + " LIKE ? ";
+				}
+				sql += ")";
+			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, '%' + houseType + '%');
+			
+			if (keyword != null && keyword.length() > 0) {
+				for (int i = 0; i < columns.length; i++) {
+					pstmt.setString(i + 2, "%" + keyword + "%");
+				}
+			}
 
 			// 4. 명령 실행
 			rs = pstmt.executeQuery();
+			
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				RentMonthlyDto month = new RentMonthlyDto();
@@ -260,6 +286,7 @@ public class MonthlyRentOpenApiController {
 				month.setBjdongNm(rs.getString(9));
 				month.setBldgNm(rs.getString(14));
 				String prFloor = rs.getString(10).equals("0") ? "단일" : rs.getString(10);
+				System.out.println(prFloor);
 				month.setFloor(prFloor);
 				month.setRentGtn(rs.getString(12));
 				month.setRentFee(rs.getString(13));
