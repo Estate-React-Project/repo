@@ -285,7 +285,7 @@ public class MonthlyRentOpenApiController {
 				month.setSggNm(rs.getString(7));
 				month.setBjdongNm(rs.getString(9));
 				month.setBldgNm(rs.getString(14));
-				String prFloor = rs.getString(10).equals("0") ? "단일" : rs.getString(10);
+				String prFloor = rs.getString(10).equals(0) ? "단일" : rs.getString(10);
 				System.out.println(prFloor);
 				month.setFloor(prFloor);
 				month.setRentGtn(rs.getString(12));
