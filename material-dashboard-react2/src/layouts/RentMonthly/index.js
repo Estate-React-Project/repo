@@ -17,17 +17,12 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
-import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
-import MDPagination from "components/MDPagination";
-import MixedChart from "examples/Charts/MixedChart";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -37,8 +32,6 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Stack } from "@mui/system";
-import { MonitorSharp } from "@mui/icons-material";
 import MDAlert from "components/MDAlert";
 import Spinner from "layouts/Style/Spinner";
 import SearchInput from "./SearchInput";

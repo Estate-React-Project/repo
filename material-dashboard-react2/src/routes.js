@@ -48,6 +48,7 @@ import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
 import AptDeal from "layouts/AptDeal";
+import Realestatenews from "layouts/Realestatenews";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -143,6 +144,14 @@ const routes = [
     icon: <Icon fontSize="small">domainaddicon</Icon>,
     route: "/reBuild",
     component: <ReBuild />,
+  },
+  {
+    type: "collapse",
+    name: "부동산 뉴스",
+    key: "realestatenews",
+    icon: <Icon fontSize="small">newspaper</Icon>,
+    route: "/realestatenews",
+    component: <Realestatenews />,
   },
 ];
 

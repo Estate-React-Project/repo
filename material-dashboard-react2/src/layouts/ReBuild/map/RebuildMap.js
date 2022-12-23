@@ -6717,33 +6717,24 @@ function RebuildMap({ setGu }) {
               strokeOpacity={0.6}
               fillColor={area.isMouseover ? "#09f" : "#fff"}
               fillOpacity={0.5}
-              onMouseover={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: true,
-                  },
-                ])
-              }
-              onMouseout={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: false,
-                  },
-                ])
-              }
-              onMousemove={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: true,
-                  },
-                ])
-              }
+              // onMouseover={() =>
+              //   setAreas((prev) => [
+              //     ...prev.filter((_, i) => i !== index),
+              //     {
+              //       ...prev[index],
+              //       isMouseover: true,
+              //     },
+              //   ])
+              // }
+              // onMouseout={() =>
+              //   setAreas((prev) => [
+              //     ...prev.filter((_, i) => i !== index),
+              //     {
+              //       ...prev[index],
+              //       isMouseover: false,
+              //     },
+              //   ])
+              // }
               onClick={() => {
                 setGu(area.name);
                 // eslint-disable-next-line no-alert
