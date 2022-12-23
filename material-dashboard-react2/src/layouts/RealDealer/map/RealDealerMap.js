@@ -104,6 +104,8 @@ function RealDealerMap({ setSggNm }) {
         지적편집도
       </MDButton>
       <br />
+      <hr />
+      {/* <AddPolygonMouseEvent2Style /> */}
       <Map // 로드뷰를 표시할 Container
           id="map"
           center={{
@@ -116,7 +118,7 @@ function RealDealerMap({ setSggNm }) {
             width: "100%",
             height: "600px",
           }}
-          level={8} // 지도의 확대 레벨
+          level={6} // 지도의 확대 레벨
           onMouseMove={(_map, mouseEvent) =>
             setMousePosition({
               lat: mouseEvent.latLng.getLat(),
@@ -408,7 +410,6 @@ function RealDealerMap({ setSggNm }) {
       동대문구
     </MDButton>
     </div>
-    <br />
     <br />
     </MDBox>
   );

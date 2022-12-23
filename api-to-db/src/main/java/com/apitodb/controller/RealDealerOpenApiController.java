@@ -195,7 +195,7 @@ public class RealDealerOpenApiController {
 					dealers.add(dealer);
 				}			
 				
-				 System.out.println(dealers);
+				 // System.out.println(dealers);
 				
 			} catch (Exception ex) {
 				ex.printStackTrace(); // 개발 용도로 사용
