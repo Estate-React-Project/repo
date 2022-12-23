@@ -242,7 +242,6 @@ function Tables() {
                 { Header: "보증금(만원)", accessor: "Fee", align: "center" },
                 { Header: "건물면적(m^2)", accessor: "Area", align: "center" },
                 { Header: "건축년도,건물용도", accessor: "HouseUse", align: "center" },
-                { Header: "상세보기", accessor: "Detail", align: "center" },
               ],
 
               rows: list.map((contract) => ({
@@ -253,11 +252,6 @@ function Tables() {
                 Area: <Area BLDG_AREA={contract.bldgArea} />,
                 HouseUse: (
                   <HouseUse BUILD_YEAR={contract.buildYear} HOUSE_TYPE={contract.houseType} />
-                ),
-                Detail: (
-                  <MDButton variant="outlined" color="dark" size="small" onClick={() => {}}>
-                    상세보기
-                  </MDButton>
                 ),
               })),
             }}

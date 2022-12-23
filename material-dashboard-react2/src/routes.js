@@ -43,7 +43,7 @@ import RentMonthly from "layouts/RentMonthly";
 import RentMonthlyGraph from "layouts/RentMonthlyGraph";
 import RentYearly from "layouts/RentYearly";
 import RentYearlyGraph from "layouts/RentYearlyGraph";
-import RentYearlyMap from "layouts/RentYearlyMap";
+import SeoulMap from "layouts/SeoulMap";
 import RealDealer from "layouts/RealDealer";
 import ReBuild from "layouts/ReBuild";
 import AptInfo from "layouts/AptInfo";
@@ -67,6 +67,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "부동산 뉴스",
+    key: "realestatenews",
+    icon: <Icon fontSize="small">newspaper</Icon>,
+    route: "/realestatenews",
+    component: <Realestatenews />,
+  },
+  {
+    type: "collapse",
     name: "전세",
     key: "rentYearly",
     icon: <Icon fontSize="small">article</Icon>,
@@ -83,14 +91,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "전세 맵",
-    key: "rentYearlyMap",
-    icon: <Icon fontSize="small">explore</Icon>,
-    route: "/rentYearlyMap",
-    component: <RentYearlyMap />,
-  },
-  {
-    type: "collapse",
     name: "월세",
     key: "rentMonthly",
     icon: <Icon fontSize="small">article</Icon>,
@@ -104,14 +104,6 @@ const routes = [
     icon: <Icon fontSize="small">article</Icon>,
     route: "/rentMonthlyGraph",
     component: <RentMonthlyGraph />,
-  },
-  {
-    type: "collapse",
-    name: "월세 맵",
-    key: "realTradeMap",
-    icon: <Icon fontSize="small">explore</Icon>,
-    route: "/realTradeMap",
-    component: <RentMonthlyMap />,
   },
   {
     type: "collapse",
@@ -147,11 +139,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "부동산 뉴스",
-    key: "realestatenews",
-    icon: <Icon fontSize="small">newspaper</Icon>,
-    route: "/realestatenews",
-    component: <Realestatenews />,
+    name: "지도",
+    key: "seoulMap",
+    icon: <Icon fontSize="small">explore</Icon>,
+    route: "/seoulMap",
+    component: <SeoulMap />,
   },
 ];
 

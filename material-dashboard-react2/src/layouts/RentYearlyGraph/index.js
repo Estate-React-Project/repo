@@ -45,11 +45,10 @@ function Tables() {
   const [guaranteeCount, setGuaranteeCount] = useState("");
   const [guCount, setGuCount] = useState("");
   const [purposeCount, setPurposeCount] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [allData, setAllData] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
     const loadAllData = async () => {
       const response1 = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
@@ -126,19 +125,17 @@ function Tables() {
   //   loadYearlyRentPurposeCount();
   // }, []);
 
-  if (allData == null) {
-    return null;
-  }
+  // if (allData == null) {
+  //   return null;
+  // }
 
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
+    <div>
       {loading ? (
-        <MDBox>
-          <Spinner2 />
-        </MDBox>
+        <Spinner />
       ) : (
-        <>
+        <DashboardLayout>
+          <DashboardNavbar />
           <MDBox pt={6} pb={3}>
             <Grid container spacing={6}>
               <Grid item xs={12}>
@@ -425,9 +422,9 @@ function Tables() {
               </Grid>
             </Grid>
           </MDBox>
-        </>
+        </DashboardLayout>
       )}
-    </DashboardLayout>
+    </div>
   );
 }
 
