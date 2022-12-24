@@ -21,33 +21,29 @@ import Spinner from "layouts/Style/Spinner";
 import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
+  // 전체 목록 가져오기
   const [dealers, setDealers] = useState([]);
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
-        "http://localhost:8080//web-scraping/openapi/load-all-dealer"
-        );
+        "http://localhost:8080//web-scraping/openapi/load-all-dealer");
       setDealers(response.data);
     };
-
+      // console.log(keyword);
     loadDealers();
   }, []);
 
+  // 구 검색 -> 구 목록 보여주기
   const [sggNm, setSggNm] = useState([]);
-  const [tableData, setTableData] = useState(null);
-  const [realerdealerData, setRealerDealerData] = useState(null);
   useEffect(() => {
-    const loadDealers = async () => {
+    const searchDealers = async () => {
       const response = await axios.get(
-        `http://localhost:8080//web-scraping/openapi/load-all-dealer=${sggNm}`
-      );
-      const { columns, rows } = RealerDealerData(response.data);
-      setTableData({ columns, rows });
-      setRealerDealerData(response.data);
-      // eslint-disable-next-line no-console
-      console.log(response.data);
+        `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}`);
+      setSggNm( response.data );
+      
+      // console.log(response.data);
     };
-    loadDealers();
+      searchDealers();
   }, [sggNm]);
 
   return (
@@ -88,19 +84,16 @@ function Tables() {
                   부동산 중개 업소 목록 (서울시 전역)
                 </MDTypography>
               </MDBox>
-                {loading ? (
-                  <Spinner />
-                ) : (   
-                <DataTable             
+                <DataTable
                   table={{
                     columns: [
-                      { Header: "중개업자명", accessor: "rdealerNm" },
-                      { Header: "중개업등록번호", accessor: "raRegno" },
-                      { Header: "주소", accessor: "address" },
-                      { Header: "사업자상호", accessor: "cmpNm" },
-                      { Header: "전화번호", accessor: "telNo" },
-                      { Header: "상태구분", accessor: "stsGbn" },
-                      { Header: "자치구명", accessor: "sggNm" },
+                      { Header: "중개업자명", accessor: "rdealerNm", align: "center" },
+                      { Header: "중개업등록번호", accessor: "raRegno", align: "center" },
+                      { Header: "주소", accessor: "address", align: "center" },
+                      { Header: "사업자상호", accessor: "cmpNm", align: "center" },
+                      { Header: "전화번호", accessor: "telNo", align: "center" },
+                      { Header: "상태구분", accessor: "stsGbn", align: "center" },
+                      { Header: "자치구명", accessor: "sggNm", align: "center" },
                     ],
                     rows: dealers.map( (dealer) => {
                       return {
@@ -114,12 +107,7 @@ function Tables() {
                       };
                     }),
                   }}
-                  isSorted={false}
-                  pagination={{ variant: "gradient", color: "info" }}
-                  entriesPerPage
-                  noEndBorder
                 />
-              )}
             </Card>
           </Grid>
         </Grid>
