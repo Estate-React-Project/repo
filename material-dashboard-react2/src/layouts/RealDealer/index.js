@@ -52,7 +52,6 @@ function Tables() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <br />
       <Card>
       <MDBox

@@ -285,17 +285,13 @@ public class MonthlyRentOpenApiController {
 				month.setSggNm(rs.getString(7));
 				month.setBjdongNm(rs.getString(9));
 				month.setBldgNm(rs.getString(14));
-<<<<<<< HEAD
 				String prFloor = rs.getString(10).equals(0) ? "단일" : rs.getString(10);
 				System.out.println(prFloor);
 				month.setFloor(prFloor);
-=======
-				month.setFloor(rs.getString(10).equals("0") ? "단일" : rs.getString(10));
->>>>>>> 8e87a6730909b6c5fda3e247b4e0b768cdcf1500
 				month.setRentGtn(rs.getString(12));
 				month.setRentFee(rs.getString(13));
 				month.setBldgArea(rs.getString(11));
-				month.setBuildYear(rs.getString(15).equals("") ? "XXXX" : rs.getString(15));
+				month.setBuildYear(rs.getString(15));
 				month.setHouseType(rs.getString(16));
 				
 				months.add(month);
@@ -316,6 +312,64 @@ public class MonthlyRentOpenApiController {
 		}
 
 		return months;
+
+	}
+	
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadRentBuildCount" })
+	public HashMap<String, Object> searchRentCountDataByBuildYear() {
+
+		HashMap<String, Object> rentBuildCountData = new HashMap<>();
+		
+		// DB에 저장하는 코드
+		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		ResultSet rs = null;
+
+		try {
+			// 1. Driver 등록
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// 2. 연결 및 연결 객체 가져오기
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2"); // 데이터베이스 계정 정보
+
+			// 3. SQL 작성 + 명령 객체 가져오기
+			String sql = "select COUNT(CASE WHEN BUILD_YEAR > 1970 AND BUILD_YEAR < 1980 then 1 end),\n"
+					+ "	   		 COUNT(CASE WHEN BUILD_YEAR > 1980 AND BUILD_YEAR < 1990 then 1 end),\n"
+					+ "      	 COUNT(CASE WHEN BUILD_YEAR > 1990 AND BUILD_YEAR < 2000 then 1 end),\n"
+					+ "     	 COUNT(CASE WHEN BUILD_YEAR > 2000 AND BUILD_YEAR < 2010 then 1 end),\n"
+					+ "     	 COUNT(CASE WHEN BUILD_YEAR > 2010 AND BUILD_YEAR < 2022 then 1 end)\n"
+					+ "From Rent";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 명령 실행
+			rs = pstmt.executeQuery();
+			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+			while (rs.next()) { // 결과 집합의 다음 행으로 이동
+				
+				for (int i = 1; i <= 5; i++) {
+					rentBuildCountData.put( "data" + i , rs.getInt(i));
+					System.out.println(rentBuildCountData);
+				}
+				
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace(); // 개발 용도로 사용
+		} finally {
+			// 6. 연결 닫기
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return rentBuildCountData;
 
 	}
 }

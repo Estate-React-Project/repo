@@ -21,7 +21,6 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
 import MixedChart from "examples/Charts/MixedChart";
 import PieChart from "examples/Charts/PieChart";
 import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
@@ -70,6 +69,10 @@ function Tables() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGuarantee`
       );
 
+      const response8 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadRentBuildCount`
+      );
+
       setAllData({
         yCount: response1.data,
         count: response2.data,
@@ -78,6 +81,7 @@ function Tables() {
         yPurposeCount: response5.data,
         gbncount: response6.data,
         guaranteeCount: response7.data,
+        rentBuildCount: response8.data,
       });
       setLoading(false);
     };
@@ -90,7 +94,6 @@ function Tables() {
         <Spinner />
       ) : (
         <DashboardLayout>
-          <DashboardNavbar />
           <MDBox pt={6} pb={3}>
             <Grid container spacing={6}>
               <Grid item xs={12}>
@@ -104,11 +107,7 @@ function Tables() {
                     bgColor="secondary"
                     borderRadius="lg"
                     coloredShadow="secondary"
-                  >
-                    <MDTypography variant="h6" color="white">
-                      Yearly Rent Data
-                    </MDTypography>
-                  </MDBox>
+                  />
                   <MDBox
                     mx={2}
                     mt={-3}
@@ -250,11 +249,7 @@ function Tables() {
                     bgColor="secondary"
                     borderRadius="lg"
                     coloredShadow="secondary"
-                  >
-                    <MDTypography variant="h6" color="white">
-                      Yearly Rent Data
-                    </MDTypography>
-                  </MDBox>
+                  />
                   <MDBox
                     mx={2}
                     mt={-3}
@@ -395,7 +390,7 @@ function Tables() {
                         ],
                         datasets: [
                           {
-                            label: "Sales by age",
+                            label: "자치구별 월세 거래량",
                             color: "dark",
                             data: [
                               allData.gucount.gudata1,
@@ -446,11 +441,7 @@ function Tables() {
                     bgColor="secondary"
                     borderRadius="lg"
                     coloredShadow="secondary"
-                  >
-                    <MDTypography variant="h6" color="white">
-                      Yearly Rent Data
-                    </MDTypography>
-                  </MDBox>
+                  />
                   <MDBox
                     mx={2}
                     mt={-3}
@@ -544,11 +535,7 @@ function Tables() {
                     bgColor="secondary"
                     borderRadius="lg"
                     coloredShadow="secondary"
-                  >
-                    <MDTypography variant="h6" color="white">
-                      Yearly Rent Data
-                    </MDTypography>
-                  </MDBox>
+                  />
                   <MDBox
                     mx={2}
                     mt={-3}
@@ -581,6 +568,62 @@ function Tables() {
                               allData.guaranteeCount.dataByGuarantee3,
                               allData.guaranteeCount.dataByGuarantee4,
                               allData.guaranteeCount.dataByGuarantee5,
+                            ],
+                          },
+                        ],
+                      }}
+                    />
+                  </MDBox>
+                </Card>
+              </Grid>
+            </Grid>
+          </MDBox>
+          <MDBox pt={6} pb={3}>
+            <Grid container spacing={6}>
+              <Grid item xs={12}>
+                <Card>
+                  <MDBox
+                    mx={2}
+                    mt={-3}
+                    py={3}
+                    px={2}
+                    variant="gradient"
+                    bgColor="secondary"
+                    borderRadius="lg"
+                    coloredShadow="secondary"
+                  />
+                  <MDBox
+                    mx={2}
+                    mt={-3}
+                    py={3}
+                    px={2}
+                    variant="gradient"
+                    bgColor="secondary"
+                    borderRadius="lg"
+                    coloredShadow="secondary"
+                  >
+                    <HorizontalBarChart
+                      icon={{ color: "info", component: "leaderboard" }}
+                      title="2022 거래 건물 연식"
+                      description="2022년 전/월세 거래 건물 연식"
+                      chart={{
+                        labels: [
+                          "1970 ~ 1980",
+                          "1980 ~ 1990",
+                          "1990 ~ 2000",
+                          "2000 ~ 2010",
+                          "2010 ~ 2022",
+                        ],
+                        datasets: [
+                          {
+                            label: "전세 보증금별 거래량",
+                            color: "dark",
+                            data: [
+                              allData.rentBuildCount.data1,
+                              allData.rentBuildCount.data2,
+                              allData.rentBuildCount.data3,
+                              allData.rentBuildCount.data4,
+                              allData.rentBuildCount.data5,
                             ],
                           },
                         ],

@@ -22,23 +22,18 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 import moment from "moment";
-
-// Data
-import MDAlert from "components/MDAlert";
 
 const estateLoad = (props) => {
   const [estateNews, setEstateNews] = useState([]);
   useEffect(() => {
     const start = 1;
-    const display = 10;
+    const display = 100;
     const url = `http://localhost:8080/web-scraping/estate-news?start=${start}&display=${display}`;
     axios.get(url).then((response) => {
       if (response.data.result === "success") {
@@ -48,17 +43,17 @@ const estateLoad = (props) => {
     });
   }, []);
 
-  function Title({ TITLE }) {
-    return (
-      <MDBox display="flex" alignItems="center" lineHeight={1}>
-        <MDBox ml={2} lineHeight={1}>
-          <MDTypography display="block" variant="button" fontWeight="medium">
-            {TITLE}
-          </MDTypography>
-        </MDBox>
-      </MDBox>
-    );
-  }
+  //   function ({ TITLE }) {
+  //     return (
+  //       <MDBox alignItems="center" lineHeight={1}>
+  //         <MDBox ml={1} lineHeight={1} alignItems="center">
+  //           <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+  //             {TITLE}
+  //           </MDTypography>
+  //         </MDBox>
+  //       </MDBox>
+  //     );
+  //   }
 
   function Description({ DESCRIPTION }) {
     return (
@@ -82,26 +77,23 @@ const estateLoad = (props) => {
   return (
     <DashboardLayout>
       <br />
+      <MDTypography fontWeight="bold">
+        <Icon>erroricon</Icon>&nbsp;제목을 클릭하시면 네이버 뉴스로 이동됩니다.
+      </MDTypography>
+      <br />
       <br />
       <MDBox>
         <DataTable
           table={{
             columns: [
-              { Header: "제목", accessor: "Title", width: "20%", align: "center" },
-              { Header: "설명", accessor: "Description", width: "40%", align: "center" },
+              { Header: "제목", accessor: "Title", align: "center" },
+              { Header: "설명", accessor: "Description", align: "center" },
               { Header: "게시일", accessor: "PubDate", align: "center" },
             ],
 
             rows: estateNews.map((news) => ({
               Title: (
-                <MDTypography
-                  component="a"
-                  href={news.link}
-                  variant="caption"
-                  underLine="always"
-                  fontWeight="bold"
-                  lineHeight="always"
-                >
+                <MDTypography component="a" href={news.link} variant="h6">
                   {news.title
                     .replaceAll("&apos;", "'")
                     .replaceAll("&quot;", '"')

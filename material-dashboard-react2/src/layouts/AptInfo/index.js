@@ -23,12 +23,10 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import projectsTableData from "layouts/AptInfo/data/projectsTableData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PieChart from "examples/Charts/PieChart";
@@ -94,7 +92,6 @@ function Tables() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>

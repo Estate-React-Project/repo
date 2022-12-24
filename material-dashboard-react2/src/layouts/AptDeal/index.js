@@ -24,9 +24,7 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import DataTable from "examples/Tables/DataTable";
 
 // Data
 import { useEffect, useState } from "react";
@@ -66,7 +64,6 @@ function Tables() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <MDInput
         type="search"
         // label="구를 입력해주십시오"

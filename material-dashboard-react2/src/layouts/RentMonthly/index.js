@@ -26,13 +26,11 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MDAlert from "components/MDAlert";
 import Spinner from "layouts/Style/Spinner";
 import SearchInput from "./SearchInput";
 

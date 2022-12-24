@@ -67,7 +67,6 @@ function Tables() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <RebuildMap setGu={setGu} />
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
