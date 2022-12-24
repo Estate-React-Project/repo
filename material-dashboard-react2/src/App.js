@@ -178,7 +178,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Real Estate Project"
+            brandName="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022 서울 부동산"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
