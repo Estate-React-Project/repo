@@ -18,6 +18,8 @@ import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import { Icon } from "@mui/material";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -35,127 +37,165 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
+// Project Data
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Spinner from "layouts/Style/Spinner";
+import Spinner2 from "layouts/Style/Spinner2";
+
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [loading, setLoading] = useState(true);
+  const [allData, setAllData] = useState("");
+
+  useEffect(() => {
+    const loadAllData = async () => {
+      const response1 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard`
+      );
+
+      // const response2 = await axios.get(
+      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentTop5Dashboard`
+      // );
+
+      setAllData({
+        yearlyRentAllCount: response1.data,
+        // yearlyRentTop5: response2.data,
+      });
+      setLoading(false);
+    };
+    loadAllData();
+  }, []);
 
   return (
-    <DashboardLayout>
-      <MDBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
+    <div>
+      {loading ? (
+        <Spinner2 />
+      ) : (
+        <DashboardLayout>
+          <br />
+          <MDBox>
+            <MDTypography variant="h5">
+              <Icon>chat</Icon>&nbsp;&nbsp;2022년 서울 부동산 정보
+            </MDTypography>
+          </MDBox>
+          <br />
+          <MDBox py={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} lg={3}>
+                <MDBox mb={1.5}>
+                  <ComplexStatisticsCard
+                    color="dark"
+                    icon="weekend"
+                    title="전세 총 거래량"
+                    count={`${allData.yearlyRentAllCount.dataCount}건`}
+                    percentage={{
+                      label: "2022년 서울 기준",
+                    }}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
+                <MDBox mb={1.5}>
+                  <ComplexStatisticsCard
+                    icon="leaderboard"
+                    title="Today's Users"
+                    count="2,300"
+                    percentage={{
+                      color: "success",
+                      amount: "+3%",
+                      label: "than last month",
+                    }}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
+                <MDBox mb={1.5}>
+                  <ComplexStatisticsCard
+                    color="success"
+                    icon="store"
+                    title="Revenue"
+                    count="34k"
+                    percentage={{
+                      color: "success",
+                      amount: "+1%",
+                      label: "than yesterday",
+                    }}
+                  />
+                </MDBox>
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
+                <MDBox mb={1.5}>
+                  <ComplexStatisticsCard
+                    color="primary"
+                    icon="person_add"
+                    title="Followers"
+                    count="+91"
+                    percentage={{
+                      color: "success",
+                      amount: "",
+                      label: "Just updated",
+                    }}
+                  />
+                </MDBox>
+              </Grid>
+            </Grid>
+            <MDBox mt={4.5}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6} lg={4}>
+                  <MDBox mb={3}>
+                    <ReportsBarChart
+                      color="info"
+                      title="website views"
+                      description="Last Campaign Performance"
+                      date="campaign sent 2 days ago"
+                      chart={reportsBarChartData([])}
+                      // {}
+                    />
+                  </MDBox>
+                </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                  <MDBox mb={3}>
+                    <ReportsLineChart
+                      color="success"
+                      title="daily sales"
+                      description={
+                        <>
+                          (<strong>+15%</strong>) increase in today sales.
+                        </>
+                      }
+                      date="updated 4 min ago"
+                      chart={sales}
+                    />
+                  </MDBox>
+                </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                  <MDBox mb={3}>
+                    <ReportsLineChart
+                      color="dark"
+                      title="completed tasks"
+                      description="Last Campaign Performance"
+                      date="just updated"
+                      chart={tasks}
+                    />
+                  </MDBox>
+                </Grid>
+              </Grid>
             </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
+            <MDBox>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6} lg={8}>
+                  <Projects />
+                </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                  <OrdersOverview />
+                </Grid>
+              </Grid>
             </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
-          </Grid>
-        </Grid>
-        <MDBox mt={4.5}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <Projects />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid>
-        </MDBox>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+          </MDBox>
+        </DashboardLayout>
+      )}
+    </div>
   );
 }
 

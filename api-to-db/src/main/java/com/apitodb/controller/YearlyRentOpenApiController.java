@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.apitodb.dto.CountDto;
 import com.apitodb.dto.RentYearlyDto;
 
 @Controller
@@ -371,54 +373,93 @@ public class YearlyRentOpenApiController {
 		return yearlyLists;
 	}
 
-	// 리스트에서 상세보기
+	// 대쉬보드 전세 전체 카운트
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadYearlyRentDashboard" })
+	public HashMap<String, Object> DashboardYearlyRentList() {
+		
+		HashMap<String, Object> yearlyRentAllCount = new HashMap<>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2");
+			
+			String sql = "SELECT count(case when RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' then 1 end) FROM Rent";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				DecimalFormat commaFormat = new DecimalFormat("###,###");
+				String count = commaFormat.format(rs.getInt(1));
+				
+				yearlyRentAllCount.put("dataCount", count);
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+		
+		return yearlyRentAllCount;
+	}
+	
+	// 대쉬보드 전세 전체 카운트
+//	@SuppressWarnings("unchecked")
 //	@CrossOrigin
 //	@ResponseBody
-//	@GetMapping(path = { "/loadYearlyRentDetail" })
-//	public List<RentYearlyDto> DetailYearlyRentList(int rentCode) {
-//		
-//		List<RentYearlyDto> yearlydetail = new ArrayList<>();
-//		
-//		if (rentCode == 0) {
-//			return yearlydetail;
-//		}
-//		
+//	@GetMapping(path = { "/loadYearlyRentTop5Dashboard" })
+//	public HashMap<String, Object> DashboardYearlyRentTop5List() {
+//			
+//		HashMap<String, Object> lists = new HashMap<>();
+//			
 //		Connection conn = null;
 //		PreparedStatement pstmt = null;
 //		ResultSet rs = null;
-//		
+//			
 //		try {
 //			Class.forName("com.mysql.cj.jdbc.Driver");
-//			
+//				
 //			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//					"team2", "team2");
-//			
-//			String sql = "SELECT * " +
-//						 "FROM Rent " +
-//						 "WHERE RENT_CODE = ? ";
-//			
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, rentCode);
-//			
+//						"team2", "team2");
+//				
+//			String sql2 = "SELECT SGG_NM, COUNT(SGG_NM) as COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC";
+//				
+//			pstmt = conn.prepareStatement(sql2);
+//				
 //			rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//				RentYearlyDto yearlyList = new RentYearlyDto();
 //				
-//				yearlyList.setCntrctDe(rs.getString(3));
-//				yearlyList.setSggNm(rs.getString(7));
-//				yearlyList.setBjdongNm(rs.getString(9));
-//				yearlyList.setBldgNm(rs.getString(14));
-//				yearlyList.setFloor(rs.getString(10));
-//				yearlyList.setRentGtn(rs.getString(12));
-//				yearlyList.setRentFee(rs.getString(13));
-//				yearlyList.setBldgArea(rs.getString(11));
-//				yearlyList.setBuildYear(rs.getString(15));
-//				yearlyList.setHouseType(rs.getString(16));
+//			while (rs.next()) { // 결과 집합의 다음 행으로 이동
+//				CountDto list = new CountDto();
 //				
-//				yearlydetail.add(yearlyList);
+//				for (int i = 1; i <= 5; i++) {
+//					list.put( "name" + i , list.setName(rs.getString(i)));
+//					list.put( "count" + i , ((CountDto) list).setCount(rs.getInt(i)));
+//				}
+//				lists.add(list);
 //			}
-//			
+//				
 //		} catch (Exception ex) {
 //			ex.printStackTrace();
 //		} finally {
@@ -435,10 +476,10 @@ public class YearlyRentOpenApiController {
 //			} catch (Exception ex) {
 //			}
 //		}
-//		
-//		return yearlydetail;
+//			
+//		return lists;
 //	}
-	
+		
 }
 
 

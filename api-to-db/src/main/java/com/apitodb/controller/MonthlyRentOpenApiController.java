@@ -348,7 +348,6 @@ public class MonthlyRentOpenApiController {
 				
 				for (int i = 1; i <= 5; i++) {
 					rentBuildCountData.put( "data" + i , rs.getInt(i));
-					System.out.println(rentBuildCountData);
 				}
 				
 			}

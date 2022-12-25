@@ -178,7 +178,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={transparentSidenav && !darkMode}
-            brandName="2022년 서울 부동산 정보"
+            brandName="2022년 서울 부동산"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
