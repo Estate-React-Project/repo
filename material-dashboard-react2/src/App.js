@@ -154,8 +154,8 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Real Estate Project"
+              brand={transparentSidenav && !darkMode}
+              brandName="2022년 서울 부동산 정보"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
@@ -177,8 +177,8 @@ export default function App() {
         <>
           <Sidenav
             color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022 서울 부동산"
+            brand={transparentSidenav && !darkMode}
+            brandName="2022년 서울 부동산 정보"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

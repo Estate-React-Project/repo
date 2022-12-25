@@ -280,18 +280,15 @@ public class MonthlyRentOpenApiController {
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				RentMonthlyDto month = new RentMonthlyDto();
 				
-				
 				month.setCntrctDe(rs.getString(3));
 				month.setSggNm(rs.getString(7));
 				month.setBjdongNm(rs.getString(9));
 				month.setBldgNm(rs.getString(14));
-				String prFloor = rs.getString(10).equals(0) ? "단일" : rs.getString(10);
-				System.out.println(prFloor);
-				month.setFloor(prFloor);
+				month.setFloor(rs.getString(10).equals("0") ? "단일" : rs.getString(10));
 				month.setRentGtn(rs.getString(12));
 				month.setRentFee(rs.getString(13));
 				month.setBldgArea(rs.getString(11));
-				month.setBuildYear(rs.getString(15));
+				month.setBuildYear(rs.getString(15).equals("") ? "XXXX" : rs.getString(15));
 				month.setHouseType(rs.getString(16));
 				
 				months.add(month);
