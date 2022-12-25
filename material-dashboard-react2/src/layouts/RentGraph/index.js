@@ -33,7 +33,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // Data
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Spinner from "layouts/Style/Spinner";
+import Spinner3 from "layouts/Style/Spinner3";
 
 function Tables() {
   const [loading, setLoading] = useState(true);
@@ -91,7 +91,7 @@ function Tables() {
   return (
     <div>
       {loading ? (
-        <Spinner />
+        <Spinner3 />
       ) : (
         <DashboardLayout>
           <MDBox pt={6} pb={3}>

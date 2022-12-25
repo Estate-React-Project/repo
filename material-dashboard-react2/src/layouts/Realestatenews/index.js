@@ -28,9 +28,12 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DataTable from "examples/Tables/DataTable";
 import moment from "moment";
+import Spinner from "layouts/Style/Spinner";
 
 const estateLoad = (props) => {
   const [estateNews, setEstateNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const start = 1;
     const display = 100;
@@ -38,7 +41,7 @@ const estateLoad = (props) => {
     axios.get(url).then((response) => {
       if (response.data.result === "success") {
         setEstateNews(response.data.estateNews);
-        console.log(response.data.estateNews);
+        setLoading(false);
       }
     });
   }, []);
@@ -74,57 +77,63 @@ const estateLoad = (props) => {
       </MDBox>
     );
   }
-  return (
-    <DashboardLayout>
-      <br />
-      <MDTypography fontWeight="bold">
-        <Icon>erroricon</Icon>&nbsp;제목을 클릭하시면 네이버 뉴스로 이동됩니다.
-      </MDTypography>
-      <br />
-      <br />
-      <MDBox>
-        <DataTable
-          table={{
-            columns: [
-              { Header: "제목", accessor: "Title", align: "center" },
-              { Header: "설명", accessor: "Description", align: "center" },
-              { Header: "게시일", accessor: "PubDate", align: "center" },
-            ],
 
-            rows: estateNews.map((news) => ({
-              Title: (
-                <MDTypography component="a" href={news.link} variant="h6">
-                  {news.title
-                    .replaceAll("&apos;", "'")
-                    .replaceAll("&quot;", '"')
-                    .replaceAll("<b>", "")
-                    .replaceAll("</b>", "")
-                    .replaceAll("&lt;", "<")
-                    .replaceAll("&gt;", ">")}
-                </MDTypography>
-              ),
-              Description: (
-                <Description
-                  DESCRIPTION={`${news.description
-                    .replaceAll("&apos;", "'")
-                    .replaceAll("&quot;", '"')
-                    .replaceAll("<b>", "")
-                    .replaceAll("</b>", "")
-                    .replaceAll("&lt;", "<")
-                    .replaceAll("&gt;", ">")
-                    .substring(0, 40)}...`}
-                />
-              ),
-              PubDate: <PubDate PUBDATE={moment(news.pubDate).startOf("day").fromNow()} />,
-            })),
-          }}
-          isSorted={false}
-          pagination={{ variant: "gradient", color: "info" }}
-          entriesPerPage
-          noEndBorder
-        />
-      </MDBox>
-    </DashboardLayout>
+  return (
+    <div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <DashboardLayout>
+          <br />
+          <MDTypography fontWeight="bold">
+            <Icon>erroricon</Icon>&nbsp;제목을 클릭하시면 네이버 뉴스로 이동됩니다.
+          </MDTypography>
+          <br />
+          <MDBox>
+            <DataTable
+              table={{
+                columns: [
+                  { Header: "제목", accessor: "Title", align: "center" },
+                  { Header: "설명", accessor: "Description", align: "center" },
+                  { Header: "게시일", accessor: "PubDate", align: "center" },
+                ],
+
+                rows: estateNews.map((news) => ({
+                  Title: (
+                    <MDTypography component="a" href={news.link} variant="h6">
+                      {news.title
+                        .replaceAll("&apos;", "'")
+                        .replaceAll("&quot;", '"')
+                        .replaceAll("<b>", "")
+                        .replaceAll("</b>", "")
+                        .replaceAll("&lt;", "<")
+                        .replaceAll("&gt;", ">")}
+                    </MDTypography>
+                  ),
+                  Description: (
+                    <Description
+                      DESCRIPTION={`${news.description
+                        .replaceAll("&apos;", "'")
+                        .replaceAll("&quot;", '"')
+                        .replaceAll("<b>", "")
+                        .replaceAll("</b>", "")
+                        .replaceAll("&lt;", "<")
+                        .replaceAll("&gt;", ">")
+                        .substring(0, 40)}...`}
+                    />
+                  ),
+                  PubDate: <PubDate PUBDATE={moment(news.pubDate).startOf("day").fromNow()} />,
+                })),
+              }}
+              isSorted={false}
+              pagination={{ variant: "gradient", color: "info" }}
+              entriesPerPage
+              noEndBorder
+            />
+          </MDBox>
+        </DashboardLayout>
+      )}
+    </div>
   );
 };
 export default estateLoad;

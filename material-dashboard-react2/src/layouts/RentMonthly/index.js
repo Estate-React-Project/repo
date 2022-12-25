@@ -37,7 +37,7 @@ import SearchInput from "./SearchInput";
 function Tables() {
   const [houseType, setHouseType] = useState("");
   const [list, setList] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const clickHandler = (keyword) => {
     setLoading(true);

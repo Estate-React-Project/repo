@@ -20,6 +20,8 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { Icon } from "@mui/material";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -42,6 +44,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "layouts/Style/Spinner";
 import Spinner2 from "layouts/Style/Spinner2";
+import list from "assets/theme/components/list";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
@@ -55,12 +58,12 @@ function Dashboard() {
       );
 
       // const response2 = await axios.get(
-      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentTop5Dashboard`
+      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard2`
       // );
 
       setAllData({
         yearlyRentAllCount: response1.data,
-        // yearlyRentTop5: response2.data,
+        // yearlyRentChartData: response2.data,
       });
       setLoading(false);
     };
@@ -86,7 +89,7 @@ function Dashboard() {
                 <MDBox mb={1.5}>
                   <ComplexStatisticsCard
                     color="dark"
-                    icon="weekend"
+                    icon="homeworkicon"
                     title="전세 총 거래량"
                     count={`${allData.yearlyRentAllCount.dataCount}건`}
                     percentage={{
@@ -98,7 +101,8 @@ function Dashboard() {
               <Grid item xs={12} md={6} lg={3}>
                 <MDBox mb={1.5}>
                   <ComplexStatisticsCard
-                    icon="leaderboard"
+                    color="dark"
+                    icon="homeworkicon"
                     title="Today's Users"
                     count="2,300"
                     percentage={{
@@ -112,8 +116,8 @@ function Dashboard() {
               <Grid item xs={12} md={6} lg={3}>
                 <MDBox mb={1.5}>
                   <ComplexStatisticsCard
-                    color="success"
-                    icon="store"
+                    color="dark"
+                    icon="apartmenticon"
                     title="Revenue"
                     count="34k"
                     percentage={{
@@ -127,8 +131,8 @@ function Dashboard() {
               <Grid item xs={12} md={6} lg={3}>
                 <MDBox mb={1.5}>
                   <ComplexStatisticsCard
-                    color="primary"
-                    icon="person_add"
+                    color="dark"
+                    icon="apartmenticon"
                     title="Followers"
                     count="+91"
                     percentage={{
@@ -149,15 +153,20 @@ function Dashboard() {
                       title="website views"
                       description="Last Campaign Performance"
                       date="campaign sent 2 days ago"
-                      chart={reportsBarChartData([])}
-                      // {}
+                      chart={reportsBarChartData([
+                        // allData.yearlyRentChartData.numberData1,
+                        // allData.yearlyRentChartData.numberData2,
+                        // allData.yearlyRentChartData.numberData3,
+                        // allData.yearlyRentChartData.numberData4,
+                        // allData.yearlyRentChartData.numberData5,
+                      ])}
                     />
                   </MDBox>
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
                   <MDBox mb={3}>
                     <ReportsLineChart
-                      color="success"
+                      color="info"
                       title="daily sales"
                       description={
                         <>
@@ -172,7 +181,7 @@ function Dashboard() {
                 <Grid item xs={12} md={6} lg={4}>
                   <MDBox mb={3}>
                     <ReportsLineChart
-                      color="dark"
+                      color="info"
                       title="completed tasks"
                       description="Last Campaign Performance"
                       date="just updated"

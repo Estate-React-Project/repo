@@ -47,10 +47,9 @@ import SearchInput from "./SearchInput";
 
 function Tables() {
   const [houseType, setHouseType] = useState("");
-  const [rentCode, setRentCode] = useState("");
   const [list, setList] = useState(null);
   // const [detail, setDetail] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // const changeHandler = (e) => {
   //   setKeyword(e.target.value);

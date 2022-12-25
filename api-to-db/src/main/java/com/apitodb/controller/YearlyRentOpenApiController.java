@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.apitodb.dto.CountDto;
 import com.apitodb.dto.RentYearlyDto;
 
 @Controller
@@ -425,15 +424,14 @@ public class YearlyRentOpenApiController {
 		return yearlyRentAllCount;
 	}
 	
-	// 대쉬보드 전세 전체 카운트
-//	@SuppressWarnings("unchecked")
+	// 대쉬보드 카운트 순위
 //	@CrossOrigin
 //	@ResponseBody
-//	@GetMapping(path = { "/loadYearlyRentTop5Dashboard" })
-//	public HashMap<String, Object> DashboardYearlyRentTop5List() {
+//	@GetMapping(path = { "/loadYearlyRentDashboard2" })
+//	public HashMap<String, Object> DashboardYearlyRentList2() {
 //			
 //		HashMap<String, Object> lists = new HashMap<>();
-//			
+//		
 //		Connection conn = null;
 //		PreparedStatement pstmt = null;
 //		ResultSet rs = null;
@@ -444,22 +442,22 @@ public class YearlyRentOpenApiController {
 //			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
 //						"team2", "team2");
 //				
-//			String sql2 = "SELECT SGG_NM, COUNT(SGG_NM) as COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC";
+//			String sql = "SELECT SGG_NM, COUNT(SGG_NM) AS COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC LIMIT 5 ";
 //				
-//			pstmt = conn.prepareStatement(sql2);
-//				
+//			pstmt = conn.prepareStatement(sql);
+//			
 //			rs = pstmt.executeQuery();
-//				
-//			while (rs.next()) { // 결과 집합의 다음 행으로 이동
-//				CountDto list = new CountDto();
+//			
+//			while (rs.next()) {
 //				
 //				for (int i = 1; i <= 5; i++) {
-//					list.put( "name" + i , list.setName(rs.getString(i)));
-//					list.put( "count" + i , ((CountDto) list).setCount(rs.getInt(i)));
+//					lists.put("nameData" + i, rs.getString(i));
+//					lists.put("numberData" + i, rs.getInt(i+5));
+//					// lists.put("nameData" + i, rs.getString(i));
 //				}
-//				lists.add(list);
-//			}
 //				
+//			}
+//			
 //		} catch (Exception ex) {
 //			ex.printStackTrace();
 //		} finally {
@@ -481,7 +479,6 @@ public class YearlyRentOpenApiController {
 //	}
 		
 }
-
 
 
 
