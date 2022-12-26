@@ -25,6 +25,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import axios from "axios";
 import moment from "moment";
+import "moment/locale/ko";
 
 // Material Dashboard 2 React examples
 import DataTable from "examples/Tables/DataTable";
