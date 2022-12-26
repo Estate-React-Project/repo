@@ -258,7 +258,9 @@ public class YearlyRentOpenApiController {
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				
 				for (int i = 1; i <= 4; i++) {
-					yearlyCountDataByGBN.put( "dataByGBN" + i , rs.getInt(i));
+//					DecimalFormat commaFormat = new DecimalFormat("###,###");
+//					String count = commaFormat.format(rs.getInt(i));
+					yearlyCountDataByGBN.put("dataByGBN" + i, rs.getInt(i));
 				}
 				
 			}
@@ -477,55 +479,55 @@ public class YearlyRentOpenApiController {
 //	}
 	
 	// 대쉬보드 카운트 순위
-//	@CrossOrigin
-//	@ResponseBody
-//	@GetMapping(path = { "/loadYearlyRentDashboard3" })
-//	public HashMap<String, List<Object>> DashboardYearlyRentList3() {
-//
-//		HashMap<String, List<Object>> list = new HashMap<>();
-//		list.put("sgg_nm", new ArrayList<Object>());
-//		list.put("count", new ArrayList<Object>());
-//
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//					"team2", "team2");
-//
-//			String sql = "SELECT SGG_NM, COUNT(SGG_NM) AS COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC LIMIT 5 ";
-//
-//			pstmt = conn.prepareStatement(sql);
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				list.get("sggNm").add(rs.getString(1));
-//				list.get("count").add(rs.getInt(2));
-//			}
-//
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		} finally {
-//			try {
-//				rs.close();
-//			} catch (Exception ex) {
-//			}
-//			try {
-//				pstmt.close();
-//			} catch (Exception ex) {
-//			}
-//			try {
-//				conn.close();
-//			} catch (Exception ex) {
-//			}
-//		}
-//
-//		return list;
-//	}
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadYearlyRentDashboard3" })
+	public HashMap<String, List<Object>> DashboardYearlyRentList3() {
+
+		HashMap<String, List<Object>> list = new HashMap<>();
+		list.put("sggNm", new ArrayList<Object>());
+		list.put("count", new ArrayList<Object>());
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2");
+
+			String sql = "SELECT SGG_NM, COUNT(SGG_NM) AS COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC LIMIT 5 ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				list.get("sggNm").add(rs.getString(1));
+				list.get("count").add(rs.getInt(2));
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return list;
+	}
 		
 }
 

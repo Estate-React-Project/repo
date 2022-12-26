@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -183,7 +184,7 @@ public class MonthlyRentOpenApiController {
 					"team2", "team2"); // 데이터베이스 계정 정보
 
 			// 3. SQL 작성 + 명령 객체 가져오기
-			String sql = "select COUNT(CASE WHEN HOUSE_GBN_NM = \"오피스텔\" then 1 end),\n"
+			String sql = "select COUNT(CASE WHEN HOUSE_GBN_NM = \"아파트\" then 1 end),\n"
 					+ "	   COUNT(CASE WHEN HOUSE_GBN_NM = \"단독다가구\" then 1 end),\n"
 					+ "	   COUNT(CASE WHEN HOUSE_GBN_NM = \"연립다세대\" then 1 end),\n"
 					+ "	   COUNT(CASE WHEN HOUSE_GBN_NM = \"오피스텔\" then 1 end)\n"
@@ -368,5 +369,58 @@ public class MonthlyRentOpenApiController {
 		return rentBuildCountData;
 
 	}
+	
+	// 대쉬보드 전세 전체 카운트
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadMonthlyRentDashboard" })
+	public HashMap<String, Object> DashboardMonthlyRentList() {
+
+		HashMap<String, Object> monthlyRentAllCount = new HashMap<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2");
+
+			String sql = "SELECT count(case when RENT_GBN = '월세' AND CNTRCT_DE LIKE '2022%' then 1 end) FROM Rent";
+
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				DecimalFormat commaFormat = new DecimalFormat("###,###");
+				String count = commaFormat.format(rs.getInt(1));
+
+				monthlyRentAllCount.put("dataCount", count);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return monthlyRentAllCount;
+	}
+		
 }
 
