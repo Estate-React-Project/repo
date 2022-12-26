@@ -12,17 +12,15 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-const makeReportBarChartData = (data) => {
+const ReportBarChartData = (data) => {
   const resp = {
-    labels: data.map((d) => d.sggNm),
-    datasets: [
-      {
-        label: "거래량",
-        data: data.map((d) => d.count),
-      },
-    ],
+    labels: data.sggNm,
+    datasets: {
+      label: "거래량",
+      data: data.count,
+    },
   };
   return resp;
 };
 
-// export default makeReportBarChartData;
+export default ReportBarChartData;

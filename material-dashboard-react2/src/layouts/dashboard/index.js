@@ -34,7 +34,7 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+import ReportBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
@@ -60,10 +60,10 @@ function Dashboard() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard`
       );
 
-      // const response2 = await axios.get(
-      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard3`
-      // );
-      // console.log(response2.data);
+      const response2 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard3`
+      );
+      console.log(response2.data);
 
       const response3 = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentDashboard`
@@ -79,7 +79,7 @@ function Dashboard() {
 
       setAllData({
         yearlyRentAllCount: response1.data,
-        // yearlyRentChartData: response2.data,
+        yearlyRentChartData: response2.data,
         monthlyRentAllCount: response3.data,
         yearlyRentGBNCount: response4.data,
         monthlyRentGBNCount: response5.data,
@@ -166,13 +166,13 @@ function Dashboard() {
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={4}>
                   <MDBox mb={3}>
-                    {/* <ReportsBarChart
+                    <ReportsBarChart
                       color="info"
-                      title="website views"
-                      description="Last Campaign Performance"
-                      date="campaign sent 2 days ago"
-                      chart={reportsBarChartData()}
-                    /> */}
+                      title="서울시 전세 거래량 상위 5개 자치구"
+                      description="서울시 자치구별 조회"
+                      date="2022년 서울시 기준"
+                      chart={ReportBarChartData(allData.yearlyRentChartData)}
+                    />
                   </MDBox>
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
@@ -212,7 +212,7 @@ function Dashboard() {
                   <Card sx={{ height: "100%" }}>
                     <MDBox pt={3} px={3}>
                       <MDTypography variant="h6" fontWeight="medium">
-                        전월세 건물 유형별 미리보기
+                        전월세 건물 유형별 거래량
                       </MDTypography>
                       <MDBox mt={0} mb={2}>
                         <MDTypography variant="button" color="text" fontWeight="regular">
