@@ -103,7 +103,7 @@ function Tables() {
                   >
                     SEARCH
                   </MDButton>
-                  <MDBox>
+                  {/* <MDBox>
                     <MDButton
                       variant="gradient"
                       color="success"
@@ -354,7 +354,7 @@ function Tables() {
                     >
                       중랑구
                     </MDButton>
-                  </MDBox>
+                  </MDBox> */}
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
