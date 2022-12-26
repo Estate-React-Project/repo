@@ -142,7 +142,7 @@ function Projects() {
           }}
           isSorted={false}
           pagination={{ variant: "gradient", color: "info" }}
-          entriesPerPage
+          entriesPerPage={{ defaultValue: 5 }}
           noEndBorder
         />
       </MDBox>
