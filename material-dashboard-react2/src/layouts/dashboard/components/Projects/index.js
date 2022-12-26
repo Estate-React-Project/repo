@@ -86,18 +86,18 @@ function Projects() {
                 color: ({ palette: { info } }) => info.main,
                 mt: -0.5,
               }}
-            >
-              done
-            </Icon>
+            />
             <MDTypography variant="button" fontWeight="regular" color="text">
               &nbsp;<strong>부동산</strong> 오늘의 뉴스
             </MDTypography>
           </MDBox>
         </MDBox>
         <MDBox color="text" px={2}>
-          <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small" onClick={openMenu}>
-            more_vert
-          </Icon>
+          <Icon
+            sx={{ cursor: "pointer", fontWeight: "bold" }}
+            fontSize="small"
+            onClick={openMenu}
+          />
         </MDBox>
         {renderMenu}
       </MDBox>
@@ -136,7 +136,10 @@ function Projects() {
                 </MDTypography>
               ),
               PubDate: (
-                <MDTypography> {moment(news.pubDate).startOf("day").fromNow()} </MDTypography>
+                <MDTypography>
+                  {" "}
+                  {moment(news.pubDate).lang("ko").startOf("day").fromNow()}{" "}
+                </MDTypography>
               ),
             })),
           }}
