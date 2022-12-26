@@ -58,7 +58,7 @@ function Dashboard() {
       );
 
       // const response2 = await axios.get(
-      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard2`
+      //   `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard3`
       // );
 
       setAllData({
