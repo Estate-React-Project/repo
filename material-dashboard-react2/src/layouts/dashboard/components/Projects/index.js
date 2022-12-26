@@ -13,17 +13,18 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
-
 // @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useEffect, useState } from "react";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import axios from "axios";
+import moment from "moment";
 
 // Material Dashboard 2 React examples
 import DataTable from "examples/Tables/DataTable";
@@ -33,10 +34,22 @@ import data from "layouts/dashboard/components/Projects/data";
 
 function Projects() {
   const { columns, rows } = data();
+  const [estateNews, setEstateNews] = useState([]);
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+
+  useEffect(() => {
+    const start = 1;
+    const display = 100;
+    const url = `http://localhost:8080/web-scraping/estate-news?start=${start}&display=${display}`;
+    axios.get(url).then((response) => {
+      if (response.data.result === "success") {
+        setEstateNews(response.data.estateNews);
+      }
+    });
+  }, []);
 
   const renderMenu = (
     <Menu
@@ -64,7 +77,7 @@ function Projects() {
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         <MDBox>
           <MDTypography variant="h6" gutterBottom>
-            Projects
+            부동산 뉴스
           </MDTypography>
           <MDBox display="flex" alignItems="center" lineHeight={0}>
             <Icon
@@ -77,7 +90,7 @@ function Projects() {
               done
             </Icon>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              &nbsp;<strong>30 done</strong> this month
+              &nbsp;<strong>부동산</strong> 오늘의 뉴스
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -90,11 +103,47 @@ function Projects() {
       </MDBox>
       <MDBox>
         <DataTable
-          table={{ columns, rows }}
-          showTotalEntries={false}
+          table={{
+            columns: [
+              { Header: "제목", accessor: "Title", align: "center" },
+              { Header: "설명", accessor: "Description", align: "center" },
+              { Header: "게시일", accessor: "PubDate", align: "center" },
+            ],
+
+            rows: estateNews.map((news) => ({
+              Title: (
+                <MDTypography component="a" href={news.link} variant="h6">
+                  {news.title
+                    .replaceAll("&apos;", "'")
+                    .replaceAll("&quot;", '"')
+                    .replaceAll("<b>", "")
+                    .replaceAll("</b>", "")
+                    .replaceAll("&lt;", "<")
+                    .replaceAll("&gt;", ">")
+                    .substring(0, 10)}
+                </MDTypography>
+              ),
+              Description: (
+                <MDTypography>
+                  {news.description
+                    .replaceAll("&apos;", "'")
+                    .replaceAll("&quot;", '"')
+                    .replaceAll("<b>", "")
+                    .replaceAll("</b>", "")
+                    .replaceAll("&lt;", "<")
+                    .replaceAll("&gt;", ">")
+                    .substring(0, 15)}
+                </MDTypography>
+              ),
+              PubDate: (
+                <MDTypography> {moment(news.pubDate).startOf("day").fromNow()} </MDTypography>
+              ),
+            })),
+          }}
           isSorted={false}
+          pagination={{ variant: "gradient", color: "info" }}
+          entriesPerPage
           noEndBorder
-          entriesPerPage={false}
         />
       </MDBox>
     </Card>
