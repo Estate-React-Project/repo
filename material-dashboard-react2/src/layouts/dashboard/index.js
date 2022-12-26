@@ -151,12 +151,12 @@ function Dashboard() {
                   <ComplexStatisticsCard
                     color="dark"
                     icon="apartmenticon"
-                    title="Followers"
-                    count="+91"
+                    title="오늘 방문자 수"
+                    count="+1,235,689명"
                     percentage={{
                       color: "success",
                       amount: "",
-                      label: "Just updated",
+                      label: "2022/12/26",
                     }}
                   />
                 </MDBox>
