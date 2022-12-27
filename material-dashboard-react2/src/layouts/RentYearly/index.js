@@ -48,14 +48,10 @@ import SearchInput from "./SearchInput";
 function Tables() {
   const [houseType, setHouseType] = useState("");
   const [list, setList] = useState(null);
-  // const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const changeHandler = (e) => {
-  //   setKeyword(e.target.value);
-  // };
-
   const clickHandler = (keyword) => {
+    if (!keyword) return;
     setLoading(true);
     // eslint-disable-next-line
     searchAndShowResult(keyword);

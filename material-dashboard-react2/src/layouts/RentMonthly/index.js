@@ -40,6 +40,7 @@ function Tables() {
   const [loading, setLoading] = useState(true);
 
   const clickHandler = (keyword) => {
+    if (!keyword) return;
     setLoading(true);
     // eslint-disable-next-line
     searchAndShowResult(keyword);

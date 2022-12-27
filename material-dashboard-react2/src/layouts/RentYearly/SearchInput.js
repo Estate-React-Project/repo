@@ -11,12 +11,20 @@ function SearchInput({ clickHandler }) {
     setKeyword(e.target.value);
   };
 
+  const onKey = (e) => {
+    if (e.key === "Enter") {
+      clickHandler(keyword);
+      setKeyword("");
+    }
+  };
+
   return (
     <Stack>
       <MDInput
         type="text"
         value={keyword}
         onChange={changeHandler}
+        onKeyPress={onKey}
         label="Search Keyword"
         size="large"
       />

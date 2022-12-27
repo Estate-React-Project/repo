@@ -20,7 +20,7 @@ function RentMap() {
     setKeyword("");
   };
 
-  const onKeyPress = (e) => {
+  const onKey = (e) => {
     if (e.key === "Enter") {
       clickHandler();
     }
@@ -69,6 +69,7 @@ function RentMap() {
         type="text"
         value={keyword}
         onChange={changeHandler}
+        onKeyPress={onKey}
         variant="outlined"
         label="type here"
       />
