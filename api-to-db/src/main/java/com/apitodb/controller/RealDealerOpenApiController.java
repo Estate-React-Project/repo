@@ -209,88 +209,87 @@ public class RealDealerOpenApiController {
 	}
 	
 	// 구 버튼 클릭 시 검색 사용 하기
-//	@CrossOrigin
-//	@ResponseBody
-//	@GetMapping(path = { "/load-search-dealer" })
-//	public List<RealDealerDto> searchRealDealer(String SggNm) {
-//		
-//		List<RealDealerDto> searchDealers = new ArrayList<>();
-//		
-//		if (SggNm.length() == 0) {
-//			
-//			return searchDealers;
-//		}
-//		
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			
-//			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//					"team2", "team2");
-//			
-//			String sql = "SELECT * " +
-//						 "FROM RealDealer " +
-//						 "WHERE SggNm = ? ";
-//			
-////			String[] columns = { "SggNm" };
-//			
-//			// sql 추가
-////			if (keyword != null && keyword.length() > 0) {
-////				sql += " AND (" + columns[0] + " LIKE ? ";
-////				for (int i = 1; i < columns.length; i++) {
-////					sql += "OR " + columns[i] + " LIKE ? ";
-////				}
-////				sql += ")";
-////			}
-//			
-//			// 조건 삽입
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, '%' + SggNm + '%');
-//			
-////			if (keyword != null && keyword.length() > 0) {
-////				for (int i = 0; i < columns.length; i++) {
-////					pstmt.setString(i + 2, "%" + keyword + "%");
-////				}
-////			}
-//			
-//			rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//				RealDealerDto searchDealer = new RealDealerDto();
-//				
-//				searchDealer.setRdealerNm(rs.getString(1));
-//				searchDealer.setRaRegno(rs.getString(2));
-//				searchDealer.setAddress(rs.getString(3));
-//				searchDealer.setCmpNm(rs.getString(4));
-//				searchDealer.setTelNo(rs.getString(5));
-//				searchDealer.setStsGbn(rs.getString(6));
-//				searchDealer.setSggNm(rs.getString(7));				
-//				
-//				searchDealers.add(searchDealer);
-//				
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/load-search-dealer" })
+	public List<RealDealerDto> searchRealDealer(String SggNm) {
+		
+		List<RealDealerDto> searchDealers = new ArrayList<>();
+		
+		if (SggNm.length() == 0) {
+			return searchDealers;
+		}
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2");
+			
+			String sql = "SELECT * " +
+						 "FROM RealDealer " +
+						 "WHERE SggNm = ? ";
+			
+//			String[] columns = { "SggNm" };
+			
+			// sql 추가
+//			if (keyword != null && keyword.length() > 0) {
+//				sql += " AND (" + columns[0] + " LIKE ? ";
+//				for (int i = 1; i < columns.length; i++) {
+//					sql += "OR " + columns[i] + " LIKE ? ";
+//				}
+//				sql += ")";
 //			}
-//			
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		} finally {
-//			try {
-//				rs.close();
-//			} catch (Exception ex) {
+			
+			// 조건 삽입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, '%' + SggNm + '%');
+			
+//			if (keyword != null && keyword.length() > 0) {
+//				for (int i = 0; i < columns.length; i++) {
+//					pstmt.setString(i + 2, "%" + keyword + "%");
+//				}
 //			}
-//			try {
-//				pstmt.close();
-//			} catch (Exception ex) {
-//			}
-//			try {
-//				conn.close();
-//			} catch (Exception ex) {
-//			}
-//		}
-//		
-//		return searchDealers;
-//	}
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				RealDealerDto searchDealer = new RealDealerDto();
+				
+				searchDealer.setRdealerNm(rs.getString(1));
+				searchDealer.setRaRegno(rs.getString(2));
+				searchDealer.setAddress(rs.getString(3));
+				searchDealer.setCmpNm(rs.getString(4));
+				searchDealer.setTelNo(rs.getString(5));
+				searchDealer.setStsGbn(rs.getString(6));
+				searchDealer.setSggNm(rs.getString(7));				
+				
+				searchDealers.add(searchDealer);
+				
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+		
+		return searchDealers;
+	}
 
 }
