@@ -159,8 +159,8 @@ function Dashboard() {
                   <ComplexStatisticsCard
                     color="dark"
                     icon="apartmenticon"
-                    title="중개업자 수"
-                    count={`${allData.dashboardRealDealerCount.data}명`}
+                    title="중개업소 개수"
+                    count={`${allData.dashboardRealDealerCount.data}개`}
                     percentage={{
                       label: "2022년 서울 기준",
                     }}
