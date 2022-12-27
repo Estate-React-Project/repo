@@ -13,16 +13,23 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import Spinner from "layouts/Style/Spinner";
+import SearchInput from "./SearchInput";
 
 // import KakaoMap
 import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
-  // 전체 목록 가져오기
   const [dealers, setDealers] = useState([]);
+  const [sggNm, setSggNm] = useState([]);
+
+  const clickHandler = (keyword) => {
+    setLoading(true);
+    // eslint-disable-next-line
+    searchAndShowResult(keyword);
+  };
+
+  // 페이지 시작 시 전체 목록 가져오기 (가져오기 성공)
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
@@ -33,18 +40,26 @@ function Tables() {
     loadDealers();
   }, []);
 
-  // 구 검색 -> 구 목록 보여주기
-  const [sggNm, setSggNm] = useState([]);
-  useEffect(() => {
-    const searchDealers = async () => {
-      const response = await axios.get(
-        `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}`);
-      setSggNm( response.data );
-      
-      // console.log(response.data);
-    };
-      searchDealers();
-  }, [sggNm]);
+  // // 검색 버튼 클릭 시 자치구명에 해당 하는 정보 가져오기
+  // const searchAndShowResult = (keyword) => {
+  //   if (!keyword) return;
+
+  //   const url = `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}&keyword=${keyword}`;
+  //   axios.get(url).then((response) => {
+  //     setDealers(response.data);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const loadYearlyRentList = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}&keyword=${keyword}`
+  //     );
+  //     setDealers(response.data);
+  //   };
+  //   loadDealers();
+  // }, [sggNm]);
 
   return (
     <DashboardLayout>
@@ -65,8 +80,9 @@ function Tables() {
         </MDTypography>
       </MDBox>
       <RealDealerMap />
+      <SearchInput clickHandler={clickHandler} />
       </Card>
-      <MDBox pt={6} pb={3}>
+      <MDBox pt={5} pb={2}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Card>
@@ -87,23 +103,23 @@ function Tables() {
                 <DataTable
                   table={{
                     columns: [
-                      { Header: "중개업자명", accessor: "rdealerNm", align: "center" },
-                      { Header: "중개업등록번호", accessor: "raRegno", align: "center" },
-                      { Header: "주소", accessor: "address", align: "center" },
-                      { Header: "사업자상호", accessor: "cmpNm", align: "center" },
-                      { Header: "전화번호", accessor: "telNo", align: "center" },
-                      { Header: "상태구분", accessor: "stsGbn", align: "center" },
                       { Header: "자치구명", accessor: "sggNm", align: "center" },
+                      { Header: "사업자상호", accessor: "cmpNm", align: "center" },
+                      { Header: "중개업자명", accessor: "rdealerNm", align: "center" },
+                      { Header: "전화번호", accessor: "telNo", align: "center" },
+                      { Header: "주소", accessor: "address", align: "center" },
+                      { Header: "중개업등록번호", accessor: "raRegno", align: "center" },
+                      { Header: "상태구분", accessor: "stsGbn", align: "center" },
                     ],
                     rows: dealers.map( (dealer) => {
                       return {
-                        rdealerNm: dealer.rdealerNm,
-                        raRegno: dealer.raRegno,
-                        address: dealer.address,
-                        cmpNm: dealer.cmpNm,
-                        telNo: dealer.telNo,
-                        stsGbn: dealer.stsGbn,
                         sggNm: dealer.sggNm,
+                        cmpNm: dealer.cmpNm,
+                        rdealerNm: dealer.rdealerNm,
+                        telNo: dealer.telNo,
+                        address: dealer.address,
+                        raRegno: dealer.raRegno,
+                        stsGbn: dealer.stsGbn,
                       };
                     }),
                   }}
