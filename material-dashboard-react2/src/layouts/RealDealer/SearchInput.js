@@ -14,12 +14,14 @@ function SearchInput({ clickHandler }) {
   return (
     <Stack>
       <MDInput
+        align="center"
         type="text"
         value={keyword}
         onChange={changeHandler}
         label="찾으실 중개업소의 주소 또는 원하시는 키워드를 입력하세요 (서울시전역만 해당)"
         size="large"
       />
+      <br />
       <MDButton
         onClick={(e) => {
           clickHandler(keyword);

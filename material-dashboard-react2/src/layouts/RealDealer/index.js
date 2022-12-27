@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -12,7 +12,6 @@ import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 import SearchInput from "./SearchInput";
 import Spinner from "layouts/Style/Spinner";
@@ -21,18 +20,12 @@ import Spinner from "layouts/Style/Spinner";
 import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
-  //const [dealers, setDealers] = useState([]);
-  //const [sggNm, setSggNm] = useState([]);
   const [list, setList] = useState(null);
   const [loading, setLoading] = useState(true);
+  //const [dealers, setDealers] = useState([]);
+  //const [sggNm, setSggNm] = useState([]);
 
-  const clickHandler = (keyword) => {
-    setLoading(true);
-    // eslint-disable-next-line
-    searchAndShowResult(keyword);
-  };
-
-  // 페이지 시작 시 전체 목록 가져오기 (가져오기 성공)
+  // 페이지 시작 시 전체 목록 가져오기 (목록표시성공)
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
@@ -42,8 +35,14 @@ function Tables() {
     };
     loadDealers();
   }, []);
+  
+  const clickHandler = (keyword) => {
+    setLoading(true);
+    // eslint-disable-next-line
+    searchAndShowResult(keyword);
+  };
 
-  // 검색 버튼 클릭 시 자치구명에 해당 하는 정보 가져오기
+  // 검색 버튼 클릭 시 키워드가 포함 되는 목록 가져오기 (목록표시성공)
   const searchAndShowResult = (keyword) => {
     if (!keyword) return;
     setLoading(true);
@@ -55,23 +54,16 @@ function Tables() {
     });
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const loadYearlyRentList = async () => {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}&keyword=${keyword}`
-  //     );
-  //     setDealers(response.data);
-  //   };
-  //   loadDealers();
-  // }, [sggNm]);
-
   return (
     <DashboardLayout>
-    {loading ? (<Spinner />) : (
-      <><br /><Card>
+    {loading ? (
+      <Spinner />
+      ) : (
+      <>
+        <br />
+          <Card>
             <MDBox
-              mx={1}
+              mx={3}
               mt={-2}
               py={2}
               px={1}
@@ -85,8 +77,9 @@ function Tables() {
               </MDTypography>
             </MDBox>
             <RealDealerMap />
-            <SearchInput clickHandler={clickHandler} />
-          </Card><MDBox pt={5} pb={2}>
+          <SearchInput clickHandler={clickHandler} />
+          </Card>
+            <MDBox pt={5} pb={2}>
               <Grid container spacing={6}>
                 <Grid item xs={12}>
                   <Card>
@@ -115,7 +108,7 @@ function Tables() {
                           { Header: "중개업등록번호", accessor: "raRegno", align: "center" },
                           { Header: "상태구분", accessor: "stsGbn", align: "center" },
                         ],
-                        rows: list.map((dealer) => {
+                        rows: list.map( (dealer) => {
                           return {
                             sggNm: dealer.sggNm,
                             cmpNm: dealer.cmpNm,
@@ -130,10 +123,10 @@ function Tables() {
                   </Card>
                 </Grid>
               </Grid>
-            </MDBox></>
+            </MDBox>
+          </>
       )}
-    </DashboardLayout>
-    
+    </DashboardLayout>    
   );
 }
 

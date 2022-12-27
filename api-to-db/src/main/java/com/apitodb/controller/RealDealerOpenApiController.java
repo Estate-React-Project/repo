@@ -140,7 +140,7 @@ public class RealDealerOpenApiController {
 					try { conn2.close(); } catch (Exception ex) {}
 				}
 				
-			} // 데이터 조회 for문 끝
+			} // 데이터 조회 종료
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -149,7 +149,7 @@ public class RealDealerOpenApiController {
 		return "openapi/realDealer";
 	}
 	
-	//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
+	//	데이터베이스 접근해서 컬럼 데이터 가져오기
 	@CrossOrigin
 	@GetMapping(path = { "/load-all-dealer" })
 	@ResponseBody
@@ -208,7 +208,7 @@ public class RealDealerOpenApiController {
 		return dealers;
 	}
 	
-	// 구 버튼 클릭 시 검색 사용 하기
+	// 모든 컬럼 키워드로 검색 하기
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/load-search-dealer" })
@@ -230,14 +230,14 @@ public class RealDealerOpenApiController {
 						 "FROM RealDealer ";
 			
 			String[] columns = { "rdealerNm",
-					"raRegno", 
-					"address",
-					"cmpNm",
-					"telNo",
-					"stsGbn",
-					"sggNm" };
+								 "raRegno", 
+								 "address",
+								 "cmpNm",
+								 "telNo",
+								 "stsGbn",
+								 "sggNm" };
 			
-			// sql 추가
+			// 키워드 검색 SQL
 			if (keyword != null && keyword.length() > 0) {
 				sql += " WHERE ( " + columns[0] + " LIKE ? ";
 				for (int i = 1; i < columns.length; i++) {
@@ -246,7 +246,7 @@ public class RealDealerOpenApiController {
 				sql += ")";
 			}
 			
-			// 조건 삽입
+			// 키워드 조건 검색 SQL
 			pstmt = conn.prepareStatement(sql);
 			
 			if (keyword != null && keyword.length() > 0) {
@@ -255,6 +255,7 @@ public class RealDealerOpenApiController {
 				}
 			}
 			
+			// 검색된 키워드 저장하기
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -269,11 +270,12 @@ public class RealDealerOpenApiController {
 				searchDealer.setSggNm(rs.getString(7));				
 				
 				searchDealers.add(searchDealer);
-				
 			}
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		
+		// 각 검색 로직 종료하기 
 		} finally {
 			try {
 				rs.close();
