@@ -316,7 +316,7 @@ public class YearlyRentOpenApiController {
 					"rent_Area", 
 					"Build_Year" };
 			
-			// sql 추
+			// sql 추가
 			if (keyword != null && keyword.length() > 0) {
 				sql += " AND (" + columns[0] + " LIKE ? ";
 				for (int i = 1; i < columns.length; i++) {

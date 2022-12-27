@@ -212,13 +212,9 @@ public class RealDealerOpenApiController {
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping(path = { "/load-search-dealer" })
-	public List<RealDealerDto> searchRealDealer(String SggNm) {
+	public List<RealDealerDto> searchRealDealer(String keyword) {
 		
 		List<RealDealerDto> searchDealers = new ArrayList<>();
-		
-		if (SggNm.length() == 0) {
-			return searchDealers;
-		}
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -231,29 +227,33 @@ public class RealDealerOpenApiController {
 					"team2", "team2");
 			
 			String sql = "SELECT * " +
-						 "FROM RealDealer " +
-						 "WHERE SggNm = ? ";
+						 "FROM RealDealer ";
 			
-//			String[] columns = { "SggNm" };
+			String[] columns = { "rdealerNm",
+					"raRegno", 
+					"address",
+					"cmpNm",
+					"telNo",
+					"stsGbn",
+					"sggNm" };
 			
 			// sql 추가
-//			if (keyword != null && keyword.length() > 0) {
-//				sql += " AND (" + columns[0] + " LIKE ? ";
-//				for (int i = 1; i < columns.length; i++) {
-//					sql += "OR " + columns[i] + " LIKE ? ";
-//				}
-//				sql += ")";
-//			}
+			if (keyword != null && keyword.length() > 0) {
+				sql += " WHERE ( " + columns[0] + " LIKE ? ";
+				for (int i = 1; i < columns.length; i++) {
+					sql += "OR " + columns[i] + " LIKE ? ";
+				}
+				sql += ")";
+			}
 			
 			// 조건 삽입
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, '%' + SggNm + '%');
 			
-//			if (keyword != null && keyword.length() > 0) {
-//				for (int i = 0; i < columns.length; i++) {
-//					pstmt.setString(i + 2, "%" + keyword + "%");
-//				}
-//			}
+			if (keyword != null && keyword.length() > 0) {
+				for (int i = 0; i < columns.length; i++) {
+					pstmt.setString(i + 1, "%" + keyword + "%");
+				}
+			}
 			
 			rs = pstmt.executeQuery();
 			
