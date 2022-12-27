@@ -106,7 +106,7 @@ function Tables() {
                 borderRadius="lg"
               >
                 <MDTypography variant="h6" color="white">
-                  동별 아파트 목록
+                  구별 아파트 목록
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
