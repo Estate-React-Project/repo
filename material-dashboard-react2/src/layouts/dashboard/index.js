@@ -38,7 +38,6 @@ import ReportBarChartData from "layouts/dashboard/data/reportsBarChartData";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import TimelineItem from "examples/Timeline/TimelineItem";
 
 // Project Data
@@ -69,11 +68,11 @@ function Dashboard() {
       );
 
       const response4 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGBN`
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboardCountByGBN`
       );
 
       const response5 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyGbnRentCount`
+        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyDashboardGbnRentCount`
       );
 
       const response6 = await axios.get(

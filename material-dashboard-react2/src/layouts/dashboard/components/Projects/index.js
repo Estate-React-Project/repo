@@ -113,7 +113,12 @@ function Projects() {
 
             rows: estateNews.map((news) => ({
               Title: (
-                <MDTypography component="a" href={news.link} variant="h6">
+                <MDTypography
+                  onClick={() => window.open(news.link, "_blank")}
+                  component="a"
+                  variant="h6"
+                  href="#"
+                >
                   {news.title
                     .replaceAll("&apos;", "'")
                     .replaceAll("&quot;", '"')
@@ -125,7 +130,7 @@ function Projects() {
                 </MDTypography>
               ),
               Description: (
-                <MDTypography>
+                <MDTypography variant="h6" color="text">
                   {news.description
                     .replaceAll("&apos;", "'")
                     .replaceAll("&quot;", '"')
@@ -137,7 +142,7 @@ function Projects() {
                 </MDTypography>
               ),
               PubDate: (
-                <MDTypography>
+                <MDTypography variant="h6" color="text">
                   {" "}
                   {moment(news.pubDate).lang("ko").startOf("day").fromNow()}{" "}
                 </MDTypography>
