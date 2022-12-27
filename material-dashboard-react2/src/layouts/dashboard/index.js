@@ -195,7 +195,7 @@ function Dashboard() {
                     <ReportsLineChart
                       color="info"
                       title="전세 거래량 월별 추이"
-                      description="서울시 전체 전세 거래량 변화 추이"
+                      description="서울시 전세 거래량 변화 추이"
                       date="2022년 서울시 기준"
                       chart={ReportLineChartDataYearly(allData.yearlyRentMonthCount)}
                     />
@@ -206,7 +206,7 @@ function Dashboard() {
                     <ReportsLineChart
                       color="info"
                       title="월세 거래량 월별 추이"
-                      description="서울시 전체 월세 거래량 변화 추이"
+                      description="서울시 월세 거래량 변화 추이"
                       date="2022년 서울시 기준"
                       chart={ReportLineChartDataMonthly(allData.monthlyRentMonthCount)}
                     />
