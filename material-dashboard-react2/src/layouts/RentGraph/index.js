@@ -604,7 +604,7 @@ function Tables() {
                   >
                     <HorizontalBarChart
                       icon={{ color: "info", component: "leaderboard" }}
-                      title="2022 거래 건물 연식"
+                      title="2022년 거래 건물 연식 (건)"
                       description="2022년 전/월세 거래 건물 연식"
                       chart={{
                         labels: [
@@ -616,7 +616,7 @@ function Tables() {
                         ],
                         datasets: [
                           {
-                            label: "전세 보증금별 거래량",
+                            label: "건물 연식별 거래량",
                             color: "dark",
                             data: [
                               allData.rentBuildCount.data1,
