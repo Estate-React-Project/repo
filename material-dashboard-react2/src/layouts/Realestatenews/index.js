@@ -33,6 +33,11 @@ import Spinner from "layouts/Style/Spinner";
 const estateLoad = (props) => {
   const [estateNews, setEstateNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [click, setClick] = useState(null);
+
+  const clickHandler = () => {
+    setClick(true);
+  };
 
   useEffect(() => {
     const start = 1;
@@ -45,18 +50,6 @@ const estateLoad = (props) => {
       }
     });
   }, []);
-
-  //   function ({ TITLE }) {
-  //     return (
-  //       <MDBox alignItems="center" lineHeight={1}>
-  //         <MDBox ml={1} lineHeight={1} alignItems="center">
-  //           <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-  //             {TITLE}
-  //           </MDTypography>
-  //         </MDBox>
-  //       </MDBox>
-  //     );
-  //   }
 
   function Description({ DESCRIPTION }) {
     return (
@@ -84,11 +77,23 @@ const estateLoad = (props) => {
         <Spinner />
       ) : (
         <DashboardLayout>
-          <br />
-          <MDTypography fontWeight="bold">
-            <Icon>erroricon</Icon>&nbsp;제목을 클릭하시면 네이버 뉴스로 이동됩니다.
-          </MDTypography>
-          <br />
+          {click ? (
+            <>
+              <br />
+              <MDTypography fontWeight="bold">
+                <Icon>chat</Icon>&nbsp;네이버 부동산 뉴스 살펴보기
+              </MDTypography>
+              <br />
+            </>
+          ) : (
+            <>
+              <br />
+              <MDTypography fontWeight="bold">
+                <Icon>erroricon</Icon>&nbsp;제목을 클릭하시면 네이버 뉴스로 이동됩니다.
+              </MDTypography>
+              <br />
+            </>
+          )}
           <MDBox>
             <DataTable
               table={{
@@ -100,7 +105,16 @@ const estateLoad = (props) => {
 
                 rows: estateNews.map((news) => ({
                   Title: (
-                    <MDTypography component="a" href={news.link} variant="h6">
+                    <MDTypography
+                      onClick={() => {
+                        window.open(news.link, "_blank");
+                        clickHandler();
+                      }}
+                      component="a"
+                      variant="h6"
+                      href="#"
+                      color="text"
+                    >
                       {news.title
                         .replaceAll("&apos;", "'")
                         .replaceAll("&quot;", '"')

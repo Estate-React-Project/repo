@@ -12,15 +12,29 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-const ReportBarChartData = (data) => {
+
+const ReportLineChartDataMonthly = (data) => {
   const resp = {
-    labels: data.sggNm,
+    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
     datasets: {
-      label: "거래량",
-      data: data.count,
+      label: "월별 거래량",
+      data: [
+        data.data1,
+        data.data2,
+        data.data3,
+        data.data4,
+        data.data5,
+        data.data6,
+        data.data7,
+        data.data8,
+        data.data9,
+        data.data10,
+        data.data11,
+        data.data12,
+      ],
     },
   };
   return resp;
 };
 
-export default ReportBarChartData;
+export default ReportLineChartDataMonthly;

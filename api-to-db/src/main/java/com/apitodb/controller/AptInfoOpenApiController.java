@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -175,7 +176,7 @@ public class AptInfoOpenApiController {
 	public HashMap<String, Object> searchAptInfoCountData() {
 
 		HashMap<String, Object> data = new HashMap<>();
-		
+
 		// DB에 저장하는 코드
 		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
 		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
@@ -223,19 +224,18 @@ public class AptInfoOpenApiController {
 					+ "       COUNT(CASE WHEN allDongco >= 11 AND allDongco <= 20 then 1 end), "
 					+ "       COUNT(CASE WHEN allDongco >= 21 AND allDongco <= 30 then 1 end), "
 					+ "       COUNT(CASE WHEN allDongco >= 31 AND allDongco <= 40 then 1 end), "
-					+ "       COUNT(CASE WHEN allDongco >= 41 then 1 end) "
-					+ "FROM AptInfo ";
+					+ "       COUNT(CASE WHEN allDongco >= 41 then 1 end) " + "FROM AptInfo ";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 명령 실행
 			rs = pstmt.executeQuery();
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
-				
+
 				for (int i = 1; i <= 34; i++) {
-					data.put( "data" + i , rs.getInt(i));
+					data.put("data" + i, rs.getInt(i));
 				}
-				
+
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace(); // 개발 용도로 사용
@@ -258,7 +258,7 @@ public class AptInfoOpenApiController {
 		return data;
 
 	}
-	
+
 	// DB에 있는 아파트 목록 데이터 불러오기
 	@CrossOrigin
 	@ResponseBody
@@ -266,7 +266,7 @@ public class AptInfoOpenApiController {
 	public List<AptInfoDto> searchAptListData(String keyword) {
 
 		List<AptInfoDto> infos = new ArrayList<>();
-		
+
 		// DB에 저장하는 코드
 		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
 		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
@@ -282,13 +282,9 @@ public class AptInfoOpenApiController {
 
 			// 3. SQL 작성 + 명령 객체 가져오기
 			String sql = "SELECT aptNm, adresGu, adresDong FROM AptInfo ";
-			
-			String[] columns = {
-					"aptNm",
-					"adresGu",
-					"adresDong"
-			};
-			
+
+			String[] columns = { "aptNm", "adresGu", "adresDong" };
+
 			if (keyword == null) {
 				sql += "ORDER BY adresGu, adresDong, aptNm ";
 			} else {
@@ -300,22 +296,22 @@ public class AptInfoOpenApiController {
 					sql += "ORDER BY adresGu, adresDong, aptNm ";
 				}
 			}
-				
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			if (keyword != null && keyword.length() > 0) {
 				for (int i = 0; i < columns.length; i++) {
 					pstmt.setString(i + 1, "%" + keyword + "%");
 				}
 			}
-			
+
 			// 4. 명령 실행
 			rs = pstmt.executeQuery();
-			
+
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				AptInfoDto info = new AptInfoDto();
-				
+
 				info.setAptNm(rs.getString(1));
 				info.setAdresGu(rs.getString(2));
 				info.setAdresDong(rs.getString(3));
@@ -342,5 +338,63 @@ public class AptInfoOpenApiController {
 		return infos;
 
 	}
-	
+
+	// 메인페이지용
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping(path = { "/loadAllAptCount" })
+	public HashMap<String, Object> loadAllAptCount() {
+
+		HashMap<String, Object> allAptCount = new HashMap<>();
+
+		// DB에 저장하는 코드
+		Connection conn = null; // 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt = null; // 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		ResultSet rs = null;
+
+		try {
+			// 1. Driver 등록
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// 2. 연결 및 연결 객체 가져오기
+			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
+					"team2", "team2"); // 데이터베이스 계정 정보
+
+			// 3. SQL 작성 + 명령 객체 가져오기
+			String sql = "SELECT COUNT(*) FROM AptInfo ";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 명령 실행
+			rs = pstmt.executeQuery();
+			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+			while (rs.next()) { // 결과 집합의 다음 행으로 이동
+				
+				DecimalFormat commaFormat = new DecimalFormat("###,###");
+				String count = commaFormat.format(rs.getInt(1));
+				
+				allAptCount.put("dataCount", count);
+
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace(); // 개발 용도로 사용
+		} finally {
+			// 6. 연결 닫기
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex) {
+			}
+			try {
+				conn.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return allAptCount;
+
+	}
+
 }
