@@ -81,6 +81,10 @@ function Dashboard() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadAllAptCount`
       );
 
+      const response7 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadDashboardRealDealerCount`
+      );
+
       setAllData({
         yearlyRentAllCount: response1.data,
         yearlyRentChartData: response2.data,
@@ -88,6 +92,7 @@ function Dashboard() {
         yearlyRentGBNCount: response4.data,
         monthlyRentGBNCount: response5.data,
         allAptCount: response6.data,
+        dashboardRealDealerCount: response7.data,
       });
       setLoading(false);
     };
@@ -155,11 +160,9 @@ function Dashboard() {
                     color="dark"
                     icon="apartmenticon"
                     title="오늘 방문자 수"
-                    count="+1,235,689명"
+                    count={`${allData.dashboardRealDealerCount.data}명`}
                     percentage={{
-                      color: "success",
-                      amount: "",
-                      label: "2022/12/26",
+                      label: "2022년 서울 기준",
                     }}
                   />
                 </MDBox>
