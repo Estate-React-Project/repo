@@ -1,9 +1,4 @@
-/* eslint-disable no-empty */
-/* eslint-disable no-shadow */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable no-dupe-keys */
-/* eslint-disable no-alert */
+/* eslint-disable */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -13,7 +8,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/button-has-type */
 import { useEffect, useState } from "react";
-import { Map, MapMarker, CustomOverlayMap, Polygon, useMap } from "react-kakao-maps-sdk";
+import { Map, MapMarker, CustomOverlayMap, Polygon } from "react-kakao-maps-sdk";
 // eslint-disable-next-line import/no-unresolved
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
@@ -21,6 +16,24 @@ import MDBox from "components/MDBox";
 import axios from "axios";
 
 function RebuildMap({ setGu }) {
+  const [keyword, setKeyword] = useState("");
+
+  const changeHandler = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const clickHandler = (e) => {
+    // eslint-disable-next-line no-use-before-define
+    searchAndShowPlaces();
+    setKeyword("");
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      clickHandler();
+    }
+  };
+
   const { kakao } = window;
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
@@ -52,6 +65,9 @@ function RebuildMap({ setGu }) {
       }
     });
   };
+  useEffect(() => {
+    searchAndShowPlaces();
+  }, [map]);
   const [areas, setAreas] = useState([
     {
       name: "용산구",
@@ -493,18 +509,6 @@ function RebuildMap({ setGu }) {
         { lng: 126.98040333684787, lat: 37.50654460467333 },
         { lng: 127.00857798633956, lat: 37.525595035818185 },
         { lng: 127.04388936026041, lat: 37.480560539137585 },
-        { lng: 127.04388936026041, lat: 37.480560539137585 },
-        { lng: 127.04400507677431, lat: 37.47994190582817 },
-        { lng: 127.09522272812922, lat: 37.45639382832306 },
-        { lng: 127.07088464044828, lat: 37.430187924945805 },
-        { lng: 127.07070640860624, lat: 37.43027362529212 },
-        { lng: 127.04736917886902, lat: 37.430701418482386 },
-        { lng: 127.03382170968405, lat: 37.461530307638384 },
-        { lng: 127.03453412841701, lat: 37.46345207046365 },
-        { lng: 127.03453730713817, lat: 37.46345770085267 },
-        { lng: 127.01193901481453, lat: 37.45550935936477 },
-        { lng: 127.0113677108152, lat: 37.45540804524003 },
-        { lng: 126.98863578225489, lat: 37.45816595691245 },
         { lng: 127.04388936026041, lat: 37.480560539137585 },
         { lng: 127.04400507677431, lat: 37.47994190582817 },
         { lng: 127.09522272812922, lat: 37.45639382832306 },
@@ -6645,138 +6649,47 @@ function RebuildMap({ setGu }) {
         },
       ],
     },
+    {
+      name: "서초구.",
+      isMouseover: false,
+      path: [
+        { lng: 127.04388936026041, lat: 37.480560539137585 },
+        { lng: 127.04400507677431, lat: 37.47994190582817 },
+        { lng: 127.09522272812922, lat: 37.45639382832306 },
+        { lng: 127.07088464044828, lat: 37.430187924945805 },
+        { lng: 127.07070640860624, lat: 37.43027362529212 },
+        { lng: 127.04736917886902, lat: 37.430701418482386 },
+        { lng: 127.03382170968405, lat: 37.461530307638384 },
+        { lng: 127.03453412841701, lat: 37.46345207046365 },
+        { lng: 127.03453730713817, lat: 37.46345770085267 },
+        { lng: 127.01193901481453, lat: 37.45550935936477 },
+        { lng: 127.0113677108152, lat: 37.45540804524003 },
+        { lng: 126.98863578225489, lat: 37.45816595691245 },
+      ],
+    },
   ]);
 
   const [mousePosition, setMousePosition] = useState({
     lat: 0,
     lng: 0,
   });
-
-  const data = [
-    {
-      content: <div style={{ color: "#000" }}>강동구</div>,
-      latlng: { lat: 37.55029, lng: 127.144324 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>송파구</div>,
-      latlng: { lat: 37.507051, lng: 127.117383 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>서초구</div>,
-      latlng: { lat: 37.473024, lng: 127.034283 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>강남구</div>,
-      latlng: { lat: 37.494256, lng: 127.063132 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>관악구</div>,
-      latlng: { lat: 37.469263, lng: 126.945792 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>동작구</div>,
-      latlng: { lat: 37.504423, lng: 126.95137 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>영등포구</div>,
-      latlng: { lat: 37.519984, lng: 126.910969 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>금천구</div>,
-      latlng: { lat: 37.462135, lng: 126.901375 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>강서구</div>,
-      latlng: { lat: 37.562048, lng: 126.8282 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>양천구</div>,
-      latlng: { lat: 37.521563, lng: 126.856825 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>구로구</div>,
-      latlng: { lat: 37.496829, lng: 126.857289 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>마포구</div>,
-      latlng: { lat: 37.558554, lng: 126.907734 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>서대문구</div>,
-      latlng: { lat: 37.578763, lng: 126.940449 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>은평구</div>,
-      latlng: { lat: 37.616146, lng: 126.924744 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>종로구</div>,
-      latlng: { lat: 37.591929, lng: 126.969505 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>중구</div>,
-      latlng: { lat: 37.561081, lng: 126.995566 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>용산구</div>,
-      latlng: { lat: 37.532036, lng: 126.980759 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>성동구</div>,
-      latlng: { lat: 37.551987, lng: 127.041951 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>동대문구</div>,
-      latlng: { lat: 37.583141, lng: 127.055053 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>성북구</div>,
-      latlng: { lat: 37.599604, lng: 127.023347 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>강북구</div>,
-      latlng: { lat: 37.642363, lng: 127.009712 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>도봉구</div>,
-      latlng: { lat: 37.669217, lng: 127.03476 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>노원구</div>,
-      latlng: { lat: 37.653531, lng: 127.075053 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>중랑구</div>,
-      latlng: { lat: 37.597164, lng: 127.092817 },
-    },
-    {
-      content: <div style={{ color: "#000" }}>광진구</div>,
-      latlng: { lat: 37.546032, lng: 127.085913 },
-    },
-  ];
-
-  const EventMarkerContainer = ({ position, content }) => {
-    const map = useMap();
-    const [isVisible, setIsVisible] = useState(false);
-
-    return (
-      <MapMarker
-        position={position} // 마커를 표시할 위치
-        // @ts-ignore
-        onClick={(marker) => map.panTo(marker.getPosition())}
-        onMouseOver={() => setIsVisible(true)}
-        onMouseOut={() => setIsVisible(false)}
-      >
-        {isVisible && content}
-      </MapMarker>
-    );
-  };
-
   return (
     <MDBox>
+      <MDInput
+        type="text"
+        value={keyword}
+        onChange={changeHandler}
+        variant="outlined"
+        label="type here"
+      />
+      <MDButton onClick={clickHandler} variant="outlined" color="info">
+        Search
+      </MDButton>
+      <hr />
       <>
         {/* <AddPolygonMouseEvent2Style /> */}
         <Map // 로드뷰를 표시할 Container
+          id="map"
           center={{
             // 지도의 중심좌표
             lat: 37.566826,
@@ -6787,13 +6700,13 @@ function RebuildMap({ setGu }) {
             width: "100%",
             height: "450px",
           }}
-          level={9} // 지도의 확대 레벨
-          // onMouseMove={(_map, mouseEvent) =>
-          //   setMousePosition({
-          //     lat: mouseEvent.latLng.getLat(),
-          //     lng: mouseEvent.latLng.getLng(),
-          //   })
-          // }
+          level={8} // 지도의 확대 레벨
+          onMouseMove={(_map, mouseEvent) =>
+            setMousePosition({
+              lat: mouseEvent.latLng.getLat(),
+              lng: mouseEvent.latLng.getLng(),
+            })
+          }
           onCreate={setMap}
         >
           {areas.map((area, index) => (
@@ -6802,32 +6715,36 @@ function RebuildMap({ setGu }) {
               path={area.path}
               strokeWeight={2}
               strokeColor="#004c80"
-              strokeOpacity={0.8}
+              strokeOpacity={0.6}
               fillColor={area.isMouseover ? "#09f" : "#fff"}
-              fillOpacity={0.6}
-              onMouseover={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: true,
-                  },
-                ])
-              }
-              onMouseout={() =>
-                setAreas((prev) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
-                    isMouseover: false,
-                  },
-                ])
+              fillOpacity={0.5}
+              onMouseover={() => {
+                setAreas((prev) => {
+                  return [
+                    ...prev.filter((_, i) => i !== index),
+                    {
+                      ...prev[index],
+                      isMouseover: true,
+                    },
+                  ];
+                });
+              }}
+              onMouseout={(ev) =>
+                setAreas((prev) => {
+                  debugger;
+                  return [
+                    ...prev.filter((_, i) => i !== index),
+                    {
+                      ...prev[index],
+                      isMouseover: false,
+                    },
+                  ];
+                })
               }
               onClick={() => {
-                if (window.confirm(`선택하신 자치구는 "${area.name}" 입니다.`)) {
-                  setGu(area.name);
-                } else {
-                }
+                setGu(area.name);
+                // eslint-disable-next-line no-alert
+                alert(area.name);
               }}
             />
           ))}
@@ -6836,16 +6753,21 @@ function RebuildMap({ setGu }) {
               <div className="area">{areas.find((v) => v.isMouseover).name}</div>
             </CustomOverlayMap>
           )}
-          {data.map((value) => (
-            <EventMarkerContainer
-              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-              position={value.latlng}
-              content={value.content}
-            />
+          {markers.map((marker) => (
+            <MapMarker
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => setInfo(marker)}
+            >
+              {info && info.content === marker.content && (
+                <div style={{ color: "#000" }}>{marker.content}</div>
+              )}
+            </MapMarker>
           ))}
         </Map>
       </>
     </MDBox>
   );
 }
+
 export default RebuildMap;

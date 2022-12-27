@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-no-undef */
 /**
 =========================================================
@@ -43,7 +45,6 @@ import RebuildMap from "./map/RebuildMap";
 function Tables() {
   const [tableData, setTableData] = useState(null);
   const [gu, setGu] = useState("");
-  const [rebuildData, setRebuildData] = useState([]);
   const [preQuery, setPreQuery] = useState("");
 
   useEffect(() => {
@@ -54,9 +55,11 @@ function Tables() {
       // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
       const { columns, rows } = AuthorsTableData(response.data);
       setTableData({ columns, rows });
-      setRebuildData(response.data);
+      // setRebuildData(response.data);
+      // setTableAndRebuildData({ tableData: { columns, rows }, rebuildData: response.data });
       // eslint-disable-next-line no-console
       console.log(response.data);
+      // eslint-disable-next-line
     };
     loadRebuildInfo();
   }, [gu]);
@@ -67,6 +70,21 @@ function Tables() {
 
   return (
     <DashboardLayout>
+      <MDBox
+        mx={2}
+        mt={-3}
+        py={3}
+        px={2}
+        variant="gradient"
+        bgColor="info"
+        borderRadius="lg"
+        coloredShadow="info"
+        style={{ position: "relative", top: "15px", width: "1599px", left: "-17px" }}
+      >
+        <MDTypography variant="h6" color="white">
+          서울시 재개발 맵
+        </MDTypography>
+      </MDBox>
       <RebuildMap setGu={setGu} />
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
@@ -84,280 +102,35 @@ function Tables() {
               >
                 <MDTypography variant="h6" color="white">
                   재개발
-                  <MDInput
-                    variant="outlined"
-                    label="자치구를 입력하세요."
-                    value={preQuery}
-                    onChange={(e) => {
-                      setPreQuery(e.target.value);
-                    }}
-                  />
-                  <MDButton
-                    variant="gradient"
-                    color="info"
-                    size="medium"
-                    onClick={() => {
-                      setGu(preQuery);
-                      setPreQuery("");
-                    }}
-                  >
-                    SEARCH
-                  </MDButton>
-                  {/* <MDBox>
-                    <MDButton
-                      variant="gradient"
-                      color="success"
-                      size="medium"
-                      onClick={() => {
-                        setGu("강남구");
-                      }}
-                    >
-                      강남구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="dark"
-                      size="medium"
-                      onClick={() => {
-                        setGu("강동구");
-                      }}
-                    >
-                      강동구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="error"
-                      size="medium"
-                      onClick={() => {
-                        setGu("강북구");
-                      }}
-                    >
-                      강북구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="secondary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("강서구");
-                      }}
-                    >
-                      강서구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="info"
-                      size="medium"
-                      onClick={() => {
-                        setGu("관악구");
-                      }}
-                    >
-                      관악구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="warning"
-                      size="medium"
-                      onClick={() => {
-                        setGu("광진구");
-                      }}
-                    >
-                      광진구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="secondary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("구로구");
-                      }}
-                    >
-                      구로구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="info"
-                      size="medium"
-                      onClick={() => {
-                        setGu("금천구");
-                      }}
-                    >
-                      금천구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="error"
-                      size="medium"
-                      onClick={() => {
-                        setGu("노원구");
-                      }}
-                    >
-                      노원구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="error"
-                      size="medium"
-                      onClick={() => {
-                        setGu("도봉구");
-                      }}
-                    >
-                      도봉구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="warning"
-                      size="medium"
-                      onClick={() => {
-                        setGu("동대문구");
-                      }}
-                    >
-                      동대문구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="info"
-                      size="medium"
-                      onClick={() => {
-                        setGu("동작구");
-                      }}
-                    >
-                      동작구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="primary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("마포구");
-                      }}
-                    >
-                      마포구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="primary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("서대문구");
-                      }}
-                    >
-                      서대문구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="success"
-                      size="medium"
-                      onClick={() => {
-                        setGu("서초구");
-                      }}
-                    >
-                      서초구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="warning"
-                      size="medium"
-                      onClick={() => {
-                        setGu("성동구");
-                      }}
-                    >
-                      성동구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="error"
-                      size="medium"
-                      onClick={() => {
-                        setGu("성북구");
-                      }}
-                    >
-                      성북구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="dark"
-                      size="medium"
-                      onClick={() => {
-                        setGu("송파구");
-                      }}
-                    >
-                      송파구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="secondary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("양천구");
-                      }}
-                    >
-                      양천구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="secondary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("영등포구");
-                      }}
-                    >
-                      영등포구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="light"
-                      size="medium"
-                      onClick={() => {
-                        setGu("용산구");
-                      }}
-                    >
-                      용산구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="primary"
-                      size="medium"
-                      onClick={() => {
-                        setGu("은평구");
-                      }}
-                    >
-                      은평구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="light"
-                      size="medium"
-                      onClick={() => {
-                        setGu("종로구");
-                      }}
-                    >
-                      종로구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="light"
-                      size="medium"
-                      onClick={() => {
-                        setGu("중구");
-                      }}
-                    >
-                      중구
-                    </MDButton>
-                    <MDButton
-                      variant="gradient"
-                      color="warning"
-                      size="medium"
-                      onClick={() => {
-                        setGu("중랑구");
-                      }}
-                    >
-                      중랑구
-                    </MDButton>
-                  </MDBox> */}
                 </MDTypography>
               </MDBox>
-              <MDBox pt={3}>
+              <MDBox pt={8} style={{ position: "absolute", right: "20px", top: "0px" }}>
+                <MDInput
+                  variant="outlined"
+                  label="자치구를 입력하세요."
+                  value={preQuery}
+                  onChange={(e) => {
+                    setPreQuery(e.target.value);
+                  }}
+                />
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  size="medium"
+                  onClick={(e) => {
+                    if (preQuery.length < 3) {
+                      alert("정확한 자치구를 입력하세요. (예: 강남구,송파구,노원구...) ");
+                      setPreQuery("");
+                      return;
+                    }
+                    setGu(preQuery);
+                    setPreQuery("");
+                  }}
+                >
+                  SEARCH
+                </MDButton>
+              </MDBox>
+              <MDBox pt={10}>
                 <DataTable
                   table={tableData}
                   isSorted={false}
