@@ -77,12 +77,17 @@ function Dashboard() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyGbnRentCount`
       );
 
+      const response6 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadAllAptCount`
+      );
+
       setAllData({
         yearlyRentAllCount: response1.data,
         yearlyRentChartData: response2.data,
         monthlyRentAllCount: response3.data,
         yearlyRentGBNCount: response4.data,
         monthlyRentGBNCount: response5.data,
+        allAptCount: response6.data,
       });
       setLoading(false);
     };
@@ -136,12 +141,10 @@ function Dashboard() {
                   <ComplexStatisticsCard
                     color="dark"
                     icon="apartmenticon"
-                    title="Revenue"
-                    count="34k"
+                    title="전체 아파트 개수"
+                    count={`${allData.allAptCount.dataCount}개`}
                     percentage={{
-                      color: "success",
-                      amount: "+1%",
-                      label: "than yesterday",
+                      label: "2022년 서울 기준",
                     }}
                   />
                 </MDBox>
