@@ -78,7 +78,7 @@ function Projects() {
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         <MDBox>
           <MDTypography variant="h6" gutterBottom>
-            부동산 뉴스
+            <Icon>chat</Icon>&nbsp;&nbsp;뉴스
           </MDTypography>
           <MDBox display="flex" alignItems="center" lineHeight={0}>
             <Icon

@@ -167,11 +167,11 @@ function Dashboard() {
                 <MDBox mb={1.5}>
                   <ComplexStatisticsCard
                     color="dark"
-                    icon="apartmenticon"
+                    icon="villaicon"
                     title="중개업소 개수"
                     count={`${allData.dashboardRealDealerCount.data}개`}
                     percentage={{
-                      label: "2022년 서울 기준",
+                      label: "2022년 서울시 기준",
                     }}
                   />
                 </MDBox>
@@ -223,7 +223,7 @@ function Dashboard() {
                   <Card sx={{ height: "100%" }}>
                     <MDBox pt={3} px={3}>
                       <MDTypography variant="h6" fontWeight="medium">
-                        전월세 건물 유형별 거래량
+                        <Icon>chat</Icon>&nbsp;&nbsp;전월세 건물 유형별 거래량
                       </MDTypography>
                       <MDBox mt={0} mb={2}>
                         <MDTypography variant="button" color="text" fontWeight="regular">
