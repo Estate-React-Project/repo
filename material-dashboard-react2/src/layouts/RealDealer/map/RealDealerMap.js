@@ -153,7 +153,6 @@ function RealDealerMap({ setSggNm }) {
         이하 목록에 보여주기
         </MDButton>
       </Stack> */}
-      
     </MDBox>
   );
 }

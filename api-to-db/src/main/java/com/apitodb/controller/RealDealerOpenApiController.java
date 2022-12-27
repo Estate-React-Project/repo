@@ -149,7 +149,7 @@ public class RealDealerOpenApiController {
 		return "openapi/realDealer";
 	}
 	
-//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
+	//	데이터베이스 접근해서 컬럼 데이터 가져와서 dealers에 저장하기
 	@CrossOrigin
 	@GetMapping(path = { "/load-all-dealer" })
 	@ResponseBody
@@ -291,5 +291,5 @@ public class RealDealerOpenApiController {
 		
 		return searchDealers;
 	}
-
+	
 }

@@ -21,7 +21,7 @@ import RealDealerMap from "./map/RealDealerMap";
 
 function Tables() {
   const [dealers, setDealers] = useState([]);
-  const [sggNm, setSggNm] = useState([]);
+  const [sggNm, setSggNm] = useState("");
 
   const clickHandler = (keyword) => {
     setLoading(true);
@@ -40,15 +40,15 @@ function Tables() {
     loadDealers();
   }, []);
 
-  // // 검색 버튼 클릭 시 자치구명에 해당 하는 정보 가져오기
-  // const searchAndShowResult = (keyword) => {
-  //   if (!keyword) return;
+  // 검색 버튼 클릭 시 자치구명에 해당 하는 정보 가져오기
+    const searchRealDealer = (keyword) => {
+      if (!keyword) return;
 
-  //   const url = `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}&keyword=${keyword}`;
-  //   axios.get(url).then((response) => {
-  //     setDealers(response.data);
-  //   });
-  // };
+      const url = `http://localhost:8080/web-scraping/openapi/load-search-dealer?sggNm=${sggNm}&keyword=${keyword}`;
+      axios.get(url).then((response) => {
+        setDealers(response.data);
+      });
+    };
 
   // useEffect(() => {
   //   setLoading(true);

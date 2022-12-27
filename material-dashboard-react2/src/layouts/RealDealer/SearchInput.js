@@ -29,6 +29,7 @@ function SearchInput({ clickHandler }) {
       >
         이하 목록에 보여주기
       </MDButton>
+      <br />
     </Stack>
   );
 }
