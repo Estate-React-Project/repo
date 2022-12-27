@@ -369,7 +369,10 @@ public class AptInfoOpenApiController {
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
 			while (rs.next()) { // 결과 집합의 다음 행으로 이동
 				
-				allAptCount.put("dataCount", rs.getInt(1));
+				DecimalFormat commaFormat = new DecimalFormat("###,###");
+				String count = commaFormat.format(rs.getInt(1));
+				
+				allAptCount.put("dataCount", count);
 
 			}
 		} catch (Exception ex) {
