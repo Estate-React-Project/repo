@@ -35,7 +35,6 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 
 // Data
 import ReportBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
@@ -48,9 +47,10 @@ import axios from "axios";
 import Spinner from "layouts/Style/Spinner";
 import Spinner2 from "layouts/Style/Spinner2";
 import list from "assets/theme/components/list";
+import ReportLineChartDataMonthly from "./data/reportsLineChartDataMonthly";
+import ReportLineChartDataYearly from "./data/reportsLineChartDataYearly";
 
 function Dashboard() {
-  const { yearlyRent, monthlyRent } = reportsLineChartData;
   const [loading, setLoading] = useState(true);
   const [allData, setAllData] = useState("");
 
@@ -80,6 +80,14 @@ function Dashboard() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadAllAptCount`
       );
 
+      const response7 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+      );
+
+      const response8 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
+      );
+
       setAllData({
         yearlyRentAllCount: response1.data,
         yearlyRentChartData: response2.data,
@@ -87,6 +95,8 @@ function Dashboard() {
         yearlyRentGBNCount: response4.data,
         monthlyRentGBNCount: response5.data,
         allAptCount: response6.data,
+        yearlyRentMonthCount: response7.data,
+        monthlyRentMonthCount: response8.data,
       });
       setLoading(false);
     };
@@ -117,7 +127,7 @@ function Dashboard() {
                     title="전세 총 거래량"
                     count={`${allData.yearlyRentAllCount.dataCount}건`}
                     percentage={{
-                      label: "2022년 서울 기준",
+                      label: "2022년 서울시 기준",
                     }}
                   />
                 </MDBox>
@@ -130,7 +140,7 @@ function Dashboard() {
                     title="월세 총 거래량"
                     count={`${allData.monthlyRentAllCount.dataCount}건`}
                     percentage={{
-                      label: "2022년 서울 기준",
+                      label: "2022년 서울시 기준",
                     }}
                   />
                 </MDBox>
@@ -143,7 +153,7 @@ function Dashboard() {
                     title="전체 아파트 개수"
                     count={`${allData.allAptCount.dataCount}개`}
                     percentage={{
-                      label: "2022년 서울 기준",
+                      label: "2022년 서울시 기준",
                     }}
                   />
                 </MDBox>
@@ -170,7 +180,7 @@ function Dashboard() {
                   <MDBox mb={3}>
                     <ReportsBarChart
                       color="info"
-                      title="서울시 전세 거래량 상위 5개 자치구"
+                      title="전세 거래량 상위 5개 자치구"
                       description="서울시 자치구별 조회"
                       date="2022년 서울시 기준"
                       chart={ReportBarChartData(allData.yearlyRentChartData)}
@@ -181,14 +191,10 @@ function Dashboard() {
                   <MDBox mb={3}>
                     <ReportsLineChart
                       color="info"
-                      title="daily sales"
-                      description={
-                        <>
-                          (<strong>+15%</strong>) increase in today sales.
-                        </>
-                      }
-                      date="updated 4 min ago"
-                      chart={yearlyRent}
+                      title="전세 거래량 월별 추이"
+                      description="서울시 전체 전세 거래량 변화 추이"
+                      date="2022년 서울시 기준"
+                      chart={ReportLineChartDataYearly(allData.yearlyRentMonthCount)}
                     />
                   </MDBox>
                 </Grid>
@@ -196,10 +202,10 @@ function Dashboard() {
                   <MDBox mb={3}>
                     <ReportsLineChart
                       color="info"
-                      title="completed tasks"
-                      description="Last Campaign Performance"
-                      date="just updated"
-                      chart={monthlyRent}
+                      title="월세 거래량 월별 추이"
+                      description="서울시 전체 월세 거래량 변화 추이"
+                      date="2022년 서울시 기준"
+                      chart={ReportLineChartDataMonthly(allData.monthlyRentMonthCount)}
                     />
                   </MDBox>
                 </Grid>
