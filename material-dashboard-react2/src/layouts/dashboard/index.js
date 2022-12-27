@@ -81,15 +81,15 @@ function Dashboard() {
       );
 
       const response7 = await axios.get(
-<<<<<<< HEAD
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+        `http://127.0.0.1:8080/web-scraping/openapi/loadDashboardRealDealerCount`
       );
 
       const response8 = await axios.get(
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+      );
+
+      const response9 = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
-=======
-        `http://127.0.0.1:8080/web-scraping/openapi/loadDashboardRealDealerCount`
->>>>>>> ea53e3832d2403367b9b26034914f65eb30d7ab6
       );
 
       setAllData({
@@ -99,12 +99,9 @@ function Dashboard() {
         yearlyRentGBNCount: response4.data,
         monthlyRentGBNCount: response5.data,
         allAptCount: response6.data,
-<<<<<<< HEAD
-        yearlyRentMonthCount: response7.data,
-        monthlyRentMonthCount: response8.data,
-=======
+        yearlyRentMonthCount: response8.data,
+        monthlyRentMonthCount: response9.data,
         dashboardRealDealerCount: response7.data,
->>>>>>> ea53e3832d2403367b9b26034914f65eb30d7ab6
       });
       setLoading(false);
     };
