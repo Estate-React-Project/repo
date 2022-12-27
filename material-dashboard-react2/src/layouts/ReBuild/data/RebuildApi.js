@@ -11,9 +11,9 @@ class RebuildApi extends React.Component{
     getAuthorsTableData(){
         const url = `http://openapi.seoul.go.kr:8088/505550474a6761723732697a715362/json/CleanupBussinessInfo/1/5/종로구`;
         
-        console.log(url);
+        // console.log(url);
         axios.get(url).then((response) => {
-            console.log(response.data.CleanupBussinessInfo.row);
+            // console.log(response.data.CleanupBussinessInfo.row);
             
             this.setState({
                 isLoading: false,

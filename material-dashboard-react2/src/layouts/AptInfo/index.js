@@ -51,7 +51,6 @@ function Tables() {
     const loadAptList = async () => {
       const response = await axios.get(`http://127.0.0.1:8080/web-scraping/openapi/loadAptList`);
       // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
-      // console.log(response.data);
       setAptList(response.data);
     };
     loadAptList();
@@ -84,7 +83,6 @@ function Tables() {
         `http://127.0.0.1:8080/web-scraping/openapi/loadAptInfoCount`
       );
       // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
-      // console.log(response.data);
       setCountInfo(response.data);
     };
     loadAptInfoCount();

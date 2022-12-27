@@ -58,7 +58,6 @@ function Tables() {
       // setRebuildData(response.data);
       // setTableAndRebuildData({ tableData: { columns, rows }, rebuildData: response.data });
       // eslint-disable-next-line no-console
-      console.log(response.data);
       // eslint-disable-next-line
     };
     loadRebuildInfo();

@@ -32,6 +32,7 @@ function RentMap() {
   const [map, setMap] = useState();
 
   const searchAndShowPlaces = () => {
+    if (!keyword) return;
     if (!map) return;
 
     const ps = new kakao.maps.services.Places();
