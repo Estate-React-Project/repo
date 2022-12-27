@@ -48,9 +48,9 @@ function Tables() {
     const loadAptDeals = async () => {
       if (gu.length !== 0) {
         const response = await axios.get(
-          `http://localhost:8080/web-scraping/openapi/loadAptDeals?gu=${gu}`
+          `http://localhost:8080/realestate-web/openapi/loadAptDeals?gu=${gu}`
         );
-        // const response = await axios.get(`/web-scraping/openapi/loadAptDealCount`);
+        // const response = await axios.get(`/realestate-web/openapi/loadAptDealCount`);
         if (response.data.length === 0) {
           alert("잘못된 입력입니다");
           setGu("");

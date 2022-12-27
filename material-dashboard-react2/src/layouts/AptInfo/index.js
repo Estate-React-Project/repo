@@ -49,8 +49,8 @@ function Tables() {
   // 아파트 리스트
   useEffect(() => {
     const loadAptList = async () => {
-      const response = await axios.get(`http://127.0.0.1:8080/web-scraping/openapi/loadAptList`);
-      // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
+      const response = await axios.get(`http://127.0.0.1:8080/realestate-web/openapi/loadAptList`);
+      // const response = await axios.get(`/realestate-web/openapi/loadAptInfoCount`);
       setAptList(response.data);
     };
     loadAptList();
@@ -70,7 +70,7 @@ function Tables() {
   const searchAndShowResult = () => {
     if (!keyword) return;
 
-    const url = `http://127.0.0.1:8080/web-scraping/openapi/loadAptList?keyword=${keyword}`;
+    const url = `http://127.0.0.1:8080/realestate-web/openapi/loadAptList?keyword=${keyword}`;
     axios.get(url).then((response) => {
       setAptList(response.data);
     });
@@ -80,9 +80,9 @@ function Tables() {
   useEffect(() => {
     const loadAptInfoCount = async () => {
       const response = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadAptInfoCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadAptInfoCount`
       );
-      // const response = await axios.get(`/web-scraping/openapi/loadAptInfoCount`);
+      // const response = await axios.get(`/realestate-web/openapi/loadAptInfoCount`);
       setCountInfo(response.data);
     };
     loadAptInfoCount();

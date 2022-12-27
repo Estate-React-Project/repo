@@ -65,7 +65,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
+    const url = `http://localhost:8080/realestate-web/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);
@@ -76,7 +76,7 @@ function Tables() {
     setLoading(true);
     const loadYearlyRentList = async () => {
       const response = await axios.get(
-        `http://localhost:8080/web-scraping/openapi/loadYearlyRentList?houseType=${houseType}`
+        `http://localhost:8080/realestate-web/openapi/loadYearlyRentList?houseType=${houseType}`
       );
       setList(response.data);
       setLoading(false);

@@ -49,7 +49,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://localhost:8080/web-scraping/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
+    const url = `http://localhost:8080/realestate-web/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);
@@ -61,7 +61,7 @@ function Tables() {
     // eslint-disable-next-line consistent-return
     const months = async () => {
       const response = await axios.get(
-        `http://localhost:8080/web-scraping/openapi/loadMonthlyRentChart?houseType=${houseType}`
+        `http://localhost:8080/realestate-web/openapi/loadMonthlyRentChart?houseType=${houseType}`
       );
       setList(response.data);
       setLoading(false);

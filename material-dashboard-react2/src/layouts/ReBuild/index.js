@@ -50,7 +50,7 @@ function Tables() {
   useEffect(() => {
     const loadRebuildInfo = async () => {
       const response = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/rebuildInfo?gu=${gu}`
+        `http://127.0.0.1:8080/realestate-web/openapi/rebuildInfo?gu=${gu}`
       );
       // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
       const { columns, rows } = AuthorsTableData(response.data);

@@ -29,7 +29,7 @@ function Tables() {
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
-        "http://localhost:8080//web-scraping/openapi/load-all-dealer");
+        "http://localhost:8080//realestate-web/openapi/load-all-dealer");
       setList(response.data);
       setLoading(false);
     };
@@ -47,7 +47,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://localhost:8080/web-scraping/openapi/load-search-dealer?keyword=${keyword}`;
+    const url = `http://localhost:8080/realestate-web/openapi/load-search-dealer?keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);

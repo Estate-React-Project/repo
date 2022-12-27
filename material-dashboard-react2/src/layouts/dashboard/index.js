@@ -56,39 +56,39 @@ function Dashboard() {
   useEffect(() => {
     const loadAllData = async () => {
       const response1 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboard`
       );
 
       const response2 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard2`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboard2`
       );
 
       const response3 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentDashboard`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyRentDashboard`
       );
 
       const response4 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboardCountByGBN`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboardCountByGBN`
       );
 
       const response5 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyDashboardGbnRentCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyDashboardGbnRentCount`
       );
 
       const response6 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadAllAptCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadAllAptCount`
       );
 
       const response7 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadDashboardRealDealerCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadDashboardRealDealerCount`
       );
 
       const response8 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByMonth`
       );
 
       const response9 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyRentCount`
       );
 
       setAllData({

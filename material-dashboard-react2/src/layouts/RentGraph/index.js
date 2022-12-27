@@ -42,35 +42,35 @@ function Tables() {
   useEffect(() => {
     const loadAllData = async () => {
       const response1 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByMonth`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByMonth`
       );
 
       const response2 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyRentCount`
       );
 
       const response3 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGu`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByGu`
       );
 
       const response4 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyGuRentCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyGuRentCount`
       );
 
       const response5 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGBN`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByGBN`
       );
 
       const response6 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyGbnRentCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyGbnRentCount`
       );
 
       const response7 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentCountByGuarantee`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByGuarantee`
       );
 
       const response8 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadRentBuildCount`
+        `http://127.0.0.1:8080/realestate-web/openapi/loadRentBuildCount`
       );
 
       setAllData({
