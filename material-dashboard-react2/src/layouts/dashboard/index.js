@@ -50,7 +50,7 @@ import Spinner2 from "layouts/Style/Spinner2";
 import list from "assets/theme/components/list";
 
 function Dashboard() {
-  const { sales, tasks } = reportsLineChartData;
+  const { yearlyRent, monthlyRent } = reportsLineChartData;
   const [loading, setLoading] = useState(true);
   const [allData, setAllData] = useState("");
 
@@ -61,9 +61,8 @@ function Dashboard() {
       );
 
       const response2 = await axios.get(
-        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard3`
+        `http://127.0.0.1:8080/web-scraping/openapi/loadYearlyRentDashboard2`
       );
-      console.log(response2.data);
 
       const response3 = await axios.get(
         `http://127.0.0.1:8080/web-scraping/openapi/loadMonthlyRentDashboard`
@@ -186,7 +185,7 @@ function Dashboard() {
                         </>
                       }
                       date="updated 4 min ago"
-                      chart={sales}
+                      chart={yearlyRent}
                     />
                   </MDBox>
                 </Grid>
@@ -197,7 +196,7 @@ function Dashboard() {
                       title="completed tasks"
                       description="Last Campaign Performance"
                       date="just updated"
-                      chart={tasks}
+                      chart={monthlyRent}
                     />
                   </MDBox>
                 </Grid>

@@ -426,62 +426,11 @@ public class YearlyRentOpenApiController {
 		return yearlyRentAllCount;
 	}
 	
-	// 대쉬보드 카운트 순위
-//	@CrossOrigin
-//	@ResponseBody
-//	@GetMapping(path = { "/loadYearlyRentDashboard2" })
-//	public ArrayList<HashMap<String, Object>> DashboardYearlyRentList2() {
-//			
-//		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-//		
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//			
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//				
-//			conn = DriverManager.getConnection("jdbc:mysql://43.201.107.251:3306/realestate", // 데이터베이스 연결 정보
-//						"team2", "team2");
-//				
-//			String sql = "SELECT SGG_NM, COUNT(SGG_NM) AS COUNT FROM Rent WHERE RENT_GBN = '전세' AND CNTRCT_DE LIKE '2022%' GROUP BY SGG_NM ORDER BY COUNT DESC LIMIT 5 ";
-//				
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//				
-//				HashMap<String, Object> map = new HashMap<>();
-//					map.put("sgg_nm", rs.getString(1));
-//					map.put("count",rs.getInt(2));
-//				list.add(map);
-//			}
-//			
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		} finally {
-//			try {
-//				rs.close();
-//			} catch (Exception ex) {
-//			}
-//			try {
-//				pstmt.close();
-//			} catch (Exception ex) {
-//			}
-//			try {
-//				conn.close();
-//			} catch (Exception ex) {
-//			}
-//		}
-//			
-//		return list;
-//	}
 	
 	// 대쉬보드 카운트 순위
 	@CrossOrigin
 	@ResponseBody
-	@GetMapping(path = { "/loadYearlyRentDashboard3" })
+	@GetMapping(path = { "/loadYearlyRentDashboard2" })
 	public HashMap<String, List<Object>> DashboardYearlyRentList3() {
 
 		HashMap<String, List<Object>> list = new HashMap<>();
