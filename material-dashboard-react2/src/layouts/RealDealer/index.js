@@ -29,7 +29,7 @@ function Tables() {
   useEffect(() => {
     const loadDealers = async (e) => {
       const response = await axios.get(
-        "http://192.168.200.209:8080//openapi/load-all-dealer");
+        "/openapi/load-all-dealer");
       setList(response.data);
       setLoading(false);
     };
@@ -47,7 +47,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://192.168.200.209:8080/openapi/load-search-dealer?keyword=${keyword}`;
+    const url = `/openapi/load-search-dealer?keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);

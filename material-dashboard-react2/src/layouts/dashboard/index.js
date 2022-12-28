@@ -55,37 +55,23 @@ function Dashboard() {
 
   useEffect(() => {
     const loadAllData = async () => {
-      const response1 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboard`
-      );
+      const response1 = await axios.get(`/openapi/loadYearlyRentDashboard`);
 
-      const response2 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboard2`
-      );
+      const response2 = await axios.get(`/openapi/loadYearlyRentDashboard2`);
 
-      const response3 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadMonthlyRentDashboard`
-      );
+      const response3 = await axios.get(`/openapi/loadMonthlyRentDashboard`);
 
-      const response4 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboardCountByGBN`
-      );
+      const response4 = await axios.get(`/openapi/loadYearlyRentDashboardCountByGBN`);
 
-      const response5 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadMonthlyDashboardGbnRentCount`
-      );
+      const response5 = await axios.get(`/openapi/loadMonthlyDashboardGbnRentCount`);
 
-      const response6 = await axios.get(`http://192.168.200.209:8080/openapi/loadAllAptCount`);
+      const response6 = await axios.get(`/openapi/loadAllAptCount`);
 
-      const response7 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadDashboardRealDealerCount`
-      );
+      const response7 = await axios.get(`/openapi/loadDashboardRealDealerCount`);
 
-      const response8 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByMonth`
-      );
+      const response8 = await axios.get(`/openapi/loadYearlyRentCountByMonth`);
 
-      const response9 = await axios.get(`http://192.168.200.209:8080/openapi/loadMonthlyRentCount`);
+      const response9 = await axios.get(`/openapi/loadMonthlyRentCount`);
 
       setAllData({
         yearlyRentAllCount: response1.data,

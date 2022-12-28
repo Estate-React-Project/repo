@@ -49,7 +49,7 @@ function Tables() {
 
   useEffect(() => {
     const loadRebuildInfo = async () => {
-      const response = await axios.get(`http://192.168.200.209:8080/openapi/rebuildInfo?gu=${gu}`);
+      const response = await axios.get(`/openapi/rebuildInfo?gu=${gu}`);
       // const response = await axios.get(`/react-team3/news?start=${startNum}&query=${query}`);
       const { columns, rows } = AuthorsTableData(response.data);
       setTableData({ columns, rows });

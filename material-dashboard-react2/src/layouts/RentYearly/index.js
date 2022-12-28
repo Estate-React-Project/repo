@@ -61,7 +61,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://192.168.200.209:8080/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
+    const url = `/openapi/loadYearlyRentList?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);
@@ -71,9 +71,7 @@ function Tables() {
   useEffect(() => {
     setLoading(true);
     const loadYearlyRentList = async () => {
-      const response = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentList?houseType=${houseType}`
-      );
+      const response = await axios.get(`/openapi/loadYearlyRentList?houseType=${houseType}`);
       setList(response.data);
       setLoading(false);
     };

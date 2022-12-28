@@ -50,7 +50,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://192.168.200.209:8080/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
+    const url = `/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);
@@ -61,9 +61,7 @@ function Tables() {
     setLoading(true);
     // eslint-disable-next-line consistent-return
     const months = async () => {
-      const response = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadMonthlyRentChart?houseType=${houseType}`
-      );
+      const response = await axios.get(`/openapi/loadMonthlyRentChart?houseType=${houseType}`);
       setList(response.data);
       setLoading(false);
     };

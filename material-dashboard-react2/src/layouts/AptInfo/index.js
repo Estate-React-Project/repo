@@ -49,7 +49,7 @@ function Tables() {
   // 아파트 리스트
   useEffect(() => {
     const loadAptList = async () => {
-      const response = await axios.get(`http://192.168.200.209:8080/openapi/loadAptList`);
+      const response = await axios.get(`/openapi/loadAptList`);
       // const response = await axios.get(`/openapi/loadAptInfoCount`);
       setAptList(response.data);
     };
@@ -70,7 +70,7 @@ function Tables() {
   const searchAndShowResult = () => {
     if (!keyword) return;
 
-    const url = `http://192.168.200.209:8080/openapi/loadAptList?keyword=${keyword}`;
+    const url = `/openapi/loadAptList?keyword=${keyword}`;
     axios.get(url).then((response) => {
       setAptList(response.data);
     });
@@ -79,7 +79,7 @@ function Tables() {
   // 아파트 통계 데이터
   useEffect(() => {
     const loadAptInfoCount = async () => {
-      const response = await axios.get(`http://192.168.200.209:8080/openapi/loadAptInfoCount`);
+      const response = await axios.get(`/openapi/loadAptInfoCount`);
       // const response = await axios.get(`/openapi/loadAptInfoCount`);
       setCountInfo(response.data);
     };

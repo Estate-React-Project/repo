@@ -47,9 +47,7 @@ function Tables() {
   useEffect(() => {
     const loadAptDeals = async () => {
       if (gu.length !== 0) {
-        const response = await axios.get(
-          `http://192.168.200.209:8080/openapi/loadAptDeals?gu=${gu}`
-        );
+        const response = await axios.get(`/openapi/loadAptDeals?gu=${gu}`);
         // const response = await axios.get(`/openapi/loadAptDealCount`);
         if (response.data.length === 0) {
           alert("잘못된 입력입니다");

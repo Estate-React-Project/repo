@@ -41,33 +41,21 @@ function Tables() {
 
   useEffect(() => {
     const loadAllData = async () => {
-      const response1 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByMonth`
-      );
+      const response1 = await axios.get(`/openapi/loadYearlyRentCountByMonth`);
 
-      const response2 = await axios.get(`http://192.168.200.209:8080/openapi/loadMonthlyRentCount`);
+      const response2 = await axios.get(`/openapi/loadMonthlyRentCount`);
 
-      const response3 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByGu`
-      );
+      const response3 = await axios.get(`/openapi/loadYearlyRentCountByGu`);
 
-      const response4 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadMonthlyGuRentCount`
-      );
+      const response4 = await axios.get(`/openapi/loadMonthlyGuRentCount`);
 
-      const response5 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByGBN`
-      );
+      const response5 = await axios.get(`/openapi/loadYearlyRentCountByGBN`);
 
-      const response6 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadMonthlyGbnRentCount`
-      );
+      const response6 = await axios.get(`/openapi/loadMonthlyGbnRentCount`);
 
-      const response7 = await axios.get(
-        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByGuarantee`
-      );
+      const response7 = await axios.get(`/openapi/loadYearlyRentCountByGuarantee`);
 
-      const response8 = await axios.get(`http://192.168.200.209:8080/openapi/loadRentBuildCount`);
+      const response8 = await axios.get(`/openapi/loadRentBuildCount`);
 
       setAllData({
         yCount: response1.data,
