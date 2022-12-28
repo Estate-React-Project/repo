@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -6,7 +7,8 @@
 <link rel="shortcut icon" href="/react/realestate/favicon.png" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#1A73E8" />
-<link rel="apple-touch-icon" sizes="76x76" href="/react/realestate/apple-icon.png" />
+<link rel="apple-touch-icon" sizes="76x76"
+	href="/react/realestate/apple-icon.png" />
 <link rel="manifest" href="/react/realestate/manifest.json" />
 <title>서울 부동산 정보</title>
 <link rel="stylesheet"
@@ -20,8 +22,9 @@
 	rel="stylesheet" />
 <script type="text/javascipt"
 	src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cde0ef31e3c8a378c12e903eb1f47960&libraries=services"></script>
-<script defer="defer" src="/react/realestate/static/js/main.f51aa088.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d77106e64fc5eb0758376229825c758c&libraries=services,drawing"></script>
+<script defer="defer" src="/react/realestate/static/js/main.6fce8c8a.js"></script>
 </head>
 <body>
 	<noscript>You need to enable JavaScript to run this app.</noscript>

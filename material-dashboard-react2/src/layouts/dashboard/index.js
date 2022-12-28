@@ -56,40 +56,36 @@ function Dashboard() {
   useEffect(() => {
     const loadAllData = async () => {
       const response1 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboard`
+        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboard`
       );
 
       const response2 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboard2`
+        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboard2`
       );
 
       const response3 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyRentDashboard`
+        `http://192.168.200.209:8080/openapi/loadMonthlyRentDashboard`
       );
 
       const response4 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentDashboardCountByGBN`
+        `http://192.168.200.209:8080/openapi/loadYearlyRentDashboardCountByGBN`
       );
 
       const response5 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyDashboardGbnRentCount`
+        `http://192.168.200.209:8080/openapi/loadMonthlyDashboardGbnRentCount`
       );
 
-      const response6 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadAllAptCount`
-      );
+      const response6 = await axios.get(`http://192.168.200.209:8080/openapi/loadAllAptCount`);
 
       const response7 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadDashboardRealDealerCount`
+        `http://192.168.200.209:8080/openapi/loadDashboardRealDealerCount`
       );
 
       const response8 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadYearlyRentCountByMonth`
+        `http://192.168.200.209:8080/openapi/loadYearlyRentCountByMonth`
       );
 
-      const response9 = await axios.get(
-        `http://127.0.0.1:8080/realestate-web/openapi/loadMonthlyRentCount`
-      );
+      const response9 = await axios.get(`http://192.168.200.209:8080/openapi/loadMonthlyRentCount`);
 
       setAllData({
         yearlyRentAllCount: response1.data,

@@ -50,7 +50,7 @@ function Tables() {
     if (!keyword) return;
     setLoading(true);
 
-    const url = `http://localhost:8080/realestate-web/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
+    const url = `http://192.168.200.209:8080/openapi/loadMonthlyRentChart?houseType=${houseType}&keyword=${keyword}`;
     axios.get(url).then((response) => {
       setList(response.data);
       setLoading(false);
@@ -62,7 +62,7 @@ function Tables() {
     // eslint-disable-next-line consistent-return
     const months = async () => {
       const response = await axios.get(
-        `http://localhost:8080/realestate-web/openapi/loadMonthlyRentChart?houseType=${houseType}`
+        `http://192.168.200.209:8080/openapi/loadMonthlyRentChart?houseType=${houseType}`
       );
       setList(response.data);
       setLoading(false);

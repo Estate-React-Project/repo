@@ -28,7 +28,7 @@ const data = (props) => {
   useEffect(() => {
     const start = 1;
     const display = 100;
-    const url = `http://localhost:8080/realestate-web/estate-news?start=${start}&display=${display}`;
+    const url = `http://192.168.200.209:8080/estate-news?start=${start}&display=${display}`;
     axios.get(url).then((response) => {
       if (response.data.result === "success") {
         setEstateNews(response.data.estateNews);
